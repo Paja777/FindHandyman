@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { accountSlice } from "../../features/account/accountSlice";
+import { accountSlice } from "../features/account/accountSlice";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
-import { adSlice } from "../../features/roleHandyman/adSlice";
+import { adSlice } from "../features/roleHandyman/adSlice";
 
 export const store = configureStore({
     reducer: {

@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
-import HandymanList from "../../app/components/HandymanList";
-import BigButton from "../../app/components/BigButton";
-import CustomerList from "../../app/components/CustomerList";
+import HandymanList from "../../components/HandymanList";
+import BigButton from "../../components/BigButton";
+import CustomerList from "../../components/CustomerList";
 
 const RoleHandyman = () => {
 

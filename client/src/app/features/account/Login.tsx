@@ -1,5 +1,5 @@
 import { FieldValues, useForm } from "react-hook-form";
-import { useAppDispatch } from "../../app/store/configureStore";
+import { useAppDispatch } from "../../store/configureStore";
 import { loginUser, registerUser } from "./accountSlice";
 import { TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";

@@ -5,30 +5,35 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Logo from "../../../src/assets/Logo.png";
 import Ribbon from "../components/Ribbon";
 import SearchBar from "../components/SearchBar";
+import { useAppDispatch, useAppSelector } from "../store/configureStore";
+
+import { signOut } from "../features/account/accountSlice";
 
 const rightLinks = [
   { name: "Login", location: "/login" },
   { name: "Register", location: "/register" },
 ];
+const navStyles = {
+  padding: "6px ",
+  margin: "10px",
+  marginTop: "0px",
+  color: "red",
+  textDecoration: "none",
+  fontSize: "25px",
+  marginRight: "10px",
+  paddingTop: "10px",
+  fontWeight: "bolder",
+  "&:hover": {
+    color: "rgb(169, 87, 250)",
+  },
+  "&.active": {
+    color: "rgb(169, 87, 250)",
+  },
+};
 
 const Navbar = () => {
-  const navStyles = {
-    padding: "6px ",
-    margin: "10px",
-    marginTop: "0px",
-    color: "red",
-    textDecoration: "none",
-    fontSize: "30px",
-    marginRight: "10px",
-    paddingTop: "10px",
-    fontWeight: "bolder",
-    "&:hover": {
-      color: "rgb(169, 87, 250)",
-    },
-    "&.active": {
-      color: "rgb(169, 87, 250)",
-    },
-  };
+  const { loggedIn } = useAppSelector((state) => state.account);
+  const dispatch = useAppDispatch();
 
   return (
     <>
@@ -66,17 +71,17 @@ const Navbar = () => {
             <BuildIcon sx={{ color: "red", ml: 2, mt: 1, fontSize: "40px" }} />
           </Typography>
         </Box>
-        
+
         <SearchBar />
         <Stack direction="row">
           <IconButton component={Link} to={"/login"} size="large">
             <AccountCircleIcon />
           </IconButton>
-          {rightLinks.map((link) => (
+          {loggedIn && (
             <Typography
               component={NavLink}
-              to={link.location}
-              key={link.location}
+              to={'/register'}
+              onClick={() => dispatch(signOut())}
               sx={{
                 ...navStyles,
                 "&.active": {
@@ -84,9 +89,25 @@ const Navbar = () => {
                 },
               }}
             >
-              {link.name}
+              {`Sign Out`}
             </Typography>
-          ))}
+          )}
+          {!loggedIn &&
+            rightLinks.map((link) => (
+              <Typography
+                component={NavLink}
+                to={link.location}
+                key={link.location}
+                sx={{
+                  ...navStyles,
+                  "&.active": {
+                    color: "red",
+                  },
+                }}
+              >
+                {link.name}
+              </Typography>
+            ))}
         </Stack>
       </Stack>
 

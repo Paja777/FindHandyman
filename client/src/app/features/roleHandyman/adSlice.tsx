@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Ad } from "../../app/models/ad";
+import { Ad } from "../../models/ad";
 
 interface AdState{
     ad: Ad | null;

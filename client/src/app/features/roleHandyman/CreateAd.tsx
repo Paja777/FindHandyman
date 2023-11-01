@@ -2,7 +2,7 @@ import { LoadingButton } from "@mui/lab";
 import { Stack, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
-import { useAppDispatch } from "../../app/store/configureStore";
+import { useAppDispatch } from "../../store/configureStore";
 import { createAd } from "./adSlice";
 
 const CreateAd = () => {
