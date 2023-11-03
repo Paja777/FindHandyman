@@ -2,16 +2,15 @@ import { LoadingButton } from "@mui/lab";
 import { Stack, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
-import { useAppDispatch } from "../../store/configureStore";
+import { useAppDispatch, useAppSelector } from "../../store/configureStore";
 import { createAd } from "./adSlice";
+import { useNavigate } from "react-router-dom";
 
 const CreateAd = () => {
+  const navigate = useNavigate();
   const [serviceInputCount, setServiceInputCount] = useState([1, 2, 3]);
-  const [userInfo, setUserInfo] = useState({
-    contact: "0656449929",
-    category: "Painting",
-    name: "Marko",
-  });
+  const {username, role} = useAppSelector(state => state.account);
+
   const {
     register,
     handleSubmit,
@@ -22,8 +21,8 @@ const CreateAd = () => {
 
   async function submitForm(data: FieldValues) {
     try {
-      console.log({ ...data, ...userInfo });
-      dispatch(createAd({ ...data, ...userInfo }));
+      console.log({ ...data, name: username  });
+      dispatch(createAd({ ...data, name: username}));
     } catch (error) {
       console.log(error);
     }
@@ -33,7 +32,7 @@ const CreateAd = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(submitForm)} style={{ marginLeft: "30%" }}>
+    <form onSubmit={() => { navigate('/'); handleSubmit(submitForm)}} style={{ marginLeft: "30%" }}>
       <Typography variant="body1" color="secondary" sx={{ m: 2 }}>
         Services
       </Typography>
@@ -60,8 +59,8 @@ const CreateAd = () => {
           <TextField
             sx={{ mt: 1 }}
             placeholder="service price"
-            {...register(`servicePrice${num}`)}
-          ></TextField>
+            {...register(`servicePrice${num}`)} 
+          ></TextField> 
         </Stack>
       ))}
 

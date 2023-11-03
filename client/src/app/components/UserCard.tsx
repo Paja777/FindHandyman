@@ -9,7 +9,7 @@ interface Props{
     user: UserModel;
 } 
 const UserCard = ({user: {category, name, description, img}}: Props) => {
-    console.log(name);
+    console.log(name); 
   return (
     <Card sx={{ width: 500, maxHeight: 450 , opacity: '1', mt: 0 }}>
     <CardActionArea>

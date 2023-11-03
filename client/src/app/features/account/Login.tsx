@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const navigate = useNavigate();
-  const {
+  const { 
     register,
     handleSubmit,
     formState: { isSubmitting, isValid, errors },
@@ -20,7 +20,7 @@ export default function Login() {
       console.log(storedUserData.password);
       if (storedUserData && storedUserData.password) {
         navigate("/");
-        dispatch(loginUser(data));
+        dispatch(loginUser(storedUserData));
       } else {
         navigate("/register");
       }

@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "../layout/App";
 import Login from "../features/account/Login";
 import Register from "../features/account/Register";
-import HomePage from "../features/home/HomePage";
+import HomePage from "../layout/HomePage";
 import AboutPage from "../features/about/About";
 import ContactPage from "../features/contact/Contact";
 import CreateAd from "../features/roleHandyman/CreateAd";

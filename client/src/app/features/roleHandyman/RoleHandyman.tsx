@@ -2,11 +2,12 @@ import { Box, Typography } from "@mui/material";
 import HandymanList from "../../components/HandymanList";
 import BigButton from "../../components/BigButton";
 import CustomerList from "../../components/CustomerList";
+import { useAppSelector } from "../../store/configureStore";
 
 const RoleHandyman = () => {
-
+ const {username} = useAppSelector(state => state.account);
   return (
-    <Box
+    <Box 
       sx={{
         display: "grid",
         gridAutoColumns: "1fr",
@@ -14,7 +15,7 @@ const RoleHandyman = () => {
       }}
     >
       <Box sx={{ gridRow: "1", gridColumn: "1", height: "20vh", mt:1 }}>
-        <Typography variant='h3' color='black'>Welcome Handyman Marko! </Typography>
+        <Typography variant='h3' color='black'>{`Welcome Handyman ${username}!`} </Typography>
         <Typography variant="h6" color="text.secondary">Choose options: </Typography>
         <BigButton path={"/createadd"} title={"Create your ad "} />
         <BigButton path={"/createadd"} title={"Search customer ads"} />

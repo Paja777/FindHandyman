@@ -6,6 +6,7 @@ interface AccountState {
   email: string;
   password: string;
   loggedIn: boolean;
+  role: string;
 }
 
 const initialState: AccountState = {
@@ -13,6 +14,7 @@ const initialState: AccountState = {
   email: "",
   password: "",
   loggedIn: false,
+  role: '',
 };
 
 
@@ -24,14 +26,15 @@ export const accountSlice = createSlice({
         state.username = ''
         state.email = "";
         state.password = "";
-        state.loggedIn = false;
-        ;
+        state.loggedIn = false; 
+        state.role = '';
     },
     registerUser: (state, { payload }) => {
         state.username = payload.username;
         state.email = payload.email;
         state.password = payload.password;
         state.loggedIn = true;
+        state.role = payload.role;
         localStorage.setItem(`${state.username}`, JSON.stringify(state) )
     },
     loginUser: (state, { payload }) => {
@@ -39,7 +42,7 @@ export const accountSlice = createSlice({
         state.email = payload.email;
         state.password = payload.password;
         state.loggedIn = true;
-        
+        state.role = payload.role;    
     },
   },
 
