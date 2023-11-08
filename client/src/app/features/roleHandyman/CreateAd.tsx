@@ -23,6 +23,7 @@ const CreateAd = () => {
     try {
       console.log({ ...data, name: username  });
       dispatch(createAd({ ...data, name: username}));
+      navigate('/');
     } catch (error) {
       console.log(error);
     }
@@ -32,7 +33,7 @@ const CreateAd = () => {
   };
 
   return (
-    <form onSubmit={() => { navigate('/'); handleSubmit(submitForm)}} style={{ marginLeft: "30%" }}>
+    <form onSubmit={handleSubmit(submitForm)} style={{ marginLeft: "30%" }}>
       <Typography variant="body1" color="secondary" sx={{ m: 2 }}>
         Services
       </Typography>

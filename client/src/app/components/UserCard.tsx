@@ -1,6 +1,7 @@
 import { Card, CardMedia, CardContent, Typography, Button, CardActionArea, CardActions, Rating } from "@mui/material"
 import { UserModel } from "../models/UserModel";
 import avatar from "../../assets/avatar.jpg";
+import { useAppSelector } from "../store/configureStore";
 
 
 
@@ -9,7 +10,7 @@ interface Props{
     user: UserModel;
 } 
 const UserCard = ({user: {category, name, description, img}}: Props) => {
-    console.log(name); 
+    const {role} = useAppSelector(state => state.account); 
   return (
     <Card sx={{ width: 500, maxHeight: 450 , opacity: '1', mt: 0 }}>
     <CardActionArea>

@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "./Navbar";
-import { Box, Container } from "@mui/material";
-import Wall1 from '../src/assets/wall1.png';
+import { Container } from "@mui/material";
+
 
 function App() {
   return (

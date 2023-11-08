@@ -1,13 +1,12 @@
 import { Box, Typography } from "@mui/material";
 import HandymanList from "../../components/HandymanList";
 import BigButton from "../../components/BigButton";
-import CustomerList from "../../components/CustomerList";
 import { useAppSelector } from "../../store/configureStore";
 
 const RoleHandyman = () => {
  const {username} = useAppSelector(state => state.account);
   return (
-    <Box 
+    <Box  
       sx={{
         display: "grid",
         gridAutoColumns: "1fr",

@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Ad } from "../../models/ad";
 
 interface AdState{
     name: string;
@@ -41,7 +40,7 @@ export const adSlice = createSlice({
         createAd: (state, {payload}) => {
          state.name = payload.name;
          state.category = payload.category;
-         state.contact = payload.contact;
+        //  state.contact = payload.contact;
          state.serviceName = payload.serviceName;
          state.servicePrice = payload.servicePrice;
          state.serviceName1 = payload.serviceName1;
