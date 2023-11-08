@@ -45,9 +45,9 @@ const HandymanList = () => {
  
 
   useEffect(() => {
-    if (ad.servicePrice !== '') {
+    if (ad.servicePrice !== '' ) {
       const newAd = {
-        id: uuidv4(),
+        id: ad.id,
         name: ad.name,
         description: ad.description,
         category: "painting",
@@ -58,7 +58,7 @@ const HandymanList = () => {
       setUsers((prevUsers) => [...prevUsers, newAd]);
       
     }
-  }, []);
+  }, [ad.id]);
 
   return (
     <Grid container spacing={2} sx={{ mt: 0.1 }}>

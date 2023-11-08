@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface AdState{
     name: string;
+    id: any;
     category: string;
     contact: string;
     serviceName: string;
@@ -18,6 +19,7 @@ interface AdState{
 
 const initialState: AdState = {
     name: '',
+    id: '',
     category: '',
     contact: '0655555',
     serviceName: '',
@@ -39,6 +41,7 @@ export const adSlice = createSlice({
     reducers: {
         createAd: (state, {payload}) => {
          state.name = payload.name;
+         state.id = payload.id;
          state.category = payload.category;
         //  state.contact = payload.contact;
          state.serviceName = payload.serviceName;

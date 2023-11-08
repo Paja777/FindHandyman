@@ -5,6 +5,7 @@ import { useAppSelector } from "../../store/configureStore";
 
 const RoleHandyman = () => {
  const {username} = useAppSelector(state => state.account);
+ console.log(`Role handyman render`);
   return (
     <Box  
       sx={{

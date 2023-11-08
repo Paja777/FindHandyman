@@ -30,7 +30,7 @@ export default function Register() {
     try {
       await dispatch(registerUser(data));
       console.log(data);
-      navigate("/");
+      navigate("/"); 
     } catch (error) {
       console.log(error);
     }

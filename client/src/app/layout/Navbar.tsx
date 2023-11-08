@@ -75,7 +75,7 @@ const Navbar = () => {
         <SearchBar />
         <Stack direction="row">
           <IconButton component={Link} to={"/login"} size="large">
-            <AccountCircleIcon />
+            <AccountCircleIcon sx={{mt:-1}}/>
           </IconButton>
           {loggedIn && (
             <Typography

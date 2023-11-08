@@ -1,10 +1,12 @@
 import { LoadingButton } from "@mui/lab";
-import { Stack, TextField, Typography } from "@mui/material";
+import { Container, Paper, Stack, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { useAppDispatch, useAppSelector } from "../../store/configureStore";
 import { createAd } from "./adSlice";
 import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from 'uuid';
+
 
 const CreateAd = () => {
   const navigate = useNavigate();
@@ -22,7 +24,7 @@ const CreateAd = () => {
   async function submitForm(data: FieldValues) {
     try {
       console.log({ ...data, name: username  });
-      dispatch(createAd({ ...data, name: username}));
+      dispatch(createAd({ ...data, name: username, id: uuidv4() }));
       navigate('/');
     } catch (error) {
       console.log(error);
@@ -33,6 +35,7 @@ const CreateAd = () => {
   };
 
   return (
+    
     <form onSubmit={handleSubmit(submitForm)} style={{ marginLeft: "30%" }}>
       <Typography variant="body1" color="secondary" sx={{ m: 2 }}>
         Services
@@ -94,11 +97,12 @@ const CreateAd = () => {
         disabled={!isValid}
         type="submit"
         variant="contained"
-        sx={{ mt: 4, mb: 2, ml: 20 }}
+        sx={{ mt: 4, mb: 2, ml: 20, bgcolor: 'red' }}
       >
         Create
       </LoadingButton>
     </form>
+    
   );
 };
 
