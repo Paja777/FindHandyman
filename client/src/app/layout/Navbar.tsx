@@ -58,7 +58,7 @@ const Navbar = () => {
             sx={{
               textDecoration: "none",
               fontWeight: "bolder",
-              fontSize: "43px",
+              fontSize: "43px", 
               color: "red",
               WebkitTextStroke: "1px black",
               p: 0,
@@ -100,9 +100,7 @@ const Navbar = () => {
                 key={link.location}
                 sx={{
                   ...navStyles,
-                  "&.active": {
-                    color: "red",
-                  },
+                  
                 }}
               >
                 {link.name}

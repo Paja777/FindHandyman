@@ -73,10 +73,10 @@ export default function Login() {
               helperText={errors?.username?.message as string}
             ></TextField>
           </Stack>
-          <Stack direction="row" sx={{ mt: 6 }}>
-            <Typography variant="h6" color="grey" sx={{ mr: 2, mt: 1 }}>
-              Password
-            </Typography>
+            <Stack direction="row" sx={{ mt: 6 }}>
+              <Typography variant="h6" color="grey" sx={{ mr: 2, mt: 1 }}>
+                Password
+              </Typography>
             <TextField
               error={!!errors.username}
               type="password"
@@ -105,7 +105,7 @@ export default function Login() {
             Submit
           </LoadingButton>
           <Typography component={Link} to={'/register'} variant="body1" color="blue" sx={{ ml: 2,mr: -2, mt: 7.4 }}>
-            You dont have account?
+            You dont have an account?
           </Typography>
         </Stack>
       </form>
