@@ -1,5 +1,36 @@
 import { createSlice } from "@reduxjs/toolkit";
+import plumbing from "../../../assets/plumbing.jpg";
+import electricity from "../../../assets/electricity.jpg";
+import painting from "../../../assets/painter.jpg"
+import { v4 as uuidv4 } from "uuid";
+import { UserModel } from "../../models/UserModel";
 
+const list = [
+    {
+      id: uuidv4(),
+      name: "Milos",
+      description: "Majssads dasdadsasd asda ad asdasdasd adsasd ",
+      category: "painting",
+      contact: "065225252",
+      img: painting,
+    },
+    {
+      id: uuidv4(),
+      name: "Dragan",
+      description: "Majssads dasdadsas asda ad asdasdasd adsasd ",
+      category: "electricity",
+      contact: "06522000",
+      img: electricity,
+    },
+    {
+      id: uuidv4(),
+      name: "Bora",
+      description: "Majssads dasdadsasd asda ad asdasdasd adsasd ",
+      category: "plumbing",
+      contact: "065225588",
+      img: plumbing,
+    },
+  ];
 interface AdState{
     name: string;
     id: any;
@@ -15,6 +46,7 @@ interface AdState{
     servicePrice3: string;
     description: string;
     alert?: string;
+    ads: UserModel[];
 }
 
 const initialState: AdState = {
@@ -32,6 +64,7 @@ const initialState: AdState = {
     servicePrice3: '',
     description: '',
     alert: '',
+    ads: list,
 }
 
 
@@ -54,6 +87,7 @@ export const adSlice = createSlice({
          state.servicePrice3 = payload.servicePrice3;
          state.description = payload.description;
          state.alert = payload.alert;
+         state.ads = [...state.ads, payload];
 
         }
     }
@@ -61,3 +95,7 @@ export const adSlice = createSlice({
 })
 
 export const {createAd} = adSlice.actions;
+
+// function uuidv4() {
+//     throw new Error("Function not implemented.");
+// }
