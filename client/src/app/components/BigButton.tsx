@@ -2,6 +2,7 @@ import { LoadingButton } from "@mui/lab";
 import { Box, IconButton, Stack, Typography } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
+import AddIcon from '@mui/icons-material/Add';
 
 interface Props {
   path: string;
@@ -21,7 +22,7 @@ const BigButton = ({ path, title }: Props) => {
         m: 1,
         mr: 0,
         ml: 0,
-        maxWidth: "19vw",
+        maxWidth: "14vw",
         display: "flex",
         position: "relative",
         textDecoration: "none",
@@ -39,8 +40,8 @@ const BigButton = ({ path, title }: Props) => {
         {title}
       </Typography>
 
-      <IconButton sx={{ posistion: "absolute", left: "20%", rigth: "5%" }}>
-        <SearchIcon />
+      <IconButton sx={{ posistion: "absolute", left: "20%", rigth: "5%", color:'white' }}>
+        {title.includes('Create')? (<AddIcon />) : (<SearchIcon />)}
       </IconButton>
     </Box>
   );

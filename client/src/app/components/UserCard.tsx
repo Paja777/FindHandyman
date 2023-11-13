@@ -12,24 +12,24 @@ interface Props{
 const UserCard = ({user: {category, name, description, img}}: Props) => {
     const {role} = useAppSelector(state => state.account); 
   return (
-    <Card sx={{ width: 500, maxHeight: 450 , opacity: '1', mt: 0 }}>
+    <Card sx={{ width: 500, maxHeight: 440 , height: 440, opacity: '1', mt: 0 }}>
     <CardActionArea>
       <CardMedia
         component="img"
-        sx={{ height: 280, width: 500, backgroundSize: 'contain', bgcolor: 'primary.light' }}
+        sx={{ height: 280, maxHeight: 280, width: 500, backgroundSize: 'contain', bgcolor: 'primary.light' }}
         image={img? img : avatar}
         alt={category}
       />
-      <CardContent>
+      <CardContent sx={{height: 53, maxHeight: 53}}>
         <Typography gutterBottom variant="h5" component="div">
-          {img? `${category} : ${name}` : `${name} is looking for help in category: ${category}`}
+          {role === 'handyman'? `${category} : ${name}` : `${name} is looking for help in category: ${category}`}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           {description}
         </Typography>
       </CardContent>
     </CardActionArea>
-    <CardActions   sx={{height:'5vh', justifyContent: 'space-between'}}>
+    <CardActions   sx={{height:'7vh', justifyContent: 'space-between'}}>
     <Rating name="half-rating" defaultValue={2.5} precision={0.5} />
       <Button size="small" color="primary" sx={{mr: '10%'}}>
       {'>>'} more

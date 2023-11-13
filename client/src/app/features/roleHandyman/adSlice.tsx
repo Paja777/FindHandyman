@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import plumbing from "../../../assets/plumbing.jpg";
-import electricity from "../../../assets/electricity.jpg";
-import painting from "../../../assets/painter.jpg"
+import plumbing from "../../../assets/plumb.webp";
+import electricity from "../../../assets/el.jpg"
+import painting from "../../../assets/interior-painting.png"
 import { v4 as uuidv4 } from "uuid";
 import { UserModel } from "../../models/UserModel";
 

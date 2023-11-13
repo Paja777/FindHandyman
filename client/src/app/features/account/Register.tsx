@@ -1,11 +1,10 @@
-import { FieldValues, Form, useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import { useAppDispatch } from "../../store/configureStore";
 import { registerUser } from "./accountSlice";
-import { FormHelperText } from '@mui/material';
+import { FormHelperText } from "@mui/material";
 import {
   Box,
   Container,
-  FormControl,
   FormControlLabel,
   Paper,
   Radio,
@@ -20,16 +19,22 @@ import { LoadingButton } from "@mui/lab";
 
 export default function Register() {
   const navigate = useNavigate();
-  const [selectedValue, setSelectedValue] = useState(`handyman`);
+  const [selectedValue, setSelectedValue] = useState(`user`);
+  
   const {
     register,
+    watch,
     handleSubmit,
     formState: { isSubmitting, isValid, errors },
   } = useForm({
     mode: "all",
   });
+  
   const dispatch = useAppDispatch();
-
+  console.log(isValid);
+  
+  const watchShowCategory = watch('role', selectedValue === 'handyman'? true : false);
+   
   async function submitForm(data: FieldValues) {
     try {
       await dispatch(registerUser(data));
@@ -55,7 +60,7 @@ export default function Register() {
     >
       <Box component="form" onSubmit={handleSubmit(submitForm)}>
         <Stack>
-        <Typography variant="h3" sx={{ ml: "20%" }}>
+          <Typography variant="h3" sx={{ ml: "20%" }}>
             Register
           </Typography>
           <Stack direction="row" sx={{ mt: 6 }}>
@@ -65,14 +70,15 @@ export default function Register() {
             <TextField
               error={!!errors.username}
               {...register("username", { required: "Username is required" })}
-              
             ></TextField>
-            <br/>
-            <FormHelperText sx={{color: 'red', ml: -24, mt:7}}>{errors?.username?.message as string}</FormHelperText>
+            <br />
+            <FormHelperText sx={{ color: "red", ml: -24, mt: 7 }}>
+              {errors?.username?.message as string}
+            </FormHelperText>
           </Stack>
           <Stack direction="row" sx={{ mt: 6 }}>
-            <Typography variant="h6" color="grey" sx={{ mr: 2, mt: 1 }}>
-              Password
+            <Typography variant="h6" color="grey" sx={{ mr: 7, mt: 1 }}>
+              Email
             </Typography>
             <TextField
               error={!!errors.email}
@@ -105,25 +111,32 @@ export default function Register() {
             ></TextField>
           </Stack>
           <RadioGroup
-            sx={{ mt: 6, mb: 4 }}
+            sx={{ mt: 6, mb: 2 }}
             value={selectedValue}
-            {...register("role", { required: "Role is required" })}
-            onChange={(event: any) => setSelectedValue(event.target.value)}
+            {...register("role", { minLength: 4})}
+            onChange={(event: any) => setSelectedValue(event.target.value) }
           >
-            <FormControlLabel
-              value={`handyman`}
-              control={<Radio />}
-              label={`handyman`}
-            />
             <FormControlLabel
               value={`user`}
               control={<Radio />}
               label={`user`}
             />
+            <FormControlLabel
+              value={`handyman`}
+              control={<Radio />}
+              label={`handyman`}
+            />
           </RadioGroup>
         </Stack>
+       
+       {watchShowCategory && (<TextField      
+        sx={{mb:3}}
+          label='category'
+          error={!!errors.category}
+          {...register("category", {required: "Category field is required"})}          
+        ></TextField>)}
 
-        <Stack direction="row">
+        <Stack direction="row" sx={{ml:4}}>
           <LoadingButton
             loading={isSubmitting}
             disabled={!isValid}
