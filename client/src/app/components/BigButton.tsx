@@ -22,7 +22,7 @@ const BigButton = ({ path, title }: Props) => {
         m: 1,
         mr: 0,
         ml: 0,
-        maxWidth: "14vw",
+        maxWidth: "11vw",
         display: "flex",
         position: "relative",
         textDecoration: "none",
@@ -33,7 +33,7 @@ const BigButton = ({ path, title }: Props) => {
         sx={{
           mx: "auto",
           my: "auto",
-          fontSize: "16px",
+          fontSize: "13px",
           textTransform: "uppercase",
         }}
       >

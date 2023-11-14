@@ -18,7 +18,7 @@ const Ribbon = () => {
         height: "6vh",
         justifyContent: "center",
         position: "sticky",
-        top: 80,
+        top: 86,
         zIndex: "23",
       }}
     >

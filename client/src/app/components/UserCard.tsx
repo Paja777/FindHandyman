@@ -12,7 +12,7 @@ interface Props{
 const UserCard = ({user: {category, name, description, img}}: Props) => {
     const {role} = useAppSelector(state => state.account); 
   return (
-    <Card sx={{ width: 500, maxHeight: 440 , height: 440, opacity: '1', mt: 0 }}>
+    <Card sx={{ width: 460, maxHeight: 440 , height: 440, opacity: '1', mt: 0 }}>
     <CardActionArea>
       <CardMedia
         component="img"

@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "../../store/configureStore";
 import { createAd } from "./adSlice";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
+import ImageUploadButton from "../about/About";
 
 
 const CreateAd = () => {
@@ -71,6 +72,7 @@ const CreateAd = () => {
       <LoadingButton type="button" onClick={clickHandler}>
         add service +
       </LoadingButton>
+      <ImageUploadButton />
       <Typography variant="body1" color="secondary" sx={{ m: 2 }}>
         Description
       </Typography>

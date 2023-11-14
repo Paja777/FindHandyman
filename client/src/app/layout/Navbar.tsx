@@ -7,6 +7,7 @@ import Ribbon from "../components/Ribbon";
 import baner1 from '../../assets/ban1part2.jpg';
 import baner2 from '../../assets/ban1part1.jpg';
 import { useAppDispatch, useAppSelector } from "../store/configureStore";
+import classes from '../features/roleHandyman/RoleHandyman.module.css';
 
 import { signOut } from "../features/account/accountSlice";
 
@@ -52,25 +53,24 @@ const Navbar = () => {
         }}
       >
         <Box sx={{ pl: 2 }}>
-          <Typography
-            component={Link}
-            to={"/"}
-            variant="h4"
-            sx={{
+          <Link
+            
+            to={"/"}          
+            className={classes.ultra}
+            style={{
               textDecoration: "none",
               fontWeight: "bolder",
-              fontSize: "43px", 
+              fontSize: "38px", 
               color: "red",
               WebkitTextStroke: "1px black",
-              p: 0,
-              my: 0,
-              ml: "3px",
-            }}
+              padding: 0,
+              marginLeft: "3px",
+              }}
           >
             <img src={Logo} alt="Logo" height="60" />
-            Handy<span style={{ color: "black" }}>man</span>
-            <BuildIcon sx={{ color: "red", ml: 2, mt: 1, fontSize: "40px" }} />
-          </Typography>
+            Handy<span style={{ color: "black", WebkitTextStroke: '0.3px red' }}>man</span>
+            <BuildIcon sx={{ color: "red", ml: 0, mt: 1, fontSize: "40px" }} />
+          </Link>
         </Box>
 
         <Stack direction='row' component={Link} to={"https://www.corkco.ca/"}>

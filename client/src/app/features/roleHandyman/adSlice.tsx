@@ -45,7 +45,8 @@ interface AdState{
     servicePrice2: string;
     servicePrice3: string;
     description: string;
-    alert?: string;
+    note?: string;
+    images?: {}[];
     ads: UserModel[];
 }
 
@@ -63,7 +64,8 @@ const initialState: AdState = {
     servicePrice2: '',
     servicePrice3: '',
     description: '',
-    alert: '',
+    note: '',
+    images: [],
     ads: list,
 }
 
@@ -86,15 +88,17 @@ export const adSlice = createSlice({
          state.servicePrice2 = payload.servicePrice2;
          state.servicePrice3 = payload.servicePrice3;
          state.description = payload.description;
-         state.alert = payload.alert;
+         state.note = payload.alert;
          state.ads = [...state.ads, payload];
-
+        },
+        uploadImages: (state, {payload}) => {
+         state.images = [...payload];
         }
     }
 
 })
 
-export const {createAd} = adSlice.actions;
+export const {createAd, uploadImages} = adSlice.actions;
 
 // function uuidv4() {
 //     throw new Error("Function not implemented.");

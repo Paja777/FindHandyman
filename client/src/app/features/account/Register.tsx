@@ -5,6 +5,7 @@ import { FormHelperText } from "@mui/material";
 import {
   Box,
   Container,
+  FormControl,
   FormControlLabel,
   Paper,
   Radio,
@@ -14,30 +15,36 @@ import {
   Typography,
 } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LoadingButton } from "@mui/lab";
 
 export default function Register() {
   const navigate = useNavigate();
-  const [selectedValue, setSelectedValue] = useState(`user`);
-  
+  const [selectedValue, setSelectedValue] = useState(`handyman`);
+  console.log(selectedValue);
   const {
     register,
+    unregister,
     watch,
     handleSubmit,
     formState: { isSubmitting, isValid, errors },
   } = useForm({
     mode: "all",
   });
-  
+  useEffect(() => {
+    
+      if (selectedValue === "handyman") {
+        register("category", { required: "Category field is required" });
+      } else {
+        unregister("category");
+      }
+  }, [selectedValue, unregister, register]);
+
   const dispatch = useAppDispatch();
-  console.log(isValid);
-  
-  const watchShowCategory = watch('role', selectedValue === 'handyman'? true : false);
-   
+
   async function submitForm(data: FieldValues) {
     try {
-      await dispatch(registerUser(data));
+      await dispatch(registerUser({...data, role: data.role || 'handyman' }));
       console.log(data);
       navigate("/");
     } catch (error) {
@@ -113,8 +120,8 @@ export default function Register() {
           <RadioGroup
             sx={{ mt: 6, mb: 2 }}
             value={selectedValue}
-            {...register("role", { minLength: 4})}
-            onChange={(event: any) => setSelectedValue(event.target.value) }
+            {...register("role", { minLength: 4 })}
+            onChange={(event: any) => setSelectedValue(event.target.value)}
           >
             <FormControlLabel
               value={`user`}
@@ -128,15 +135,17 @@ export default function Register() {
             />
           </RadioGroup>
         </Stack>
-       
-       {watchShowCategory && (<TextField      
-        sx={{mb:3}}
-          label='category'
-          error={!!errors.category}
-          {...register("category", {required: "Category field is required"})}          
-        ></TextField>)}
 
-        <Stack direction="row" sx={{ml:4}}>
+        {selectedValue === "handyman" && (
+          <TextField
+            sx={{ mb: 3 }}
+            label="category"
+            error={!!errors.category}
+            {...register("category", { minLength: 4 })}
+          ></TextField>
+        )}
+
+        <Stack direction="row" sx={{ ml: 4 }}>
           <LoadingButton
             loading={isSubmitting}
             disabled={!isValid}
