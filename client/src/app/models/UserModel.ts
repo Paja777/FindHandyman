@@ -5,5 +5,5 @@ export interface UserModel {
     description: string;
     category: string;
     contact: string;
-    img?: string;
+    images?: string[];
 }

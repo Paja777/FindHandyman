@@ -1,7 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import plumbing from "../../../assets/plumb.webp";
+import plumbing2 from "../../../assets/plumbing.jpg";
 import electricity from "../../../assets/el.jpg"
+import electricity2 from "../../../assets/electric.png"
 import painting from "../../../assets/interior-painting.png"
+import painting2 from "../../../assets/painter.jpg"
 import { v4 as uuidv4 } from "uuid";
 import { UserModel } from "../../models/UserModel";
 
@@ -12,7 +15,7 @@ const list = [
       description: "Majssads dasdadsasd asda ad asdasdasd adsasd ",
       category: "painting",
       contact: "065225252",
-      img: painting,
+      images: [painting, painting2],
     },
     {
       id: uuidv4(),
@@ -20,7 +23,7 @@ const list = [
       description: "Majssads dasdadsas asda ad asdasdasd adsasd ",
       category: "electricity",
       contact: "06522000",
-      img: electricity,
+      images: [electricity, electricity2],
     },
     {
       id: uuidv4(),
@@ -28,7 +31,7 @@ const list = [
       description: "Majssads dasdadsasd asda ad asdasdasd adsasd ",
       category: "plumbing",
       contact: "065225588",
-      img: plumbing,
+      images:[ plumbing, plumbing2],
     },
   ];
 interface AdState{
@@ -46,8 +49,9 @@ interface AdState{
     servicePrice3: string;
     description: string;
     note?: string;
-    images?: {}[];
-    ads: UserModel[];
+    images?: string[];
+    handymanAds: UserModel[];
+    userAds: UserModel[];
 }
 
 const initialState: AdState = {
@@ -66,7 +70,8 @@ const initialState: AdState = {
     description: '',
     note: '',
     images: [],
-    ads: list,
+    handymanAds: list,
+    userAds: [],
 }
 
 
@@ -74,9 +79,12 @@ export const adSlice = createSlice({
     name: 'ad',
     initialState,
     reducers: {
+        uploadImages: (state, {payload}) => {
+        state.images = [...payload];
+        },
         createAd: (state, {payload}) => {
          state.name = payload.name;
-         state.id = payload.id;
+         state.id = uuidv4();
          state.category = payload.category;
         //  state.contact = payload.contact;
          state.serviceName = payload.serviceName;
@@ -89,11 +97,12 @@ export const adSlice = createSlice({
          state.servicePrice3 = payload.servicePrice3;
          state.description = payload.description;
          state.note = payload.alert;
-         state.ads = [...state.ads, payload];
+         const modifiedPayload = {...payload, images: state.images}
+         if (payload.category === '') state.userAds = [...state.userAds, modifiedPayload];
+         if (payload.category !== '') state.handymanAds = [...state.handymanAds, modifiedPayload];
+         
         },
-        uploadImages: (state, {payload}) => {
-         state.images = [...payload];
-        }
+        
     }
 
 })

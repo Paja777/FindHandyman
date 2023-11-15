@@ -17,7 +17,7 @@ export const router = createBrowserRouter([
       { path: "/register", element: <Register /> },
       { path: "/about", element: <AboutPage /> },
       { path: "/contact", element: <ContactPage /> },
-      { path: "/createadd", element: <CreateAd /> },
+      { path: "/createad", element: <CreateAd /> },
     ],
   },
 ]);

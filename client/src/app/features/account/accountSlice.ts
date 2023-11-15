@@ -7,6 +7,7 @@ interface AccountState {
   password: string;
   loggedIn: boolean;
   role: string;
+  displayedAds: string;
 }
 
 const initialState: AccountState = {
@@ -15,6 +16,8 @@ const initialState: AccountState = {
   password: "",
   loggedIn: false,
   role: '',
+  displayedAds: '',
+
 };
 
 
@@ -28,6 +31,7 @@ export const accountSlice = createSlice({
         state.password = "";
         state.loggedIn = false; 
         state.role = '';
+        state.displayedAds = '';
     },
     registerUser: (state, { payload }) => {
         state.username = payload.username;
@@ -35,6 +39,7 @@ export const accountSlice = createSlice({
         state.password = payload.password;
         state.loggedIn = true;
         state.role = payload.role;
+        state.displayedAds = payload.role;
         localStorage.setItem(`${state.username}`, JSON.stringify(state) )
     },
     loginUser: (state, { payload }) => {
@@ -42,11 +47,16 @@ export const accountSlice = createSlice({
         state.email = payload.email;
         state.password = payload.password;
         state.loggedIn = true;
+        state.displayedAds = payload.role;
         state.role = payload.role;    
     },
+     setDisplayedAds: (state, {payload}) => {
+      state.displayedAds = payload;
+       
+     },
   },
 
   
 });
 
-export const { signOut, registerUser, loginUser } = accountSlice.actions;
+export const { signOut, registerUser, loginUser, setDisplayedAds } = accountSlice.actions;

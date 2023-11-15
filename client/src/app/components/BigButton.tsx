@@ -1,8 +1,9 @@
-import { LoadingButton } from "@mui/lab";
-import { Box, IconButton, Stack, Typography } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { Box, IconButton, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 import AddIcon from '@mui/icons-material/Add';
+import { useAppDispatch } from "../store/configureStore";
+import { setDisplayedAds } from "../features/account/accountSlice";
 
 interface Props {
   path: string;
@@ -10,10 +11,12 @@ interface Props {
 }
 
 const BigButton = ({ path, title }: Props) => {
+  const dispatch = useAppDispatch();
   return (
     <Box
       component={Link}
       to={path}
+      onClick={() => {if (title.includes('Customer')) dispatch(setDisplayedAds('user')); if (title.includes('Handyman')) dispatch(setDisplayedAds('handyman')); }}
       sx={{
         backgroundColor: "grey",
         color: "white",

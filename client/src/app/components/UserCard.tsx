@@ -9,7 +9,7 @@ import { useAppSelector } from "../store/configureStore";
 interface Props{
     user: UserModel;
 } 
-const UserCard = ({user: {category, name, description, img}}: Props) => {
+const UserCard = ({user: {category, name, description, images}}: Props) => {
     const {role} = useAppSelector(state => state.account); 
   return (
     <Card sx={{ width: 460, maxHeight: 440 , height: 440, opacity: '1', mt: 0 }}>
@@ -17,7 +17,7 @@ const UserCard = ({user: {category, name, description, img}}: Props) => {
       <CardMedia
         component="img"
         sx={{ height: 280, maxHeight: 280, width: 500, backgroundSize: 'contain', bgcolor: 'primary.light' }}
-        image={img? img : avatar}
+        image={images? images[0] : avatar}
         alt={category}
       />
       <CardContent sx={{height: 53, maxHeight: 53}}>
