@@ -7,6 +7,7 @@ import AboutPage from "../features/about/About";
 import ContactPage from "../features/contact/Contact";
 import CreateAd from "../features/roleHandyman/CreateAd";
 import CreateUserAd from "../features/roleHandyman/CreateUserAd";
+import DetailPage from "../layout/DetailPage";
 
 export const router = createBrowserRouter([
   {
@@ -14,6 +15,7 @@ export const router = createBrowserRouter([
     element: <App />,
     children: [
       { path: "/", element: <HomePage /> },
+      { path: "/:id", element: <DetailPage /> },
       { path: "/login", element: <Login /> },
       { path: "/register", element: <Register /> },
       { path: "/about", element: <AboutPage /> },

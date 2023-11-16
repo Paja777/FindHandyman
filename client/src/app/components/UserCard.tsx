@@ -2,12 +2,14 @@ import { Card, CardMedia, CardContent, Typography, Button, CardActionArea, CardA
 import { UserModel } from "../models/UserModel";
 import avatar from "../../assets/avatar.jpg";
 import { useAppSelector } from "../store/configureStore";
+import { useNavigate } from "react-router-dom";
 
 interface Props{
     user: UserModel;
 } 
-const UserCard = ({user: {category, name, description, images}}: Props) => {
+const UserCard = ({user: {category, name, description, images, id}}: Props) => {
     const {displayedAds} = useAppSelector(state => state.account); 
+    const navigate = useNavigate();
   return (
     <Card sx={{ width: 460, maxHeight: 440 , height: 440, opacity: '1', mt: 0 }}>
     <CardActionArea>
@@ -28,7 +30,7 @@ const UserCard = ({user: {category, name, description, images}}: Props) => {
     </CardActionArea>
     <CardActions   sx={{height:'7vh', justifyContent: 'space-between'}}>
     <Rating name="half-rating" defaultValue={2.5} precision={0.5} />
-      <Button size="small" color="primary" sx={{mr: '10%'}}>
+      <Button onClick={() => navigate(`/${id}`)} size="small" color="primary" sx={{mr: '10%'}}>
       {'>>'} more
       </Button>
     </CardActions>

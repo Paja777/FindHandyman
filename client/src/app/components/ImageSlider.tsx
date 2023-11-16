@@ -7,9 +7,14 @@ import electricity2 from "../../assets/electric.png";
 import painting from "../../assets/interior-painting.png";
 import painting2 from "../../assets/painter.jpg";
 
-const ImageSlider = () => {
-  const [currentImage, setCurrentImage] = useState(0);
-  const images = [electricity, electricity2, painting, painting2];
+
+interface Props {
+    images: string[];
+  }
+
+export const ImageSlider = ({images} : Props) => {
+    const [currentImage, setCurrentImage] = useState(0);
+  
 
   const nextSlide = () => {
     setCurrentImage((prevImage) =>
@@ -22,15 +27,10 @@ const ImageSlider = () => {
       prevImage === 0 ? images.length - 1 : prevImage - 1
     );
   };
-  const lorelIpsum = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-  Nulla vehicula turpis nec ipsum varius viverra. Sed lobortis mi in odio 
-  interdum, in consectetur dui vestibulum. Duis posuere, leo at efficitur 
-  porttitor, elit eros vestibulum ex, a posuere purus orci vel libero.`;
-
   return (
-    <>
-      <Stack direction="row">
-        <Card
+    <Stack>
+    <Stack direction='row'>
+    <Card
           onClick={prevSlide}
           sx={{
             width: "3vw",
@@ -96,35 +96,8 @@ const ImageSlider = () => {
             "&:hover": { bgcolor: "black" },
           }}
         />
-        <Stack sx={{ width: "30vw", ml: 3 }}>
-          <Typography variant="h3" color="green" sx={{ ml: 4 }}>
-            Painting
-          </Typography>
-          <Typography variant="h5" color="grey" sx={{ ml: 4, mt: 6 }}>
-            name:
-            <span style={{ marginLeft: "12%", color: "green" }}> Marko</span>
-          </Typography>
-          <Typography variant="h5" color="grey" sx={{ ml: 4, mt: 2 }}>
-            contact:{" "}
-            <span style={{ color: "green", marginLeft: "7%" }}>065367777</span>
-          </Typography>
-          <Typography variant="h5" color="grey" sx={{ ml: 4, mt: 2, mb: 4 }}>
-            description: <br />
-            <span
-              style={{
-                color: "green",
-                marginLeft: "7%",
-                fontSize: "18px",
-                textAlign: "justify",
-                marginTop: 4,
-              }}
-            >
-              {lorelIpsum}
-            </span>
-          </Typography>
         </Stack>
-      </Stack>
-      <Stack direction='row'>
+        <Stack direction='row' sx={{mt:1}}>
         {images.map((image : any) => (
          <Card
          sx={{
@@ -146,8 +119,8 @@ const ImageSlider = () => {
         ))}
         
       </Stack>
-    </>
-  );
-};
+      </Stack>
+  )
+}
 
 export default ImageSlider;
