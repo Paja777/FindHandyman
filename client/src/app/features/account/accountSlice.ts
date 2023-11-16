@@ -48,7 +48,8 @@ export const accountSlice = createSlice({
         state.password = payload.password;
         state.loggedIn = true;
         state.displayedAds = payload.role;
-        state.role = payload.role;    
+        state.role = payload.role; 
+        state.displayedAds = payload.role === 'handyman'? 'user' : 'handyman';   
     },
      setDisplayedAds: (state, {payload}) => {
       state.displayedAds = payload;

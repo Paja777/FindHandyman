@@ -3,14 +3,11 @@ import { UserModel } from "../models/UserModel";
 import avatar from "../../assets/avatar.jpg";
 import { useAppSelector } from "../store/configureStore";
 
-
-
-
 interface Props{
     user: UserModel;
 } 
 const UserCard = ({user: {category, name, description, images}}: Props) => {
-    const {role} = useAppSelector(state => state.account); 
+    const {displayedAds} = useAppSelector(state => state.account); 
   return (
     <Card sx={{ width: 460, maxHeight: 440 , height: 440, opacity: '1', mt: 0 }}>
     <CardActionArea>
@@ -22,7 +19,7 @@ const UserCard = ({user: {category, name, description, images}}: Props) => {
       />
       <CardContent sx={{height: 53, maxHeight: 53}}>
         <Typography gutterBottom variant="h5" component="div">
-          {role === 'handyman'? `${category} : ${name}` : `${name} is looking for help in category: ${category}`}
+          {displayedAds === 'handyman'? `${category} : ${name}` : `${name} is looking for help in category: ${category}`}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           {description}

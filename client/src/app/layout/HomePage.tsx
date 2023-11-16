@@ -9,9 +9,9 @@ const HomePage = () => {
  const {username, displayedAds} = useAppSelector(state => state.account);
  const {handymanAds, userAds} = useAppSelector(state => state.ad);
 
- const [ads, setAds] = useState(handymanAds);
+ const [ads, setAds] = useState(userAds);
  useEffect(() => {
-  if (displayedAds === 'handyman') {
+  if (displayedAds === 'user') {
     setAds(userAds);
   } else {
     setAds(handymanAds);

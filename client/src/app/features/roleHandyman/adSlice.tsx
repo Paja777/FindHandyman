@@ -7,8 +7,11 @@ import painting from "../../../assets/interior-painting.png"
 import painting2 from "../../../assets/painter.jpg"
 import { v4 as uuidv4 } from "uuid";
 import { UserModel } from "../../models/UserModel";
+import img1 from "../../../assets/img1.jpg"
+import img2 from "../../../assets/img2.jpg"
+import img3 from "../../../assets/img3.jpg"
 
-const list = [
+const dummyListHandyman = [
     {
       id: uuidv4(),
       name: "Milos",
@@ -30,8 +33,34 @@ const list = [
       name: "Bora",
       description: "Majssads dasdadsasd asda ad asdasdasd adsasd ",
       category: "plumbing",
-      contact: "065225588",
-      images:[ plumbing, plumbing2],
+      contact: "065445588",
+      images:[plumbing, plumbing2],
+    },
+  ];
+  const dummyListUser = [
+    {
+      id: uuidv4(),
+      name: "Jovan",
+      description: "Majssads dasdadsasd asda ad asdasdasd adsasd ",
+      category: "painting",
+      contact: "065225252",
+      images: [img1],
+    },
+    {
+      id: uuidv4(),
+      name: "Marko",
+      description: "Majssads dasdadsas asda ad asdasdasd adsasd ",
+      category: "electricity",
+      contact: "06522400",
+      images: [img2],
+    },
+    {
+      id: uuidv4(),
+      name: "Filip",
+      description: "Majssads dasdadsasd asda ad asdasdasd adsasd ",
+      category: "plumbing",
+      contact: "065244588",
+      images:[ img3],
     },
   ];
 interface AdState{
@@ -70,8 +99,8 @@ const initialState: AdState = {
     description: '',
     note: '',
     images: [],
-    handymanAds: list,
-    userAds: [],
+    handymanAds: dummyListHandyman,
+    userAds: dummyListUser,
 }
 
 

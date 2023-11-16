@@ -25,7 +25,7 @@ const CreateAd = () => {
   async function submitForm(data: FieldValues) {
     try {
       console.log({ ...data, name: username });
-      dispatch(createAd({ ...data, name: username, id: uuidv4()  }));
+      dispatch(createAd({ ...data, name: username, id: uuidv4() }));
       navigate("/");
     } catch (error) {
       console.log(error);
@@ -37,18 +37,33 @@ const CreateAd = () => {
 
   return (
     <form onSubmit={handleSubmit(submitForm)} style={{ marginLeft: "30%" }}>
-      <Typography variant="body1" color="secondary" sx={{ m: 2 }}>
+      <Typography variant="body1" color="rgb(181, 58, 27)" sx={{ m: 2 }}>
         Services
       </Typography>
       <Stack direction="row">
         <TextField
           error={!!errors.seviceName}
-          sx={{ mr: 1, mt: 1 }}
+          sx={{
+            mr: 1,
+            mt: 1,
+            "& .MuiOutlinedInput-root": {
+              "&.Mui-focused fieldset": {
+                borderColor: "green",
+              },
+            },
+          }}
           placeholder="service name"
           {...register("serviceName", { required: "Field is required" })}
         ></TextField>
         <TextField
-          sx={{ mt: 1 }}
+          sx={{
+            mt: 1,
+            "& .MuiOutlinedInput-root": {
+              "&.Mui-focused fieldset": {
+                borderColor: "green",
+              },
+            },
+          }}
           placeholder="service price"
           {...register("servicePrice", { required: "Field is required" })}
         ></TextField>
@@ -56,31 +71,55 @@ const CreateAd = () => {
       {serviceInputCount.map((num) => (
         <Stack direction="row" key={num}>
           <TextField
-            sx={{ mr: 1, mt: 1 }}
+            sx={{
+              mr: 1,
+              mt: 1,
+              "& .MuiOutlinedInput-root": {
+                "&.Mui-focused fieldset": {
+                  borderColor: "green",
+                },
+              },
+            }}
             placeholder="service name"
             {...register(`serviceName${num}`)}
           ></TextField>
           <TextField
-            sx={{ mt: 1 }}
+            sx={{
+              mt: 1,
+              "& .MuiOutlinedInput-root": {
+                "&.Mui-focused fieldset": {
+                  borderColor: "green",
+                },
+              },
+            }}
             placeholder="service price"
             {...register(`servicePrice${num}`)}
           ></TextField>
         </Stack>
       ))}
-      <LoadingButton type="button" sx={{color: 'purple'}} onClick={clickHandler}>
+      <LoadingButton
+        type="button"
+        sx={{ color: "rgb(181, 58, 27)" }}
+        onClick={clickHandler}
+      >
         add service +
       </LoadingButton>
 
       <Stack direction="row">
         <ImageUploadButton />
         {images?.length !== 0 && (
-          <Typography  sx={{mt:2, ml:'10%'}} variant="h4" fontWeight="bolder" color="green">
+          <Typography
+            sx={{ mt: 2, ml: "10%" }}
+            variant="h4"
+            fontWeight="bolder"
+            color="green"
+          >
             {images?.length}
           </Typography>
         )}
       </Stack>
 
-      <Typography variant="body1" color="secondary" sx={{ m: 2 }}>
+      <Typography variant="body1" color="rgb(181, 58, 27)" sx={{ m: 2 }}>
         Description
       </Typography>
       <TextField
@@ -90,7 +129,7 @@ const CreateAd = () => {
         placeholder="Describe your services (maximum 300 caracters)"
         {...register("description", { minLength: 20, maxLength: 300 })}
       ></TextField>
-      <Typography variant="body1" color="secondary" sx={{ m: 2 }}>
+      <Typography variant="body1" color="rgb(181, 58, 27)" sx={{ m: 2 }}>
         Note
       </Typography>
       <TextField
@@ -106,7 +145,7 @@ const CreateAd = () => {
         disabled={!isValid}
         type="submit"
         variant="contained"
-        sx={{ mt: 4, mb: 2, ml: 20, bgcolor: "red" }}
+        sx={{ mt: 4, mb: 2, ml: 20, bgcolor: "rgb(115, 52, 5)" }}
       >
         Create
       </LoadingButton>

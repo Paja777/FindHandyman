@@ -1,7 +1,7 @@
 import { Box, IconButton, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
-import AddIcon from '@mui/icons-material/Add';
+import AddIcon from "@mui/icons-material/Add";
 import { useAppDispatch } from "../store/configureStore";
 import { setDisplayedAds } from "../features/account/accountSlice";
 
@@ -12,11 +12,15 @@ interface Props {
 
 const BigButton = ({ path, title }: Props) => {
   const dispatch = useAppDispatch();
+  const handleClick = () => {
+    if (title.includes("Search")) dispatch(setDisplayedAds("user"));
+     if (title.includes("handyman") && title.includes("Search")) dispatch(setDisplayedAds("handyman"));
+  };
   return (
     <Box
       component={Link}
       to={path}
-      onClick={() => {if (title.includes('Customer')) dispatch(setDisplayedAds('user')); if (title.includes('Handyman')) dispatch(setDisplayedAds('handyman')); }}
+      onClick={handleClick}
       sx={{
         backgroundColor: "grey",
         color: "white",
@@ -30,6 +34,10 @@ const BigButton = ({ path, title }: Props) => {
         position: "relative",
         textDecoration: "none",
         borderRadius: "4px",
+        "&:hover": {
+          bgcolor: "rgb(171, 184, 204)",
+          color: 'rgb(76, 85, 99)'
+        },
       }}
     >
       <Typography
@@ -43,8 +51,10 @@ const BigButton = ({ path, title }: Props) => {
         {title}
       </Typography>
 
-      <IconButton sx={{ posistion: "absolute", left: "20%", rigth: "5%", color:'white' }}>
-        {title.includes('Create')? (<AddIcon />) : (<SearchIcon />)}
+      <IconButton
+        sx={{ posistion: "absolute", left: "20%", rigth: "5%", color: "white" }}
+      >
+        {title.includes("Create") ? <AddIcon /> : <SearchIcon />}
       </IconButton>
     </Box>
   );
