@@ -13,8 +13,9 @@ const Ribbon = () => {
       direction="row"
       sx={{
         backgroundImage: 'url("https://i.pinimg.com/736x/f2/e9/b9/f2e9b991d62bf3ae442d43c52a734a06.jpg")',
-        backgroundSize: "60vh", // You may adjust this based on your needs
-        backgroundPosition: "center",
+        backgroundSize: "60vh", 
+        backgroundRepeat: 'repeat-x',
+        
         height: "6vh",
         justifyContent: "center",
         position: "sticky",
@@ -31,7 +32,7 @@ const Ribbon = () => {
             textDecoration: "none",
             px: "21px",
             my: "auto",
-            fontSize: "23px",
+            fontSize: "25px",
             fontWeight: "bolder",
             color: "white",
             WebkitTextStroke: "1px red",

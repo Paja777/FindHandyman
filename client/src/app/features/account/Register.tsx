@@ -150,7 +150,7 @@ export default function Register() {
             loading={isSubmitting}
             disabled={!isValid}
             type="submit"
-            variant="contained"
+            variant="contained" 
             sx={{
               mt: 1,
               mb: 2,

@@ -36,41 +36,28 @@ const CreateAd = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(submitForm)} style={{ marginLeft: "30%" }}>
-      <Typography variant="body1" color="rgb(181, 58, 27)" sx={{ m: 2 }}>
-        Services
-      </Typography>
-      <Stack direction="row">
-        <TextField
-          error={!!errors.seviceName}
-          sx={{
-            mr: 1,
-            mt: 1,
-            "& .MuiOutlinedInput-root": {
-              "&.Mui-focused fieldset": {
-                borderColor: "green",
-              },
-            },
-          }}
-          placeholder="service name"
-          {...register("serviceName", { required: "Field is required" })}
-        ></TextField>
-        <TextField
-          sx={{
-            mt: 1,
-            "& .MuiOutlinedInput-root": {
-              "&.Mui-focused fieldset": {
-                borderColor: "green",
-              },
-            },
-          }}
-          placeholder="service price"
-          {...register("servicePrice", { required: "Field is required" })}
-        ></TextField>
-      </Stack>
-      {serviceInputCount.map((num) => (
-        <Stack direction="row" key={num}>
+    <Container
+      component={Paper}
+      elevation={10}
+      maxWidth="sm"
+      sx={{
+        display: "flex",
+        justifyContent: " center",
+        alignContent: "center",
+        flexDirection: "column",
+        alignItems: "center",
+        p: 4,
+        mt: 2,
+        pb: 7,
+      }}
+    >
+      <form onSubmit={handleSubmit(submitForm)} style={{ marginLeft: "3%" }}>
+        <Typography variant="body1" color="rgb(181, 58, 27)" sx={{ m: 2 }}>
+          Services
+        </Typography>
+        <Stack direction="row">
           <TextField
+            error={!!errors.seviceName}
             sx={{
               mr: 1,
               mt: 1,
@@ -81,7 +68,7 @@ const CreateAd = () => {
               },
             }}
             placeholder="service name"
-            {...register(`serviceName${num}`)}
+            {...register("serviceName", { required: "Field is required" })}
           ></TextField>
           <TextField
             sx={{
@@ -93,63 +80,98 @@ const CreateAd = () => {
               },
             }}
             placeholder="service price"
-            {...register(`servicePrice${num}`)}
+            {...register("servicePrice", { required: "Field is required" })}
           ></TextField>
         </Stack>
-      ))}
-      <LoadingButton
-        type="button"
-        sx={{ color: "rgb(181, 58, 27)" }}
-        onClick={clickHandler}
-      >
-        add service +
-      </LoadingButton>
+        {serviceInputCount.map((num) => (
+          <Stack direction="row" key={num}>
+            <TextField
+              sx={{
+                mr: 1,
+                mt: 1,
+                "& .MuiOutlinedInput-root": {
+                  "&.Mui-focused fieldset": {
+                    borderColor: "green",
+                  },
+                },
+              }}
+              placeholder="service name"
+              {...register(`serviceName${num}`)}
+            ></TextField>
+            <TextField
+              sx={{
+                mt: 1,
+                "& .MuiOutlinedInput-root": {
+                  "&.Mui-focused fieldset": {
+                    borderColor: "green",
+                  },
+                },
+              }}
+              placeholder="service price"
+              {...register(`servicePrice${num}`)}
+            ></TextField>
+          </Stack>
+        ))}
+        <LoadingButton
+          type="button"
+          sx={{ color: "rgb(181, 58, 27)" }}
+          onClick={clickHandler}
+        >
+          add service +
+        </LoadingButton>
 
-      <Stack direction="row">
-        <ImageUploadButton />
-        {images?.length !== 0 && (
-          <Typography
-            sx={{ mt: 2, ml: "10%" }}
-            variant="h4"
-            fontWeight="bolder"
-            color="green"
-          >
-            {images?.length}
-          </Typography>
-        )}
-      </Stack>
+        <Stack direction="row">
+          <ImageUploadButton />
+          {images?.length !== 0 && (
+            <Typography
+              sx={{ mt: 2, ml: "10%" }}
+              variant="h4"
+              fontWeight="bolder"
+              color="green"
+            >
+              {images?.length}
+            </Typography>
+          )}
+        </Stack>
 
-      <Typography variant="body1" color="rgb(181, 58, 27)" sx={{ m: 2 }}>
-        Description
-      </Typography>
-      <TextField
-        multiline
-        rows="5"
-        style={{ marginRight: 1, marginTop: 1, width: 450 }}
-        placeholder="Describe your services (maximum 300 caracters)"
-        {...register("description", { minLength: 20, maxLength: 300 })}
-      ></TextField>
-      <Typography variant="body1" color="rgb(181, 58, 27)" sx={{ m: 2 }}>
-        Note
-      </Typography>
-      <TextField
-        multiline
-        rows="5"
-        sx={{ mr: 1, mt: 1, width: 450 }}
-        placeholder="If you have any notes, type it here (maximum 200 caracters)"
-        {...register("alert", { maxLength: 200 })}
-      ></TextField>
-      <br />
-      <LoadingButton
-        loading={isSubmitting}
-        disabled={!isValid}
-        type="submit"
-        variant="contained"
-        sx={{ mt: 4, mb: 2, ml: 20, bgcolor: "rgb(115, 52, 5)" }}
-      >
-        Create
-      </LoadingButton>
-    </form>
+        <Typography variant="body1" color="rgb(181, 58, 27)" sx={{ m: 2 }}>
+          Description
+        </Typography>
+        <TextField
+          multiline
+          rows="5"
+          style={{ marginRight: 1, marginTop: 1, width: 450 }}
+          placeholder="Describe your services (maximum 300 caracters)"
+          {...register("description", { minLength: 20, maxLength: 300 })}
+        ></TextField>
+        <Typography variant="body1" color="rgb(181, 58, 27)" sx={{ m: 2 }}>
+          Note
+        </Typography>
+        <TextField
+          multiline
+          rows="5"
+          sx={{ mr: 1, mt: 1, width: 450 }}
+          placeholder="If you have any notes, type it here (maximum 200 caracters)"
+          {...register("alert", { maxLength: 200 })}
+        ></TextField>
+        <br />
+        <LoadingButton
+          loading={isSubmitting}
+          disabled={!isValid}
+          type="submit"
+          variant="contained"
+          sx={{
+            mt: 4,
+            mb: 2,
+            ml: 20,
+            bgcolor: "rgb(181, 58, 27)",
+            "&:hover": { bgcolor: "rgb(129, 212, 28)" },
+          }}
+        >
+          Create
+        </LoadingButton>
+      </form>
+    </Container>
   );
 };
 

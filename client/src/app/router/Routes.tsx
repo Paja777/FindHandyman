@@ -6,6 +6,7 @@ import HomePage from "../layout/HomePage";
 import AboutPage from "../features/about/About";
 import ContactPage from "../features/contact/Contact";
 import CreateAd from "../features/roleHandyman/CreateAd";
+import CreateUserAd from "../features/roleHandyman/CreateUserAd";
 
 export const router = createBrowserRouter([
   {
@@ -18,6 +19,7 @@ export const router = createBrowserRouter([
       { path: "/about", element: <AboutPage /> },
       { path: "/contact", element: <ContactPage /> },
       { path: "/createad", element: <CreateAd /> },
+      { path: "/createuserad", element: <CreateUserAd /> },
     ],
   },
 ]);

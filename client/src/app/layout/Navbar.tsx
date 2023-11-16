@@ -69,7 +69,7 @@ const Navbar = () => {
           >
             <img src={Logo} alt="Logo" height="60" />
             Handy<span style={{ color: "black", WebkitTextStroke: '0.3px red' }}>man</span>
-            <BuildIcon sx={{ color: "red", ml: 0, mt: 1, fontSize: "40px" }} />
+            <BuildIcon sx={{ color: "black", ml: 0, mt: 1, fontSize: "40px" }} />
           </Link>
         </Box>
 
