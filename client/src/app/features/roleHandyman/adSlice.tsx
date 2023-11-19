@@ -11,29 +11,37 @@ import img1 from "../../../assets/img1.jpg"
 import img2 from "../../../assets/img2.jpg"
 import img3 from "../../../assets/img3.jpg"
 
+const lorelIpsum = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+  Nulla vehicula turpis nec ipsum varius viverra. Sed lobortis mi in odio 
+  interdum, in consectetur dui vestibulum. Duis posuere, leo at efficitur 
+  porttitor, elit eros vestibulum ex, a posuere purus orci vel libero.`;
+
 const dummyListHandyman = [
     {
       id: uuidv4(),
       name: "Milos",
-      description: "Majssads dasdadsasd asda ad asdasdasd adsasd ",
+      description: lorelIpsum,
       category: "painting",
       contact: "065225252",
+      rating: 4,
       images: [painting, painting2],
     },
     {
       id: uuidv4(),
       name: "Dragan",
-      description: "Majssads dasdadsas asda ad asdasdasd adsasd ",
+      description: lorelIpsum,
       category: "electricity",
       contact: "06522000",
+      rating: 4,
       images: [electricity, electricity2],
     },
     {
       id: uuidv4(),
       name: "Bora",
-      description: "Majssads dasdadsasd asda ad asdasdasd adsasd ",
+      description: lorelIpsum,
       category: "plumbing",
       contact: "065445588",
+      rating: 4,
       images:[plumbing, plumbing2],
     },
   ];
@@ -41,25 +49,28 @@ const dummyListHandyman = [
     {
       id: uuidv4(),
       name: "Jovan",
-      description: "Majssads dasdadsasd asda ad asdasdasd adsasd ",
+      description: lorelIpsum,
       category: "painting",
       contact: "065225252",
+      rating: 4,
       images: [img1],
     },
     {
       id: uuidv4(),
       name: "Marko",
-      description: "Majssads dasdadsas asda ad asdasdasd adsasd ",
+      description: lorelIpsum,
       category: "electricity",
       contact: "06522400",
+      rating: 4,
       images: [img2],
     },
     {
       id: uuidv4(),
       name: "Filip",
-      description: "Majssads dasdadsasd asda ad asdasdasd adsasd ",
+      description: lorelIpsum,
       category: "plumbing",
       contact: "065244588",
+      rating: 4,
       images:[ img3],
     },
   ];
@@ -131,12 +142,16 @@ export const adSlice = createSlice({
          if (payload.category !== '') state.handymanAds = [...state.handymanAds, modifiedPayload];
          
         },
+        changeRating: (state, {payload}) => {
+          state.handymanAds[0].rating = (state.handymanAds[0].rating + payload) / 2;
+        }
+       
         
     }
 
 })
 
-export const {createAd, uploadImages} = adSlice.actions;
+export const {createAd, uploadImages, changeRating} = adSlice.actions;
 
 // function uuidv4() {
 //     throw new Error("Function not implemented.");

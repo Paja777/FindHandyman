@@ -52,6 +52,9 @@ const CreateAd = () => {
       }}
     >
       <form onSubmit={handleSubmit(submitForm)} style={{ marginLeft: "3%" }}>
+      <Typography variant="h3" color="green" sx={{ ml: "12%", mb: 4 }}>
+          Create Your Ad
+        </Typography>
         <Typography variant="body1" color="rgb(181, 58, 27)" sx={{ m: 2 }}>
           Services
         </Typography>
@@ -164,7 +167,7 @@ const CreateAd = () => {
             mt: 4,
             mb: 2,
             ml: 20,
-            bgcolor: "rgb(181, 58, 27)",
+            bgcolor: "red",
             "&:hover": { bgcolor: "rgb(129, 212, 28)" },
           }}
         >

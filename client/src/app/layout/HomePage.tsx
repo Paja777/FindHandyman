@@ -1,16 +1,13 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import AdsList from "../components/AdsList";
-import BigButton from "../components/BigButton";
 import { useAppSelector } from "../store/configureStore";
 
 import { useEffect, useState } from "react";
-import DetailPage from "./DetailPage";
-import ImageSlider from "../components/ImageSlider";
 import SideBar from "../components/SideBar";
 
 const HomePage = () => {
-  const { displayedAds } = useAppSelector((state) => state.account);
-  const { handymanAds, userAds } = useAppSelector((state) => state.ad);
+  const { displayedAds } = useAppSelector(state => state.account);
+  const { handymanAds, userAds } = useAppSelector(state => state.ad);
 
   const [ads, setAds] = useState(userAds);
   useEffect(() => {

@@ -38,7 +38,7 @@ export const ImageSlider = ({images} : Props) => {
             mr: -5.7,
             opacity: 0.5,
             bgcolor: "grey",
-            zIndex: 22,
+            zIndex: 12,
             "&:hover": { bgcolor: "black" },
           }}
         />
@@ -60,7 +60,7 @@ export const ImageSlider = ({images} : Props) => {
               top: "50%",
               transform: "translateY(-50%)",
               ml: 1,
-              zIndex: 23,
+              zIndex: 13,
               color: "white",
             }}
           />
@@ -78,7 +78,7 @@ export const ImageSlider = ({images} : Props) => {
               right: 0,
               top: "50%",
               transform: "translateY(-50%)",
-              zIndex: 23,
+              zIndex: 13,
               mr: 1,
               color: "white",
             }}
@@ -92,7 +92,7 @@ export const ImageSlider = ({images} : Props) => {
             height: "60vh",
             opacity: 0.5,
             bgcolor: "grey",
-            zIndex: 22,
+            zIndex: 12,
             "&:hover": { bgcolor: "black" },
           }}
         />

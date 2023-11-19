@@ -39,7 +39,7 @@ const ImageUploadButton = () => {
               ml: "20%",
               width: "100%",
               height: "50px",
-              bgcolor: "rgb(181, 58, 27)",
+              bgcolor: "red",
               color: "white",
               "&:hover": { bgcolor: "rgb(129, 212, 28)" },
             }}
