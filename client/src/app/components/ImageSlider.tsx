@@ -1,11 +1,8 @@
-import React, { useState } from "react";
-import { Card, IconButton, Stack, Typography } from "@mui/material";
+import { useState } from "react";
+import { Card, Stack } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import electricity from "../../assets/electricity.jpg";
-import electricity2 from "../../assets/electric.png";
-import painting from "../../assets/interior-painting.png";
-import painting2 from "../../assets/painter.jpg";
+import { v4 as uuidv4 } from "uuid";
 
 
 interface Props {
@@ -14,7 +11,7 @@ interface Props {
 
 export const ImageSlider = ({images} : Props) => {
     const [currentImage, setCurrentImage] = useState(0);
-  
+   console.log(currentImage)
 
   const nextSlide = () => {
     setCurrentImage((prevImage) =>
@@ -98,8 +95,10 @@ export const ImageSlider = ({images} : Props) => {
         />
         </Stack>
         <Stack direction='row' sx={{mt:1}}>
-        {images.map((image : any) => (
+        {images.map((image : any, index) => (
+          
          <Card
+         key={uuidv4()}
          sx={{
            position: "relative",
            width: "7vw",
@@ -107,7 +106,8 @@ export const ImageSlider = ({images} : Props) => {
            maxHeight: "10vh",
            height: "10vh",
            minHeight: "10vh",
-           ml: 1
+           ml: 1,
+           border: `${currentImage === index? '3px solid red' : ''}`
          }}
        >
          <img

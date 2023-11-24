@@ -24,7 +24,7 @@ const ModalOverlay = ({ onClose, value }: ModalProps) => {
         readOnly
         value={value}
         precision={0.5}
-        sx={{ ml: "34%", mt: 3, mb: 3, fontSize: "34px" }}
+        sx={{ ml: "31%", mt: 3, mb: 3, fontSize: "34px" }}
       />
       <LoadingButton
         onClick={() => onClose()}
@@ -32,9 +32,9 @@ const ModalOverlay = ({ onClose, value }: ModalProps) => {
         sx={{
           mt: 1,
           mb: 2,
-          ml: "29%",
+          ml: "15%",
           p: 3,
-          width: "40%",
+          width: "70%",
           bgcolor: "red",
           "&:hover": { bgcolor: "rgb(129, 212, 28)" },
         }}

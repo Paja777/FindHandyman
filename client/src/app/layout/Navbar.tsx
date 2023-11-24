@@ -4,10 +4,10 @@ import { Link, NavLink } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Logo from "../../../src/assets/Logo.png";
 import Ribbon from "../components/Ribbon";
-import baner1 from '../../assets/ban1part2.jpg';
-import baner2 from '../../assets/ban1part1.jpg';
 import { useAppDispatch, useAppSelector } from "../store/configureStore";
-import classes from '../features/roleHandyman/RoleHandyman.module.css';
+import classes from "../features/roleHandyman/RoleHandyman.module.css";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 import { signOut } from "../features/account/accountSlice";
 
@@ -49,49 +49,90 @@ const Navbar = () => {
           background: "white",
           top: "0",
           justifyContent: "space-between",
-          marginRigth: "50px",
+          marginRigth: "30px",
         }}
       >
         <Box sx={{ pl: 2 }}>
           <Link
-            
-            to={"/"}          
+            to={"/"}
             className={classes.ultra}
             style={{
               textDecoration: "none",
               fontWeight: "bolder",
-              fontSize: "38px", 
+              fontSize: "38px",
               color: "red",
               WebkitTextStroke: "1px black",
               padding: 0,
               marginLeft: "3px",
-              }}
+            }}
           >
             <img src={Logo} alt="Logo" height="60" />
-            Handy<span style={{ color: "black", WebkitTextStroke: '0.3px red' }}>man</span>
-            <BuildIcon sx={{ color: "black", ml: 0, mt: 1, fontSize: "40px" }} />
+            Handy
+            <span style={{ color: "black", WebkitTextStroke: "0.3px red" }}>
+              man
+            </span>
+            <BuildIcon
+              sx={{ color: "black", ml: 0, mt: 1, fontSize: "40px" }}
+            />
           </Link>
         </Box>
 
-        <Stack direction='row' component={Link} to={"https://www.corkco.ca/"}>
-         <img src={baner1} alt='banner1' height='80' width='300' style={{marginRight: '11%'}}/>
-         <img src={baner2} alt='banner2' height='80' width='230' />
+        <Stack direction="row" sx={{mr:7}}>
+          <NavLink
+            to={`https://github.com/Paja777`}
+            style={{
+              backgroundColor: "rgb(25, 25, 26)",
+              color: "white",
+              textDecoration: "none",
+              display: "flex",
+              paddingLeft:'9px',
+              paddingRight:'9px',
+              borderRadius: '5px',
+              marginRight: 7,
+              height:'10vh'
+            }}
+          >
+            <GitHubIcon sx={{mt:2, mr:1, fontSize: '40px'}}/>
+            <Typography sx={{ textDecoration: "none", mt:2.5}} variant="h5">
+              github Paja777
+            </Typography>
+          </NavLink>
+          <NavLink
+            to={`https://www.linkedin.com/in/paja-rvovic/`}
+            style={{
+              backgroundColor: "rgb(66, 135, 245)",
+              color: "white",
+              textDecoration: "none",
+              display: "flex",
+              paddingLeft:'8px',
+              paddingRight:'8px',
+              borderRadius: '5px',
+              marginRight: 7,
+              height:'10vh'
+            }}
+          >
+            <LinkedInIcon sx={{mt:2, mr:1, fontSize: '40px'}}/>
+            <Typography sx={{ textDecoration: "none", mt:2.5}} variant="h5">
+              Pavle Rvovic
+            </Typography>
+          </NavLink>
         </Stack>
-          
-        
+
         <Stack direction="row">
-          <IconButton component={Link} to={"/login"}  sx={{color: 'green', }}>
-            <AccountCircleIcon sx={{mt:0, fontSize: '34px'}}/>
+          <IconButton component={Link} to={"/login"} sx={{ color: "green" }}>
+            <AccountCircleIcon sx={{ mt: 1, fontSize: "34px" }} />
           </IconButton>
           {loggedIn && (
             <Typography
               component={NavLink}
-              to={'/register'}
+              to={"/register"}
               onClick={() => dispatch(signOut())}
               sx={{
                 ...navStyles,
+                marginTop: '3%',
                 "&.active": {
                   color: "red",
+                
                 },
               }}
             >
@@ -106,7 +147,6 @@ const Navbar = () => {
                 key={link.location}
                 sx={{
                   ...navStyles,
-                  
                 }}
               >
                 {link.name}

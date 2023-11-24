@@ -33,7 +33,7 @@ const BigButton = ({ path, title }: Props) => {
         display: "flex",
         position: "relative",
         textDecoration: "none",
-        borderRadius: "4px",
+        borderRadius: "7px",
         "&:hover": {
           bgcolor: "rgb(171, 184, 204)",
           color: 'rgb(76, 85, 99)'
