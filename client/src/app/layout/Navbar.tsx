@@ -1,14 +1,10 @@
 import { Box, IconButton, Paper, Stack, Typography } from "@mui/material";
-import BuildIcon from "@mui/icons-material/Build";
 import { Link, NavLink } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import Logo from "../../../src/assets/Logo.png";
 import Ribbon from "../components/Ribbon";
 import { useAppDispatch, useAppSelector } from "../store/configureStore";
-import classes from "../features/roleHandyman/RoleHandyman.module.css";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-
 import { signOut } from "../features/account/accountSlice";
 
 const rightLinks = [

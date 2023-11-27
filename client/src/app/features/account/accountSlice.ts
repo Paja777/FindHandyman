@@ -30,7 +30,7 @@ export const accountSlice = createSlice({
         state.password = "";
         state.loggedIn = false; 
         state.role = '';
-        state.displayedAds = '';
+        state.displayedAds = 'handyman';
         state.category = '';
     },
     registerUser: (state, { payload }) => {

@@ -4,6 +4,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import AddIcon from "@mui/icons-material/Add";
 import { useAppDispatch } from "../store/configureStore";
 import { setDisplayedAds } from "../features/account/accountSlice";
+import { setSearchTerm } from "../features/roleHandyman/adSlice";
 
 interface Props {
   path: string;
@@ -13,6 +14,7 @@ interface Props {
 const BigButton = ({ path, title }: Props) => {
   const dispatch = useAppDispatch();
   const handleClick = () => {
+    dispatch(setSearchTerm(''));
     if (title.includes("Search")) dispatch(setDisplayedAds("user"));
      if (title.includes("handyman") && title.includes("Search")) dispatch(setDisplayedAds("handyman"));
   };

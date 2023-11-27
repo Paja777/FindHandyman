@@ -12,7 +12,6 @@ const SideBar = () => {
     <Typography variant="h6" color="text.secondary">Choose options: </Typography>
     <BigButton path={pathRole} title={"Create your ad "} />
     <BigButton path={"/"}  title={"Search customer ads"} />
-    <BigButton path={"/createad"} title={"Check calendar"} />
     <Typography variant="h6" color="text.secondary">Looking for handyman ads? </Typography>
     <BigButton path={"/"} title={"Search handyman ads"} />
   </Box>
