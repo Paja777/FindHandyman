@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-
 interface AccountState {
   username: string;
   email: string;
@@ -8,6 +7,7 @@ interface AccountState {
   loggedIn: boolean;
   role: string;
   displayedAds: string;
+  category: string;
 }
 
 const initialState: AccountState = {
@@ -17,9 +17,8 @@ const initialState: AccountState = {
   loggedIn: false,
   role: '',
   displayedAds: '',
-
-};
-
+  category: '',
+}
 
 export const accountSlice = createSlice({
   name: "account",
@@ -32,6 +31,7 @@ export const accountSlice = createSlice({
         state.loggedIn = false; 
         state.role = '';
         state.displayedAds = '';
+        state.category = '';
     },
     registerUser: (state, { payload }) => {
         state.username = payload.username;
@@ -40,7 +40,8 @@ export const accountSlice = createSlice({
         state.loggedIn = true;
         state.role = payload.role;
         state.displayedAds = payload.role;
-        localStorage.setItem(`${state.username}`, JSON.stringify(state) )
+        state.category = payload.category;
+        localStorage.setItem(`${state.username}`, JSON.stringify(state))
     },
     loginUser: (state, { payload }) => {
         state.username = payload.username;
@@ -48,16 +49,15 @@ export const accountSlice = createSlice({
         state.password = payload.password;
         state.loggedIn = true;
         state.displayedAds = payload.role;
-        state.role = payload.role; 
+        state.role = payload.role;
+        state.category = payload.category;
         state.displayedAds = payload.role === 'handyman'? 'user' : 'handyman';   
     },
      setDisplayedAds: (state, {payload}) => {
-      state.displayedAds = payload;
-       
+      state.displayedAds = payload;   
      },
   },
-
-  
+ 
 });
 
 export const { signOut, registerUser, loginUser, setDisplayedAds } = accountSlice.actions;

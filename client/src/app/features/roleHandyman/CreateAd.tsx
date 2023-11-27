@@ -11,7 +11,7 @@ import ImageUploadButton from "../../components/ImageUploadButton";
 const CreateAd = () => {
   const navigate = useNavigate();
   const [serviceInputCount, setServiceInputCount] = useState([1, 2, 3]);
-  const { username } = useAppSelector((state) => state.account);
+  const { username, category } = useAppSelector((state) => state.account);
   const { images } = useAppSelector((state) => state.ad);
 
   const {
@@ -25,7 +25,7 @@ const CreateAd = () => {
   async function submitForm(data: FieldValues) {
     try {
       console.log({ ...data, name: username });
-      dispatch(createAd({ ...data, name: username, id: uuidv4() }));
+      dispatch(createAd({ ...data, name: username, id: uuidv4(), category: category }));
       navigate("/");
     } catch (error) {
       console.log(error);

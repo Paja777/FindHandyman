@@ -15,11 +15,11 @@ const Ribbon = () => {
         backgroundImage: 'url("https://i.pinimg.com/736x/f2/e9/b9/f2e9b991d62bf3ae442d43c52a734a06.jpg")',
         backgroundSize: "60vh", 
         backgroundRepeat: 'repeat-x',
-        
+        opacity: 0.8,
         height: "6vh",
         justifyContent: "center",
         position: "sticky",
-        top: 86,
+        top: 80,
         zIndex: "23",
       }}
     >
@@ -32,9 +32,10 @@ const Ribbon = () => {
             textDecoration: "none",
             px: "21px",
             my: "auto",
-            fontSize: "25px",
+            fontSize: "28px",
             fontWeight: "bolder",
             color: "white",
+
             WebkitTextStroke: "1px red",
             "&:hover": {
               color: "red",

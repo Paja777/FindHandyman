@@ -29,7 +29,7 @@ export default function Login() {
       const storedUserData = JSON.parse(
         localStorage.getItem(`${data.username}`)!
       );
-      console.log(storedUserData.password);
+      console.log(storedUserData);
       if (storedUserData && storedUserData.password) {
         navigate("/");
         dispatch(loginUser(storedUserData));

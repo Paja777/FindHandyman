@@ -13,14 +13,15 @@ import avatar from "../../assets/avatar.jpg";
 import { useAppSelector } from "../store/configureStore";
 import { useNavigate } from "react-router-dom";
 
-interface Props {
+type UserCardProps = {
   user: UserModel;
 }
 const UserCard = ({
   user: { category, name, images, id, rating },
-}: Props) => {
+}: UserCardProps) => {
   const { displayedAds } = useAppSelector((state) => state.account);
   const navigate = useNavigate();
+  console.log(category);
   return (
     <Card sx={{ width: 460, maxHeight: 440, height: 440, opacity: "1", mt: 0 }}>
       <CardActionArea onClick={() => navigate(`/${id}`)}>
@@ -38,9 +39,9 @@ const UserCard = ({
         />
         <CardContent sx={{ height: 53, maxHeight: 53, overflow: "hidden" }}>
           <Typography gutterBottom variant="h5" component="div">
-            {displayedAds === "handyman"
-              ? `${category} : ${name}`
-              : `${name} is looking for help in category: ${category}`}
+            {displayedAds === "user"
+              ? `${name} is looking for help in category: ${category}`
+              : `${category} : ${name}`}
           </Typography>
         </CardContent>
       </CardActionArea>

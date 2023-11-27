@@ -7,7 +7,7 @@ import Ribbon from "../components/Ribbon";
 import { useAppDispatch, useAppSelector } from "../store/configureStore";
 import classes from "../features/roleHandyman/RoleHandyman.module.css";
 import GitHubIcon from "@mui/icons-material/GitHub";
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
 
 import { signOut } from "../features/account/accountSlice";
 
@@ -22,7 +22,7 @@ const navStyles = {
   color: "green",
   textDecoration: "none",
   fontSize: "25px",
-  marginRight: "10px",
+  marginRight: "17px",
   paddingTop: "7%",
   fontWeight: "bolder",
   "&:hover": {
@@ -41,8 +41,8 @@ const Navbar = () => {
     <>
       <Stack
         direction="row"
-        spacing={2}
-        p={1}
+        spacing={1}
+        p={0}
         sx={{
           position: "sticky",
           zIndex: 22,
@@ -52,48 +52,44 @@ const Navbar = () => {
           marginRigth: "30px",
         }}
       >
-        <Box sx={{ pl: 2 }}>
+        <Box sx={{ pl: 0 }}>
           <Link
             to={"/"}
-            className={classes.ultra}
             style={{
               textDecoration: "none",
-              fontWeight: "bolder",
-              fontSize: "38px",
+              fontSize: "43px",
               color: "red",
-              WebkitTextStroke: "1px black",
               padding: 0,
               marginLeft: "3px",
+              marginBottom: "2%",
+              marginTop: "5%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
-            <img src={Logo} alt="Logo" height="60" />
-            Handy
-            <span style={{ color: "black", WebkitTextStroke: "0.3px red" }}>
-              man
-            </span>
-            <BuildIcon
-              sx={{ color: "black", ml: 0, mt: 1, fontSize: "40px" }}
-            />
+            <Typography variant="h3">FindHandyman</Typography>
           </Link>
         </Box>
 
-        <Stack direction="row" sx={{mr:7}}>
+        <Stack direction="row" sx={{ mr: 7 }}>
           <NavLink
             to={`https://github.com/Paja777`}
             style={{
-              backgroundColor: "rgb(25, 25, 26)",
+              opacity: 0.7,
+              backgroundColor: "rgb(41, 41, 41)",
               color: "white",
               textDecoration: "none",
               display: "flex",
-              paddingLeft:'9px',
-              paddingRight:'9px',
-              borderRadius: '5px',
+              paddingLeft: "9px",
+              paddingRight: "9px",
+              borderRadius: "5px",
               marginRight: 7,
-              height:'10vh'
+              height: "10vh",
             }}
           >
-            <GitHubIcon sx={{mt:2, mr:1, fontSize: '40px'}}/>
-            <Typography sx={{ textDecoration: "none", mt:2.5}} variant="h5">
+            <GitHubIcon sx={{ mt: 2, mr: 1, fontSize: "40px" }} />
+            <Typography sx={{ textDecoration: "none", mt: 2.5 }} variant="h5">
               github Paja777
             </Typography>
           </NavLink>
@@ -102,17 +98,18 @@ const Navbar = () => {
             style={{
               backgroundColor: "rgb(66, 135, 245)",
               color: "white",
+              opacity: 0.7,
               textDecoration: "none",
               display: "flex",
-              paddingLeft:'8px',
-              paddingRight:'8px',
-              borderRadius: '5px',
+              paddingLeft: "8px",
+              paddingRight: "8px",
+              borderRadius: "5px",
               marginRight: 7,
-              height:'10vh'
+              height: "10vh",
             }}
           >
-            <LinkedInIcon sx={{mt:2, mr:1, fontSize: '40px'}}/>
-            <Typography sx={{ textDecoration: "none", mt:2.5}} variant="h5">
+            <LinkedInIcon sx={{ mt: 2, mr: 1, fontSize: "40px" }} />
+            <Typography sx={{ textDecoration: "none", mt: 2.5 }} variant="h5">
               Pavle Rvovic
             </Typography>
           </NavLink>
@@ -129,10 +126,9 @@ const Navbar = () => {
               onClick={() => dispatch(signOut())}
               sx={{
                 ...navStyles,
-                marginTop: '3%',
+                marginTop: "3%",
                 "&.active": {
                   color: "red",
-                
                 },
               }}
             >
