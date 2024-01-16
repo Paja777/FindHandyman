@@ -42,7 +42,7 @@ const BigButton = ({ path, title }: Props) => {
         },
       }}
     >
-      <Typography
+      <Typography data-testid="text"
         sx={{
           mx: "auto",
           my: "auto",
@@ -53,7 +53,7 @@ const BigButton = ({ path, title }: Props) => {
         {title}
       </Typography>
 
-      <IconButton
+      <IconButton data-testid="icon"
         sx={{ posistion: "absolute", left: "20%", rigth: "5%", color: "white" }}
       >
         {title.includes("Create") ? <AddIcon /> : <SearchIcon />}

@@ -108,7 +108,7 @@ const dummyListUser = [
     images: [david1, david2],
   },
 ];
-interface AdState {
+export interface AdState {
   name: string;
   id: any;
   category: string;
