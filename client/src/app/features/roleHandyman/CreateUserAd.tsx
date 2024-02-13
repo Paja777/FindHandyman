@@ -14,7 +14,7 @@ const CreateUserAd = () => {
 
   const {
     register,
-    handleSubmit,
+    handleSubmit, 
     formState: { isSubmitting, isValid, errors },
   } = useForm({ mode: "all" });
 

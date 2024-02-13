@@ -180,10 +180,10 @@ export const adSlice = createSlice({
     },
     changeRating: (state, { payload }) => {
       const index = state.handymanAds.findIndex((ad) => ad.id === payload.adId);
-      if (index !== -1)
+      if (index !== -1) {
         state.handymanAds[index].rating =
           (state.handymanAds[index].rating + payload.newValue) / 2;
-      else {
+      } else {
         const index2 = state.userAds.findIndex((ad) => ad.id === payload.adId);
         state.userAds[index2].rating =
           (state.userAds[index2].rating + payload.newValue) / 2;
