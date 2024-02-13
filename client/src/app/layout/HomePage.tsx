@@ -7,17 +7,20 @@ import SearchBar from "../components/SearchBar";
 
 const HomePage = () => {
   const { displayedAds } = useAppSelector((state) => state.account);
-  const { handymanAds, userAds, searchTerm } = useAppSelector((state) => state.ad);
+  const { handymanAds, userAds, searchTerm } = useAppSelector(
+    (state) => state.ad
+  );
 
   const [ads, setAds] = useState(userAds);
   useEffect(() => {
     let filteredAds = [];
-    if (searchTerm === '') {
-      filteredAds = (displayedAds === "user") ? userAds : handymanAds;
+    if (searchTerm === "") {
+      filteredAds = displayedAds === "user" ? userAds : handymanAds;
     } else {
-      filteredAds = (displayedAds === 'handyman')
-        ? handymanAds.filter(ad => ad.category.includes(searchTerm))
-        : userAds.filter(ad => ad.category.includes(searchTerm));
+      filteredAds =
+        displayedAds === "handyman"
+          ? handymanAds.filter((ad) => ad.category.includes(searchTerm))
+          : userAds.filter((ad) => ad.category.includes(searchTerm));
     }
     setAds(filteredAds);
   }, [displayedAds, handymanAds, userAds, searchTerm]);
