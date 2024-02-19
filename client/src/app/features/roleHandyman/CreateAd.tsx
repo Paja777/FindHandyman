@@ -25,7 +25,9 @@ const CreateAd = () => {
   async function submitForm(data: FieldValues) {
     try {
       console.log({ ...data, name: username });
-      dispatch(createAd({ ...data, name: username, id: uuidv4(), category: category }));
+      dispatch(
+        createAd({ images, name: username, category: category })
+      );
       navigate("/");
     } catch (error) {
       console.log(error);
@@ -52,7 +54,7 @@ const CreateAd = () => {
       }}
     >
       <form onSubmit={handleSubmit(submitForm)} style={{ marginLeft: "3%" }}>
-      <Typography variant="h3" color="green" sx={{ ml: "12%", mb: 4 }}>
+        <Typography variant="h3" color="green" sx={{ ml: "12%", mb: 4 }}>
           Create Your Ad
         </Typography>
         <Typography variant="body1" color="rgb(181, 58, 27)" sx={{ m: 2 }}>

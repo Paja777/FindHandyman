@@ -26,6 +26,7 @@ import euser1 from "../../../assets/euser1.webp";
 import euser2 from "../../../assets/euser2.webp";
 import plumbuser1 from "../../../assets/plumbuser1.jpg";
 import plumbuser2 from "../../../assets/plumbuser2.webp";
+import agent from "../../api/agent";
 
 const lorelIpsum = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
   Nulla vehicula turpis nec ipsum varius viverra. Sed lobortis mi in odio 
@@ -110,41 +111,43 @@ const dummyListUser = [
 ];
 export interface AdState {
   name: string;
-  id: any;
+  // id: any;
   category: string;
+  rating: number;
   searchTerm: string;
-  contact: string;
-  serviceName: string;
-  servicePrice: string;
-  serviceName1: string;
-  serviceName2?: string;
-  serviceName3?: string;
-  servicePrice1: string;
-  servicePrice2: string;
-  servicePrice3: string;
-  description: string;
-  note?: string;
+  // contact: string;
+  // serviceName?: string;
+  // servicePrice?: string;
+  // serviceName1?: string;
+  // serviceName2?: string;
+  // serviceName3?: string;
+  // servicePrice1?: string;
+  // servicePrice2?: string;
+  // servicePrice3?: string;
+  // description?: string;
+  // note?: string;
   images?: string[];
-  handymanAds: UserModel[];
-  userAds: UserModel[];
+  handymanAds?: UserModel[];
+  userAds?: UserModel[];
 }
 
 const initialState: AdState = {
   name: "",
-  id: "",
+  // id: "",
   category: "",
+  rating: 3,
   searchTerm: "",
-  contact: "0655555",
-  serviceName: "",
-  servicePrice: "",
-  serviceName1: "",
-  serviceName2: "",
-  serviceName3: "",
-  servicePrice1: "",
-  servicePrice2: "",
-  servicePrice3: "",
-  description: "",
-  note: "",
+
+  // serviceName: "",
+  // servicePrice: "",
+  // serviceName1: "",
+  // serviceName2: "",
+  // serviceName3: "",
+  // servicePrice1: "",
+  // servicePrice2: "",
+  // servicePrice3: "",
+  // description: "",
+  // note: "",
   images: [],
   handymanAds: dummyListHandyman,
   userAds: dummyListUser,
@@ -158,35 +161,47 @@ export const adSlice = createSlice({
       state.images = [...payload];
     },
     createAd: (state, { payload }) => {
-      state.name = payload.name;
-      state.id = uuidv4();
-      state.category = payload.category;
+      try {
+        const response = agent.requests.post("/", { ...payload, rating: 3 });
+        console.log
+      } catch (error) {
+        console.log(error)
+      }
+      // state.name = payload.name;
+      // state.id = uuidv4();
+      // state.category = payload.category;
       //  state.contact = payload.contact;
-      state.serviceName = payload.serviceName;
-      state.servicePrice = payload.servicePrice;
-      state.serviceName1 = payload.serviceName1;
-      state.serviceName2 = payload.serviceName2;
-      state.serviceName3 = payload.serviceName3;
-      state.servicePrice1 = payload.servicePrice1;
-      state.servicePrice2 = payload.servicePrice2;
-      state.servicePrice3 = payload.servicePrice3;
-      state.description = payload.description;
-      state.note = payload.alert;
-      const modifiedPayload = { ...payload, images: state.images };
-      if (payload.category === "")
-        state.userAds = [...state.userAds, modifiedPayload];
-      if (payload.category !== "")
-        state.handymanAds = [...state.handymanAds, modifiedPayload];
+      // state.serviceName = payload.serviceName;
+      // state.servicePrice = payload.servicePrice;
+      // state.serviceName1 = payload.serviceName1;
+      // state.serviceName2 = payload.serviceName2;
+      // state.serviceName3 = payload.serviceName3;
+      // state.servicePrice1 = payload.servicePrice1;
+      // state.servicePrice2 = payload.servicePrice2;
+      // state.servicePrice3 = payload.servicePrice3;
+      // state.description = payload.description;
+      // state.note = payload.alert;
+      // const modifiedPayload = { ...payload, images: state.images };
+      // if (payload.category === "")
+      //   state.userAds = [...state.userAds, modifiedPayload];
+      // if (payload.category !== "")
+      //   state.handymanAds = [...state.handymanAds, modifiedPayload];
     },
     changeRating: (state, { payload }) => {
-      const index = state.handymanAds.findIndex((ad) => ad.id === payload.adId);
-      if (index !== -1) {
-        state.handymanAds[index].rating =
-          (state.handymanAds[index].rating + payload.newValue) / 2;
-      } else {
-        const index2 = state.userAds.findIndex((ad) => ad.id === payload.adId);
-        state.userAds[index2].rating =
-          (state.userAds[index2].rating + payload.newValue) / 2;
+      if (state.handymanAds !== undefined && state.userAds !== undefined) {
+        const index = state.handymanAds.findIndex(
+          (ad) => ad.id === payload.adId
+        );
+        if (index !== -1) {
+          state.handymanAds[index].rating =
+            (state.handymanAds[index].rating + payload.newValue) / 2;
+        } else {
+          const index2 = state.userAds.findIndex(
+            (ad) => ad.id === payload.adId
+          );
+          state.userAds[index2].rating =
+            (state.userAds[index2].rating + payload.newValue) / 2;
+        }
       }
     },
     setSearchTerm: (state, { payload }) => {

@@ -13,3 +13,10 @@ const requests = {
     put: (url: string, body: {}) => axios.patch(url, body).then(responseBody),
     delete: (url: string) => axios.delete(url).then(responseBody),
 }
+
+
+const agent = {
+    requests,
+}
+
+export default agent;

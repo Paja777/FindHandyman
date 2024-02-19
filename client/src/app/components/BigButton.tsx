@@ -6,12 +6,12 @@ import { useAppDispatch } from "../store/configureStore";
 import { setDisplayedAds } from "../features/account/accountSlice";
 import { setSearchTerm } from "../features/roleHandyman/adSlice";
 
-interface Props {
+interface BigButtonProps {
   path: string;
   title: string;
 }
 
-const BigButton = ({ path, title }: Props) => {
+const BigButton = ({ path, title }: BigButtonProps) => {
   const dispatch = useAppDispatch();
   const handleClick = () => {
     dispatch(setSearchTerm(''));
@@ -63,3 +63,5 @@ const BigButton = ({ path, title }: Props) => {
 };
 
 export default BigButton;
+export type { BigButtonProps };
+
