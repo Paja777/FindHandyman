@@ -10,7 +10,7 @@ import ImageUploadButton from "../../components/ImageUploadButton";
 
 const CreateAd = () => {
   const navigate = useNavigate();
-  const [serviceInputCount, setServiceInputCount] = useState([1, 2, 3]);
+  const [serviceInputCount, setServiceInputCount] = useState([2, 3, 4]);
   const { username, category } = useAppSelector((state) => state.account);
   const { images } = useAppSelector((state) => state.ad);
 
@@ -23,18 +23,27 @@ const CreateAd = () => {
   const dispatch = useAppDispatch();
 
   async function submitForm(data: FieldValues) {
+    const formatedData = {
+      description: data.description,
+      note: data.alert,
+      name: username,
+      category: category,
+      images,
+      services: Array.from({ length: 10 }, (_, i) => data[`serviceName${i+1}`]),
+      prices: Array.from({ length: 10 }, (_, i) => data[`servicePrice${i+1}`]),
+    };
     try {
-      console.log({ ...data, name: username });
-      dispatch(
-        createAd({ images, name: username, category: category })
-      );
+      dispatch(createAd(formatedData));
       navigate("/");
     } catch (error) {
       console.log(error);
     }
   }
   const clickHandler = () => {
-    setServiceInputCount((prev) => [...prev, prev[prev.length - 1] + 1]);
+    setServiceInputCount((prev) => {
+      if (prev.length > 8) return prev;
+      return [...prev, prev[prev.length - 1] + 1];
+    });
   };
 
   return (
@@ -73,7 +82,7 @@ const CreateAd = () => {
               },
             }}
             placeholder="service name"
-            {...register("serviceName", { required: "Field is required" })}
+            {...register("serviceName1", { required: "Field is required" })}
           ></TextField>
           <TextField
             sx={{
@@ -85,7 +94,7 @@ const CreateAd = () => {
               },
             }}
             placeholder="service price"
-            {...register("servicePrice", { required: "Field is required" })}
+            {...register("servicePrice1", { required: "Field is required" })}
           ></TextField>
         </Stack>
         {serviceInputCount.map((num) => (

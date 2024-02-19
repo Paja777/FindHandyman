@@ -4,26 +4,24 @@ import { useAppSelector } from "../store/configureStore";
 import { useEffect, useState } from "react";
 import SideBar from "../components/SideBar";
 import SearchBar from "../components/SearchBar";
+import { dummyListHandyman, dummyListUser } from "../lib/data";
 
 const HomePage = () => {
   const { displayedAds } = useAppSelector((state) => state.account);
-  const { handymanAds, userAds, searchTerm } = useAppSelector(
-    (state) => state.ad
-  );
-
-  const [ads, setAds] = useState(userAds);
+  const searchTerm = '' 
+  const [ads, setAds] = useState(dummyListUser);
   useEffect(() => {
     let filteredAds = [];
     if (searchTerm === "") {
-      filteredAds = displayedAds === "user" ? userAds : handymanAds;
+      filteredAds = displayedAds === "user" ? dummyListUser : dummyListHandyman;
     } else {
       filteredAds =
         displayedAds === "handyman"
-          ? handymanAds.filter((ad) => ad.category.includes(searchTerm))
-          : userAds.filter((ad) => ad.category.includes(searchTerm));
+          ? dummyListHandyman.filter((ad) => ad.category.includes(searchTerm))
+          : dummyListUser.filter((ad) => ad.category.includes(searchTerm));
     }
     setAds(filteredAds);
-  }, [displayedAds, handymanAds, userAds, searchTerm]);
+  }, [displayedAds, dummyListHandyman, dummyListUser, searchTerm]);
 
   return (
     <>
