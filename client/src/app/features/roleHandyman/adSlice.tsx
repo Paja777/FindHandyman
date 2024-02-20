@@ -1,7 +1,23 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import agent from "../../api/agent";
 
+
+export const fetchProductsAsync = createAsyncThunk<void , void>(
+  'catalog/fetchProductsAsync',
+  async (_, thunkAPI) => {
+      try {
+          const response = await agent.requests.get('/');
+          console.log(response)
+          
+      } catch (error: any) {
+          return thunkAPI.rejectWithValue({error: error.data});
+      }
+  }
+)
+
 export interface AdState {
+  productsLoaded: boolean;
+  status: string;
   category: string;
   description: string;
   note: string;
@@ -12,6 +28,8 @@ export interface AdState {
 }
 
 const initialState: AdState = {
+  productsLoaded: false,
+  status: 'idle',
   category: "",
   description: "",
   note: "",
@@ -34,9 +52,7 @@ export const adSlice = createSlice({
       state.note = payload.alert;
       // forming array of service : price value pairs
       state.servicePrice = payload.services.map(
-        (service: string, index: any) => ({
-          [service]: payload.prices[index],
-        })
+        (service: string, index: any) => ({ [service]: payload.prices[index] })
       );
       try {
         // posting ad to db
@@ -56,7 +72,22 @@ export const adSlice = createSlice({
     setSearchTerm: (state, { payload }) => {
       state.searchTerm = payload;
     },
+    setAdDetails: (state, { payload }) => {},
   },
+  extraReducers: (builder => {
+    builder.addCase(fetchProductsAsync.pending, (state) => {
+      state.status = 'pendingFetchProducts';
+    });
+    builder.addCase(fetchProductsAsync.fulfilled, (state, action) => {
+      console.log(action.payload);
+      state.status = 'idle';
+      state.productsLoaded = true;
+    });
+    builder.addCase(fetchProductsAsync.rejected, (state, action) => {
+      console.log(action.payload);
+      state.status = 'idle';
+  });
+  })
 });
 
 export const { createAd, uploadImages, changeRating, setSearchTerm } =

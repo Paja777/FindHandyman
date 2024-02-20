@@ -9,7 +9,7 @@ const SideBar = () => {
   const welcomeMessage = role === 'handyman' ? `Handyman ${username}` : username;
   return (
     <Box sx={{ gridRow: "1", gridColumn: "1", height: "20vh", mt:1, width:'100%' }}>
-    <div className={classes.ultra} style={{fontSize: '36px', color: 'grey'}} >{`Welcome ${welcomeMessage}!`} </div>
+    <h1 className={classes.ultra} style={{fontSize: '36px', color: 'grey'}} >{`Welcome ${welcomeMessage}!`} </h1>
     <Typography variant="h6" color="text.secondary">Choose options: </Typography>
     <BigButton path={pathRole} title={"Create your ad "} />
     <BigButton path={"/"}  title={"Search customer ads"} />
@@ -17,6 +17,6 @@ const SideBar = () => {
     <BigButton path={"/"} title={"Search handyman ads"} />
   </Box>
   )
-}
+} 
 
 export default SideBar;

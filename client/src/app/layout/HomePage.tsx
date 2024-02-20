@@ -5,9 +5,11 @@ import { useEffect, useState } from "react";
 import SideBar from "../components/SideBar";
 import SearchBar from "../components/SearchBar";
 import { dummyListHandyman, dummyListUser } from "../lib/data";
+import { fetchProductsAsync } from "../features/roleHandyman/adSlice";
 
 const HomePage = () => {
   const { displayedAds } = useAppSelector((state) => state.account);
+  const { productsLoaded } = useAppSelector((state) => state.ad);
   const searchTerm = '' 
   const [ads, setAds] = useState(dummyListUser);
   useEffect(() => {

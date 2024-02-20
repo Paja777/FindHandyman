@@ -3,12 +3,11 @@ import BigButton, { BigButtonProps } from "../components/BigButton";
 import { renderWithProviders } from "../utils/utils-for-test";
 
 beforeEach(() => {
-  const title = "Search";
-  renderWithProviders(<BigButton path="/" title={title} />);
+  renderWithProviders(<BigButton path="/" title="Search" />);
 });
 
 test("icon should be rendered", () => {
-  const iconEl = screen.getByTestId("icon");
+  const iconEl = screen.getByRole("button");
   expect(iconEl).toBeInTheDocument();
 });
 
@@ -17,4 +16,9 @@ test("text element should be rendered", () => {
   expect(textEl).toBeInTheDocument();
   const props: BigButtonProps = { path: "/", title: "Search" };
   expect(textEl).toHaveTextContent(props.title);
+});
+
+test("should not be text context", () => {
+  const textEl = screen.queryByText(/Serch/i);
+  expect(textEl).not.toBeInTheDocument();
 });
