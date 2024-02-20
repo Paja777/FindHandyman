@@ -3,14 +3,14 @@ import agent from "../../api/agent";
 
 
 export const fetchProductsAsync = createAsyncThunk<void , void>(
-  'catalog/fetchProductsAsync',
+  'ad/fetchProductsAsync',
   async (_, thunkAPI) => {
       try {
           const response = await agent.requests.get('/');
           console.log(response)
           
       } catch (error: any) {
-          return thunkAPI.rejectWithValue({error: error.data});
+          return thunkAPI.rejectWithValue({error: error.respose.data});
       }
   }
 )
@@ -79,12 +79,12 @@ export const adSlice = createSlice({
       state.status = 'pendingFetchProducts';
     });
     builder.addCase(fetchProductsAsync.fulfilled, (state, action) => {
-      console.log(action.payload);
+      
       state.status = 'idle';
       state.productsLoaded = true;
     });
     builder.addCase(fetchProductsAsync.rejected, (state, action) => {
-      console.log(action.payload);
+      // console.log(action.payload);
       state.status = 'idle';
   });
   })

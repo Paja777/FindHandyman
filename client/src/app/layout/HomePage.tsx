@@ -1,17 +1,27 @@
 import { Box } from "@mui/material";
 import AdsList from "../components/AdsList";
-import { useAppSelector } from "../store/configureStore";
+import { useAppDispatch, useAppSelector } from "../store/configureStore";
 import { useEffect, useState } from "react";
 import SideBar from "../components/SideBar";
 import SearchBar from "../components/SearchBar";
 import { dummyListHandyman, dummyListUser } from "../lib/data";
 import { fetchProductsAsync } from "../features/roleHandyman/adSlice";
 
+
 const HomePage = () => {
   const { displayedAds } = useAppSelector((state) => state.account);
   const { productsLoaded } = useAppSelector((state) => state.ad);
   const searchTerm = '' 
   const [ads, setAds] = useState(dummyListUser);
+  const dispatch = useAppDispatch()
+
+  // fetching products from db
+  useEffect(() => {
+    if(!productsLoaded) dispatch(fetchProductsAsync());
+  }, [productsLoaded, dispatch]); 
+ 
+
+  // dummy products
   useEffect(() => {
     let filteredAds = [];
     if (searchTerm === "") {
@@ -52,3 +62,5 @@ const HomePage = () => {
 };
 
 export default HomePage;
+
+
