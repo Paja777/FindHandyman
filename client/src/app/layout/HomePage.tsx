@@ -5,36 +5,41 @@ import { useEffect, useState } from "react";
 import SideBar from "../components/SideBar";
 import SearchBar from "../components/SearchBar";
 import { dummyListHandyman, dummyListUser } from "../lib/data";
-import { fetchProductsAsync } from "../features/roleHandyman/adSlice";
-
+import { AdSelector, fetchProductsAsync } from "../features/roleHandyman/adSlice";
 
 const HomePage = () => {
-  const { displayedAds } = useAppSelector((state) => state.account);
-  const { productsLoaded } = useAppSelector((state) => state.ad);
-  const searchTerm = '' 
-  const [ads, setAds] = useState(dummyListUser);
-  const dispatch = useAppDispatch()
+  // const { displayedAds } = useAppSelector((state) => state.account);
+  // const { productsLoaded } = useAppSelector((state) => state.ad);
+  // const searchTerm = ''
 
-  // fetching products from db
+  const { productsLoaded } = useAppSelector((state) => state.ad);
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
-    if(!productsLoaded) dispatch(fetchProductsAsync());
-  }, [productsLoaded, dispatch]); 
- 
+    if (!productsLoaded) dispatch(fetchProductsAsync());
+  }, [productsLoaded, dispatch]);
+
+  const ads = useAppSelector(AdSelector.selectAll);
+  console.log(ads);
+
+  // undefined case handaling
 
   // dummy products
-  useEffect(() => {
-    let filteredAds = [];
-    if (searchTerm === "") {
-      filteredAds = displayedAds === "user" ? dummyListUser : dummyListHandyman;
-    } else {
-      filteredAds =
-        displayedAds === "handyman"
-          ? dummyListHandyman.filter((ad) => ad.category.includes(searchTerm))
-          : dummyListUser.filter((ad) => ad.category.includes(searchTerm));
-    }
-    setAds(filteredAds);
-  }, [displayedAds, dummyListHandyman, dummyListUser, searchTerm]);
+  // useEffect(() => {
+  //   let filteredAds = [];
+  //   if (searchTerm === "") {
+  //     filteredAds = displayedAds === "user" ? dummyListUser : dummyListHandyman;
+  //   } else {
+  //     filteredAds =
+  //       displayedAds === "handyman"
+  //         ? dummyListHandyman.filter((ad) => ad.category.includes(searchTerm))
+  //         : dummyListUser.filter((ad) => ad.category.includes(searchTerm));
+  //   }
+  //   setAds(filteredAds);
+  // }, [displayedAds, dummyListHandyman, dummyListUser, searchTerm]);
 
+  if (!productsLoaded) return <div>UNDEFINED</div>;
+  
   return (
     <>
       <Box
@@ -62,5 +67,3 @@ const HomePage = () => {
 };
 
 export default HomePage;
-
-

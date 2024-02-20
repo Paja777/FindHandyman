@@ -1,14 +1,20 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 import agent from "../../api/agent";
+import { Ad } from "../../models/ad";
+import { RootState } from "../../store/configureStore";
 
 
-export const fetchProductsAsync = createAsyncThunk<void , void>(
+export const adAdapter = createEntityAdapter<Ad>({
+  selectId: (ad) => ad._id,
+});
+
+export const fetchProductsAsync = createAsyncThunk<Ad[], void>(
   'ad/fetchProductsAsync',
   async (_, thunkAPI) => {
       try {
           const response = await agent.requests.get('/');
           console.log(response)
-          
+          return response;
       } catch (error: any) {
           return thunkAPI.rejectWithValue({error: error.respose.data});
       }
@@ -27,7 +33,7 @@ export interface AdState {
   searchTerm: string;
 }
 
-const initialState: AdState = {
+const initialState = {
   productsLoaded: false,
   status: 'idle',
   category: "",
@@ -41,7 +47,7 @@ const initialState: AdState = {
 
 export const adSlice = createSlice({
   name: "ad",
-  initialState,
+  initialState:  adAdapter.getInitialState<AdState>(initialState),
   reducers: {
     uploadImages: (state, { payload }) => {
       state.images = [...payload];
@@ -79,7 +85,7 @@ export const adSlice = createSlice({
       state.status = 'pendingFetchProducts';
     });
     builder.addCase(fetchProductsAsync.fulfilled, (state, action) => {
-      
+      adAdapter.setAll(state, action.payload);
       state.status = 'idle';
       state.productsLoaded = true;
     });
@@ -90,5 +96,6 @@ export const adSlice = createSlice({
   })
 });
 
+export const AdSelector = adAdapter.getSelectors((state: RootState) => state.ad);
 export const { createAd, uploadImages, changeRating, setSearchTerm } =
   adSlice.actions;
