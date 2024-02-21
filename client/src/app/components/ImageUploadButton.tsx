@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { useAppDispatch } from '../store/configureStore';
 import { uploadImages } from '../features/roleHandyman/adSlice';
 import { LoadingButton } from '@mui/lab';
+import { convertToBase64 } from '../utils/utils';
 
 const ImageUploadButton = () => {
   const dispatch = useAppDispatch();
@@ -12,25 +13,13 @@ const ImageUploadButton = () => {
     fileInputRef?.current?.click();
   };
 
-  const handleFileChange = (e: any) => {
-    const selectedFiles = e.target.files;
-    // Convert each selected file to base64 data
-    const fileDataArray: string[] = [];
-    for (const file of selectedFiles) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        // Read the file as data URL (base64)
-        const base64Data = reader.result;
-        fileDataArray.push(base64Data as string); // Cast to string
-        if (fileDataArray.length === selectedFiles.length) {
-          // Dispatch action to upload base64 data
-          dispatch(uploadImages(fileDataArray));
-          console.log(fileDataArray);
-        }
-      };
-      reader.readAsDataURL(file); // Read file as data URL
+  const handleFileChange = async (e: any) => {
+    const selectedFiles : File[] = Array.from(e.target.files);
+    console.log(selectedFiles)
+    const base64 = await convertToBase64(selectedFiles);
+    dispatch(uploadImages(base64));
     }
-  };
+  
 
   return (
     <div>

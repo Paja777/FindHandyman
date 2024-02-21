@@ -2,7 +2,7 @@ import { createAsyncThunk, createEntityAdapter, createSlice } from "@reduxjs/too
 import agent from "../../api/agent";
 import { Ad } from "../../models/ad";
 import { RootState } from "../../store/configureStore";
-import { compressImage } from "../../utils/utils";
+import { base64ArrayToBinaryArray, imageComporessor, serviceMaker } from "../../utils/utils";
 
 
 export const adAdapter = createEntityAdapter<Ad>({
@@ -14,7 +14,6 @@ export const fetchProductsAsync = createAsyncThunk<Ad[], void>(
   async (_, thunkAPI) => {
     try {
       const response = await agent.requests.get('/');
-      console.log(response);
       return response;
     } catch (error: any) {
       return thunkAPI.rejectWithValue({ error: error.respose.data });
@@ -22,31 +21,29 @@ export const fetchProductsAsync = createAsyncThunk<Ad[], void>(
   }
 );
 
-export const createAd = createAsyncThunk<Ad, any>(
+export const createAd = createAsyncThunk<Ad, any, {state: RootState}>(
   'ad/createAd',
   async (payload, thunkAPI) => {
+    console.log('before try1')
+    // make array of objects { service : price}
+    // const services = serviceMaker({services: payload.services, prices: payload.prices});
     // Compress the images before posting to the server
-    const compressedImages = [];
-    for (const image of payload.images) {
-      try {
-        const compressedImage = await compressImage(image, {
-          maxWidth: 800, // Adjust according to your needs
-          maxHeight: 600, // Adjust according to your needs
-          quality: 0.8, // Adjust according to your needs
-        });
-        compressedImages.push(compressedImage);
-      } catch (error) {
-        console.error('Error compressing image:', error);
-        // If compression fails, use the original image
-        compressedImages.push(image);
-      }
-    }
+    // const compressedImages = imageComporessor(thunkAPI.getState().ad.images);
+    // const imageArray = base64ArrayToBinaryArray(thunkAPI.getState().ad.images)
     // Post the ad to the server
+    console.log('before try2')
     try {
+    console.log('before try3')
       const response = await agent.requests.post("/", {
-        ...payload,
-        images: compressedImages,
+        // name: payload.name,
+        // category: payload.category,
+        // note: payload.note,
+        // description: payload.description,
+        // services: services,
+        // rating: 0,
+        images: thunkAPI.getState().ad.images,
       });
+      console.log(response);
       return response; // Return the posted ad
     } catch (error) {
       console.error('Error posting ad:', error);
@@ -66,7 +63,6 @@ export interface AdState {
   rating: number;
   searchTerm: string;
 }
-
 const initialState: AdState = {
   productsLoaded: false,
   status: 'idle',
@@ -84,7 +80,7 @@ export const adSlice = createSlice({
   initialState: adAdapter.getInitialState(initialState),
   reducers: {
     uploadImages: (state, { payload }) => {
-      state.images = [...payload];
+      state.images = [...state.images, ...payload];
     },
     changeRating: (state, { payload }) => {
       state.rating = payload;

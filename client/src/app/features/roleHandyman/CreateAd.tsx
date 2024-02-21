@@ -33,7 +33,8 @@ const CreateAd = () => {
     };
     try {
       dispatch(createAd(formatedData));
-      navigate("/");
+      console.log('after dispatch createAd function')
+      // navigate("/");
     } catch (error) {
       console.log(error);
     }

@@ -4,7 +4,7 @@ export interface Ad{
     name: string;
     category: string;
     services: {}[];
-    images: string[];
+    images: string;
     rating: number;
     description: string;
     note?: string;

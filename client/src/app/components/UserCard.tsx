@@ -8,7 +8,6 @@ import {
   CardActions,
   Rating,
 } from "@mui/material";
-import { UserModel } from "../models/UserModel";
 import avatar from "../../assets/avatar.jpg";
 import { useAppSelector } from "../store/configureStore";
 import { useNavigate } from "react-router-dom";
@@ -22,7 +21,8 @@ const UserCard = ({
 }: UserCardProps) => {
   const { displayedAds } = useAppSelector((state) => state.account);
   const navigate = useNavigate();
-  console.log(category);
+  console.log(images)
+  
   return (
     <Card sx={{ width: 460, maxHeight: 440, height: 440, opacity: "1", mt: 0 }}>
       <CardActionArea onClick={() => navigate(`/${_id}`)}>
@@ -35,7 +35,7 @@ const UserCard = ({
             backgroundSize: "contain",
             bgcolor: "primary.light",
           }}
-          image={images ? images[0] : avatar}
+          image={images[0] ||  avatar}
           alt={category}
         />
         <CardContent sx={{ height: 53, maxHeight: 53, overflow: "hidden" }}>
