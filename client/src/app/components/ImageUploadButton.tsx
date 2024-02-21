@@ -12,40 +12,44 @@ const ImageUploadButton = () => {
     fileInputRef?.current?.click();
   };
 
-  const handleFileChange = (e : any) => {
-    // Handle the selected files
+  const handleFileChange = (e: any) => {
     const selectedFiles = e.target.files;
-
-    // Convert each selected file to a URL
-    const fileUrls = [];
+    // Convert each selected file to base64 data
+    const fileDataArray: string[] = [];
     for (const file of selectedFiles) {
-      const fileUrl = URL.createObjectURL(file);
-      fileUrls.push(fileUrl);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        // Read the file as data URL (base64)
+        const base64Data = reader.result;
+        fileDataArray.push(base64Data as string); // Cast to string
+        if (fileDataArray.length === selectedFiles.length) {
+          // Dispatch action to upload base64 data
+          dispatch(uploadImages(fileDataArray));
+          console.log(fileDataArray);
+        }
+      };
+      reader.readAsDataURL(file); // Read file as data URL
     }
-
-    // You can now use the fileUrls array as needed
-    console.log(fileUrls);
-    dispatch(uploadImages(fileUrls))
   };
 
   return (
     <div>
       <LoadingButton
-            onClick={handleButtonClick}
-            variant="contained"
-            sx={{
-              mt: 1,
-              mb: 2,
-              ml: "20%",
-              width: "100%",
-              height: "50px",
-              bgcolor: "red",
-              color: "white",
-              "&:hover": { bgcolor: "rgb(129, 212, 28)" },
-            }}
-          >
-            Upload Images
-          </LoadingButton>
+        onClick={handleButtonClick}
+        variant="contained"
+        sx={{
+          mt: 1,
+          mb: 2,
+          ml: "20%",
+          width: "100%",
+          height: "50px",
+          bgcolor: "red",
+          color: "white",
+          "&:hover": { bgcolor: "rgb(129, 212, 28)" },
+        }}
+      >
+        Upload Images
+      </LoadingButton>
       <input
         type="file"
         accept="image/*"
