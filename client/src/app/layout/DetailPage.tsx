@@ -26,13 +26,12 @@ const DetailPage = () => {
     if (role === "") navigate("/register");
     else {
       setShowModal(true);
-      setRatingValue(newValue);
       dispatch(updateAdAsync({ rating: newValue, note: ad!.note, description:ad!.description, images:ad!.images, name: ad!.name, services:ad!.services, _id: id}));
     }
   };
   const handleCloseModal = () => {
     setShowModal(false);
-  };
+  }; 
 
   return (
     <>
@@ -57,7 +56,7 @@ const DetailPage = () => {
               <Rating
                 name="half-rating"
                 onChange={handleCHangeRating}
-                value={ratingValue}
+                value={ad?.rating || 0}
                 precision={0.5}
                 sx={{ ml: 4, mt: 3, mb: -3 }}
               />

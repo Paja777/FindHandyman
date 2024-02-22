@@ -14,7 +14,7 @@ export const fetchAdsAsync = createAsyncThunk<Ad[], void>(
   'ad/fetchAdsAsync',
   async (_, thunkAPI) => {
     try {
-      const response = await agent.requests.get('/');
+      const response = await agent.requests.get('/ad');
       return response;
     } catch (error: any) {
       return thunkAPI.rejectWithValue({ error: error.respose.data });
@@ -39,7 +39,7 @@ export const updateAdAsync = createAsyncThunk<Ad, any>(
   async (data, thunkAPI) => {
     try {
       // console.log(Ad._id, Ad)
-      const response = await agent.requests.patch(data._id, data);
+      const response = await agent.requests.patch(`/ad/${data._id}`, data);
       console.log(response)
       return response.data;
     } catch (error: any) {
