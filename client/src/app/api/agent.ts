@@ -1,4 +1,5 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
+import { Ad } from "../models/ad";
 
 const sleep = () => new Promise(resolve => setTimeout(resolve, 500));
 
@@ -10,12 +11,12 @@ const responseBody = (response: AxiosResponse) => response.data;
 const requests = {
     get: (url: string) => axios.get(url).then(responseBody),
     post: (url: string, body: {}) => axios.post(url, body).then(responseBody),
-    put: (url: string, body: {}) => axios.patch(url, body).then(responseBody),
+    patch: (url: string, body: {}) => axios.patch(url, body).then(responseBody),
     delete: (url: string) => axios.delete(url).then(responseBody),
 }
 
 const adCatalog = {
-    details: (id: any) => axios.get(`/:${id}`)
+    details: (id: string) => axios.get(`/${id}`),
 }
 
 

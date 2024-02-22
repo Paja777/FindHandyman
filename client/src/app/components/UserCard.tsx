@@ -21,7 +21,6 @@ const UserCard = ({
 }: UserCardProps) => {
   const { displayedAds } = useAppSelector((state) => state.account);
   const navigate = useNavigate();
-  console.log(images)
   
   return (
     <Card sx={{ width: 460, maxHeight: 440, height: 440, opacity: "1", mt: 0 }}>

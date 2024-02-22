@@ -3,6 +3,7 @@ import agent from "../../api/agent";
 import { Ad } from "../../models/ad";
 import { RootState } from "../../store/configureStore";
 import { serviceMaker } from "../../utils/utils";
+import axios from "axios";
 
 
 export const adAdapter = createEntityAdapter<Ad>({
@@ -10,7 +11,7 @@ export const adAdapter = createEntityAdapter<Ad>({
 });
 
 export const fetchAdsAsync = createAsyncThunk<Ad[], void>(
-  'ad/fetchProductsAsync',
+  'ad/fetchAdsAsync',
   async (_, thunkAPI) => {
     try {
       const response = await agent.requests.get('/');
@@ -21,8 +22,8 @@ export const fetchAdsAsync = createAsyncThunk<Ad[], void>(
   }
 );
 
-export const fetchAdAsync = createAsyncThunk<Ad, any>(
-  'ad/fetchProductAsync',
+export const fetchAdAsync = createAsyncThunk<Ad, string>(
+  'ad/fetchAdAsync',
   async (productId, thunkAPI) => {
     try {
       const response = await agent.adCatalog.details(productId);
@@ -33,16 +34,27 @@ export const fetchAdAsync = createAsyncThunk<Ad, any>(
   }
 );
 
+export const updateAdAsync = createAsyncThunk<Ad, any>(
+  'ad/updateAdAsync',
+  async (data, thunkAPI) => {
+    try {
+      // console.log(Ad._id, Ad)
+      const response = await agent.requests.patch(data._id, data);
+      console.log(response)
+      return response.data;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue({ error: error.respose.data });
+    }
+  }
+);
+
 export const createAd = createAsyncThunk<Ad, any, {state: RootState}>(
   'ad/createAd',
   async (payload, thunkAPI) => {
-    console.log('before try1')
     // make array of objects { service : price}
     const services = serviceMaker({services: payload.services, prices: payload.prices});
     // Post the ad to the server
-    console.log('before try2')
     try {
-    console.log('before try3')
       const response = await agent.requests.post("/", {
         name: payload.name,
         category: payload.category,
@@ -131,6 +143,17 @@ export const adSlice = createSlice({
       state.status = 'idle';
     });
     builder.addCase(createAd.rejected, (state, action) => {
+      state.status = 'idle';
+      // Handle the error
+    });
+    builder.addCase(updateAdAsync.pending, (state) => {
+      state.status = 'pendingUpdateAd';
+    });
+    builder.addCase(updateAdAsync.fulfilled, (state, action) => {
+      state.status = 'idle';
+      state.productsLoaded = true;
+    });
+    builder.addCase(updateAdAsync.rejected, (state, action) => {
       state.status = 'idle';
       // Handle the error
     });
