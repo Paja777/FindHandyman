@@ -2,14 +2,14 @@ import { createAsyncThunk, createEntityAdapter, createSlice } from "@reduxjs/too
 import agent from "../../api/agent";
 import { Ad } from "../../models/ad";
 import { RootState } from "../../store/configureStore";
-import { base64ArrayToBinaryArray, imageComporessor, serviceMaker } from "../../utils/utils";
+import { serviceMaker } from "../../utils/utils";
 
 
 export const adAdapter = createEntityAdapter<Ad>({
   selectId: (ad) => ad._id,
 });
 
-export const fetchProductsAsync = createAsyncThunk<Ad[], void>(
+export const fetchAdsAsync = createAsyncThunk<Ad[], void>(
   'ad/fetchProductsAsync',
   async (_, thunkAPI) => {
     try {
@@ -21,26 +21,35 @@ export const fetchProductsAsync = createAsyncThunk<Ad[], void>(
   }
 );
 
+export const fetchAdAsync = createAsyncThunk<Ad, any>(
+  'ad/fetchProductAsync',
+  async (productId, thunkAPI) => {
+    try {
+      const response = await agent.adCatalog.details(productId);
+      return response.data;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue({ error: error.respose.data });
+    }
+  }
+);
+
 export const createAd = createAsyncThunk<Ad, any, {state: RootState}>(
   'ad/createAd',
   async (payload, thunkAPI) => {
     console.log('before try1')
     // make array of objects { service : price}
-    // const services = serviceMaker({services: payload.services, prices: payload.prices});
-    // Compress the images before posting to the server
-    // const compressedImages = imageComporessor(thunkAPI.getState().ad.images);
-    // const imageArray = base64ArrayToBinaryArray(thunkAPI.getState().ad.images)
+    const services = serviceMaker({services: payload.services, prices: payload.prices});
     // Post the ad to the server
     console.log('before try2')
     try {
     console.log('before try3')
       const response = await agent.requests.post("/", {
-        // name: payload.name,
-        // category: payload.category,
-        // note: payload.note,
-        // description: payload.description,
-        // services: services,
-        // rating: 0,
+        name: payload.name,
+        category: payload.category,
+        note: payload.note,
+        description: payload.description,
+        services: services,
+        rating: 0,
         images: thunkAPI.getState().ad.images,
       });
       console.log(response);
@@ -88,18 +97,29 @@ export const adSlice = createSlice({
     setSearchTerm: (state, { payload }) => {
       state.searchTerm = payload;
     },
-    setAdDetails: (state, { payload }) => {},
   },
   extraReducers: (builder => {
-    builder.addCase(fetchProductsAsync.pending, (state) => {
+    builder.addCase(fetchAdsAsync.pending, (state) => {
       state.status = 'pendingFetchProducts';
     });
-    builder.addCase(fetchProductsAsync.fulfilled, (state, action) => {
+    builder.addCase(fetchAdsAsync.fulfilled, (state, action) => {
       adAdapter.setAll(state, action.payload);
       state.status = 'idle';
       state.productsLoaded = true;
     });
-    builder.addCase(fetchProductsAsync.rejected, (state, action) => {
+    builder.addCase(fetchAdsAsync.rejected, (state, action) => {
+      // console.log(action.payload);
+      state.status = 'idle';
+    });
+    builder.addCase(fetchAdAsync.pending, (state) => {
+      state.status = 'pendingFetchProducts';
+    });
+    builder.addCase(fetchAdAsync.fulfilled, (state, action) => {
+      adAdapter.setOne(state, action.payload);
+      state.status = 'idle';
+      state.productsLoaded = true;
+    });
+    builder.addCase(fetchAdAsync.rejected, (state, action) => {
       // console.log(action.payload);
       state.status = 'idle';
     });
@@ -118,4 +138,4 @@ export const adSlice = createSlice({
 });
 
 export const AdSelector = adAdapter.getSelectors((state: RootState) => state.ad);
-export const { uploadImages, changeRating, setSearchTerm, setAdDetails } = adSlice.actions;
+export const { uploadImages, changeRating, setSearchTerm } = adSlice.actions;

@@ -31,6 +31,7 @@ const CreateAd = () => {
       services: Array.from({ length: 10 }, (_, i) => data[`serviceName${i+1}`]),
       prices: Array.from({ length: 10 }, (_, i) => data[`servicePrice${i+1}`]),
     };
+    console.log(formatedData.services)
     try {
       dispatch(createAd(formatedData));
       console.log('after dispatch createAd function')

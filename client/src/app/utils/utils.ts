@@ -40,9 +40,12 @@ export const imageComporessor = async (images: string[]) => {
 };
 
 export const serviceMaker = ({ services, prices }: any) => {
-  const servicePrice = services.map((service: string, index: number) => ({
-    [service]: prices[index],
-  }));
+  const servicePrice = services
+    .filter((service: string | undefined) => service !== undefined && service !== '') // Filter out null, empty, or undefined services
+    .map((service: string, index: number) => ({
+      [service]: prices[index]
+    }));
+  
   return servicePrice;
 };
 

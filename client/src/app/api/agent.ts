@@ -15,7 +15,7 @@ const requests = {
 }
 
 const adCatalog = {
-    details: (id: number) => axios.get(`/:${id}`)
+    details: (id: any) => axios.get(`/:${id}`)
 }
 
 

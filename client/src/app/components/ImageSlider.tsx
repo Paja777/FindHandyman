@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 
 
 interface Props {
-    images: string[];
+    images: any;
   }
 
 export const ImageSlider = ({images} : Props) => {
@@ -95,7 +95,7 @@ export const ImageSlider = ({images} : Props) => {
         />
         </Stack>
         <Stack direction='row' sx={{mt:1}}>
-        {images.map((image : any, index) => (
+        {images.map((image : any, index: number) => (
           
          <Card
          key={uuidv4()}

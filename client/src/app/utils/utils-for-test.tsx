@@ -6,6 +6,8 @@ import { adSlice } from "../features/roleHandyman/adSlice";
 import { RootState } from "../store/configureStore"; // Assuming RootState is defined in configureStore
 import { accountSlice } from "../features/account/accountSlice";
 
+import '@testing-library/jest-dom'
+
 interface RenderWithProvidersOptions {
   preloadedState?: Partial<RootState>;
   store?: EnhancedStore<RootState>;
@@ -31,3 +33,4 @@ export function renderWithProviders(
     ...render(ui, { wrapper: Wrapper, ...renderOptions } as RenderOptions), // Explicitly cast to RenderOptions
   };
 }
+
