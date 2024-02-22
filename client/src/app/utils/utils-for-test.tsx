@@ -5,8 +5,8 @@ import { Provider } from "react-redux";
 import { adSlice } from "../features/roleHandyman/adSlice";
 import { RootState } from "../store/configureStore"; // Assuming RootState is defined in configureStore
 import { accountSlice } from "../features/account/accountSlice";
-
-import '@testing-library/jest-dom'
+import { BrowserRouter as Router } from "react-router-dom";
+import "@testing-library/jest-dom";
 
 interface RenderWithProvidersOptions {
   preloadedState?: Partial<RootState>;
@@ -18,14 +18,18 @@ export function renderWithProviders(
   {
     preloadedState = {},
     store = configureStore({
-      reducer: {  account: accountSlice.reducer, ad: adSlice.reducer  },
+      reducer: { account: accountSlice.reducer, ad: adSlice.reducer },
       preloadedState,
     }),
     ...renderOptions
   }: RenderWithProvidersOptions = {}
 ) {
   function Wrapper({ children }: { children?: ReactNode }) {
-    return <Provider store={store}>{children}</Provider>;
+    return (
+      <Provider store={store}>
+        <Router>{children}</Router>
+      </Provider>
+    );
   }
 
   return {
@@ -33,4 +37,3 @@ export function renderWithProviders(
     ...render(ui, { wrapper: Wrapper, ...renderOptions } as RenderOptions), // Explicitly cast to RenderOptions
   };
 }
-

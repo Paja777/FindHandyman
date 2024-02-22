@@ -9,16 +9,15 @@ import Ribbon from "../components/Ribbon";
 const history = createMemoryHistory();
 
 describe("Ribbon", () => {
+  beforeEach(() => {
+    renderWithProviders(<SideBar />);
+  });
   it("should navigete to /about when clicked on about link", async () => {
-    const history = createMemoryHistory();
-    render(
-      <Router history={history}>
-        <Ribbon />
-      </Router>
-    );
+    
+    
     const user = userEvent.setup();
     
-    expect(screen.getByRole("link").toHaveTextContext("About"));
+    expect(screen.getByText(/About/i).toBeInTheDocument());
 
     await user.click(screen.getByText(/About/i));
 

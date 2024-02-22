@@ -6,7 +6,7 @@ import { renderWithProviders } from "../utils/utils-for-test";
 describe("BigButton", () => {
   beforeEach(() => {
     renderWithProviders(<BigButton path="/" title="Search" />)
-    
+     
   });
 
   test("icon button should be rendered", () => {
