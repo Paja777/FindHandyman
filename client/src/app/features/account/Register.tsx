@@ -18,6 +18,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { LoadingButton } from "@mui/lab";
 
+
 export default function Register() {
   const navigate = useNavigate();
   const [selectedValue, setSelectedValue] = useState(`handyman`);

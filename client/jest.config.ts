@@ -9,6 +9,10 @@ const config: Config.InitialOptions = {
   roots: ['<rootDir>/src'],
   // A list of paths to directories that Jest should use to search for test files in
   testMatch: ['<rootDir>/src/**/*.test.ts'],
+  // Transform files before running them
+  transform: {
+    '^.+\\.(ts|tsx)$': 'ts-jest',
+  },
 };
 
 export default config;

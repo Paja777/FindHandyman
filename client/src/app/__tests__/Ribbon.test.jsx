@@ -1,26 +1,19 @@
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { createMemoryHistory } from "history";
-import React from "react";
-import { Router } from "react-router-dom";
+import { screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import Ribbon from "../components/Ribbon";
-
-const history = createMemoryHistory();
+import { renderWithProviders } from "../utils/utils-for-test";
 
 describe("Ribbon", () => {
   beforeEach(() => {
-    renderWithProviders(<SideBar />);
+    renderWithProviders(<Ribbon />);
   });
   it("should navigete to /about when clicked on about link", async () => {
-    
-    
-    const user = userEvent.setup();
-    
-    expect(screen.getByText(/About/i).toBeInTheDocument());
+    const aboutText = screen.getByText(/About/i);
+    expect(aboutText).toBeInTheDocument();
 
-    await user.click(screen.getByText(/About/i));
+    fireEvent.click(aboutText)
+    const aboutPageText = screen.getByText(/You are on About page/i);
 
-    expect(screen.getByText(/You are on About page/i)).toBeInTheDocument();
+    await expect(aboutPageText).toBeInTheDocument();
   });
 });
