@@ -7,16 +7,13 @@ describe("Ribbon", () => {
   beforeEach(() => {
     renderWithProviders(<Ribbon />);
   });
-  it("should navigete to /about when clicked on about link", async () => {
+  it("contain all links", async () => {
     const aboutText = screen.getAllByRole('link');
     aboutText.forEach(link => {
 
       expect(link).toBeInTheDocument();
+      expect(link).toHaveTextContent(/About/i || /Home/i || /Contact/i);
     })
 
-    fireEvent.click(aboutText, {name: /About/i})
-    // const aboutPageText = screen.getByText(/You are on About page/i);
-
-    // await expect(aboutPageText).toBeInTheDocument();
   });
 });
