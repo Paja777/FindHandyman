@@ -19,7 +19,7 @@ const HomePage = () => {
   console.log(ads);
 
 
-  if (!productsLoaded) return <div>UNDEFINED</div>;
+  if (!productsLoaded) return <div>...Loading</div>;
   
   return (
     <>

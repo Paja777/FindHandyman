@@ -10,22 +10,21 @@ interface SignupProps {
 export const useSignup = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const {dispatch} = useAuthContext()
+  const { dispatch } = useAuthContext();
 
   const signup = async ({ email, password }: SignupProps) => {
     setIsLoading(true);
     setError(null);
 
-    const response = agent.requests.post(
-      "/user/signup",
-      JSON.stringify({ email, password })
-    );
-
-    const json = await response.json();
-
-    if (response.ok) {
-      localStorage.setItem("user", JSON.stringify(json));
-      dispatch({ type: "LOGIN", payload: json });
+    try {
+      const response = agent.requests.post(
+        "/user/signup",
+        JSON.stringify({ email, password })
+      );
+      localStorage.setItem("user", JSON.stringify(response));
+      dispatch({ type: "LOGIN", payload: response });
+    } catch (erorr: any) {
+      console.log(error)
     }
   };
 };

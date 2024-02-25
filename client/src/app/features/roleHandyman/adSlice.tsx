@@ -27,9 +27,9 @@ export const fetchAdAsync = createAsyncThunk<Ad, string>(
   async (productId, thunkAPI) => {
     try {
       const response = await agent.adCatalog.details(productId);
-      return response.data;
+      return response;
     } catch (error: any) {
-      return thunkAPI.rejectWithValue({ error: error.respose.data });
+      return thunkAPI.rejectWithValue({ error: error.response });
     }
   }
 );
@@ -41,7 +41,7 @@ export const updateAdAsync = createAsyncThunk<Ad, any>(
       // console.log(Ad._id, Ad)
       const response = await agent.requests.patch(`/ad/${data._id}`, data);
       console.log(response)
-      return response.data;
+      return response;
     } catch (error: any) {
       return thunkAPI.rejectWithValue({ error: error.respose.data });
     }

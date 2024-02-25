@@ -2,8 +2,8 @@ import { createContext, useReducer, useContext, PropsWithChildren } from "react"
 
 
 interface AuthContextValue {
-  user: string | null
-
+  user: string | null;
+  dispatch: React.Dispatch<ActionType>;
 }
 
 interface LoginAction {
