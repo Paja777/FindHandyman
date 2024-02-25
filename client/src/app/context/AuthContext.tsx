@@ -2,7 +2,7 @@ import { createContext, useReducer, useContext, PropsWithChildren } from "react"
 
 
 interface AuthContextValue {
-  user: string | null;
+  user: [] | null;
   dispatch: React.Dispatch<ActionType>;
 }
 
@@ -29,7 +29,7 @@ export function useAuthContext() {
   return context;
 }
 
-export const AuthReducer = (state: AuthContextValue, action : ActionType) => {
+export const AuthReducer = (state: any, action : ActionType) => {
   switch (action.type) {
     case "LOGIN":
       return { user: action.payload };
@@ -43,7 +43,7 @@ export const AuthReducer = (state: AuthContextValue, action : ActionType) => {
 export const AuthContextProvider = ({ children } : PropsWithChildren<any>) => {
   const [state, dispatch] = useReducer(AuthReducer, {
     user: null,
-  });
+  } );
   console.log("AuthContex state :", state);
 
   return (

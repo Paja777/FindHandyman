@@ -17,7 +17,7 @@ export const useSignup = () => {
     setError(null);
 
     try {
-      const response = agent.requests.post(
+      const response = await agent.requests.post(
         "/user/signup",
         JSON.stringify({ email, password })
       );
