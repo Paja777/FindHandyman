@@ -19,7 +19,7 @@ type ActionType = LoginAction | LogoutAction;
 
 export const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
-export function useStoreContext() {
+export function useAuthContext() {
   const context = useContext(AuthContext);
 
   if (context === undefined) {
