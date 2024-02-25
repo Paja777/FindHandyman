@@ -41,7 +41,7 @@ export const accountSlice = createSlice({
         state.role = payload.role;
         state.displayedAds = payload.role;
         state.category = payload.category;
-        localStorage.setItem(`${state.username}`, JSON.stringify(state))
+        
     },
     loginUser: (state, { payload }) => {
         state.username = payload.username;

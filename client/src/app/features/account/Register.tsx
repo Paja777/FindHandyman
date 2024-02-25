@@ -17,10 +17,11 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { LoadingButton } from "@mui/lab";
-
+import { useSignup } from "../../hooks/useSignup";
 
 export default function Register() {
   const navigate = useNavigate();
+  const { signup, isLoading, error } = useSignup();
   const [selectedValue, setSelectedValue] = useState(`handyman`);
   console.log(selectedValue);
   const {
@@ -33,21 +34,20 @@ export default function Register() {
     mode: "all",
   });
   useEffect(() => {
-    
-      if (selectedValue === "handyman") {
-        register("category", { required: "Category field is required" });
-      } else {
-        unregister("category");
-      }
+    if (selectedValue === "handyman") {
+      register("category", { required: "Category field is required" });
+    } else {
+      unregister("category");
+    }
   }, [selectedValue, unregister, register]);
 
   const dispatch = useAppDispatch();
 
   async function submitForm(data: FieldValues) {
     try {
-      await dispatch(registerUser({...data, role: data.role || 'handyman' }));
-      console.log(data);
-      navigate("/");
+       dispatch(registerUser({ ...data, role: data.role || "handyman" }));
+      await signup({email: data.email, password: data.password})
+      // navigate("/");
     } catch (error) {
       console.log(error);
     }
@@ -151,7 +151,7 @@ export default function Register() {
             loading={isSubmitting}
             disabled={!isValid}
             type="submit"
-            variant="contained" 
+            variant="contained"
             sx={{
               mt: 1,
               mb: 2,

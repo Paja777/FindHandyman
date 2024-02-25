@@ -2,7 +2,7 @@ import { createContext, useReducer, useContext, PropsWithChildren } from "react"
 
 
 interface AuthContextValue {
-  user: [] | null;
+  user: {} | null;
   dispatch: React.Dispatch<ActionType>;
 }
 

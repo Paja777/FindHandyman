@@ -23,8 +23,14 @@ export const useSignup = () => {
       );
       localStorage.setItem("user", JSON.stringify(response));
       dispatch({ type: "LOGIN", payload: response });
+      setIsLoading(false);
     } catch (erorr: any) {
-      console.log(error)
+      console.log(error);
     }
+  };
+  return {
+    signup,
+    isLoading,
+    error,
   };
 };
