@@ -13,6 +13,8 @@ const config: Config.InitialOptions = {
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest',
   },
+  extensionsToTreatAsEsm: ['.ts'],
+  
 };
 
 export default config;

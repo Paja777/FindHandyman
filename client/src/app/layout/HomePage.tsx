@@ -19,7 +19,7 @@ const HomePage = () => {
   console.log(ads);
 
 
-  if (!productsLoaded) return <div>...Loading</div>;
+  // if (!productsLoaded) return <div>...Loading</div>;
   
   return (
     <>
@@ -33,7 +33,9 @@ const HomePage = () => {
         <SideBar />
         <Box sx={{ gridRow: "1", gridColumn: "span 5", ml: 2 }}>
           <SearchBar />
-          <AdsList ads={ads} />
+          {productsLoaded === true?  (<AdsList ads={ads} />) : (
+            <div>...Loading</div>
+          )}
         </Box>
         <Box sx={{ gridRow: "1", gridColumn: "span 1", mt: "10%" }}>
           <img

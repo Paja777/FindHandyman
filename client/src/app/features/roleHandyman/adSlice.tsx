@@ -3,7 +3,6 @@ import agent from "../../api/agent";
 import { Ad } from "../../models/ad";
 import { RootState } from "../../store/configureStore";
 import { serviceMaker } from "../../utils/utils";
-import axios from "axios";
 
 
 export const adAdapter = createEntityAdapter<Ad>({

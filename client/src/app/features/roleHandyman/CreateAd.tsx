@@ -31,10 +31,10 @@ const CreateAd = () => {
       services: Array.from({ length: 10 }, (_, i) => data[`serviceName${i+1}`]),
       prices: Array.from({ length: 10 }, (_, i) => data[`servicePrice${i+1}`]),
     };
-    console.log(formatedData.services)
+    console.log(formatedData.services);
     try {
       dispatch(createAd(formatedData));
-      console.log('after dispatch createAd function')
+      console.log('after dispatch createAd function');
       // navigate("/");
     } catch (error) {
       console.log(error);
@@ -82,7 +82,7 @@ const CreateAd = () => {
                 },
               },
             }}
-            placeholder="service name"
+            placeholder="service name1"
             {...register("serviceName1", { required: "Field is required" })}
           ></TextField>
           <TextField
@@ -94,7 +94,7 @@ const CreateAd = () => {
                 },
               },
             }}
-            placeholder="service price"
+            placeholder="service price1"
             {...register("servicePrice1", { required: "Field is required" })}
           ></TextField>
         </Stack>
