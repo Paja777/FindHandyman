@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { Ad } from "../models/ad";
+
 
 const sleep = () => new Promise(resolve => setTimeout(resolve, 500));
 

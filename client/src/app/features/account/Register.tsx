@@ -23,7 +23,7 @@ export default function Register() {
   const navigate = useNavigate();
   const { signup, isLoading, error } = useSignup();
   const [selectedValue, setSelectedValue] = useState(`handyman`);
-  console.log(selectedValue);
+  
   const {
     register,
     unregister,

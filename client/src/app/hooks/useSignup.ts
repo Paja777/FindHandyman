@@ -1,6 +1,7 @@
 import { useState } from "react";
 import agent from "../api/agent";
 import { useAuthContext } from "../context/AuthContext";
+import axios from "axios";
 
 interface SignupProps {
   email: string;
@@ -15,18 +16,23 @@ export const useSignup = () => {
   const signup = async ({ email, password }: SignupProps) => {
     setIsLoading(true);
     setError(null);
+    
 
-    try {
-      const response = await agent.requests.post(
+    
+      const response = await axios.post(
         "/user/signup",
-        JSON.stringify({ email, password })
+        { email, password },
+        {
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }
       );
+      console.log(response.data);
       localStorage.setItem("user", JSON.stringify(response));
-      dispatch({ type: "LOGIN", payload: response });
+      dispatch({ type: "LOGIN", payload: response.data });
       setIsLoading(false);
-    } catch (erorr: any) {
-      console.log(error);
-    }
+    
   };
   return {
     signup,

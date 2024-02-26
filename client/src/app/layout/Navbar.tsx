@@ -6,6 +6,8 @@ import { useAppDispatch, useAppSelector } from "../store/configureStore";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import { signOut } from "../features/account/accountSlice";
+import { useAuthContext } from "../context/AuthContext";
+import { useLogout } from "../hooks/useLogout";
 
 const rightLinks = [
   { name: "Login", location: "/login" },
@@ -32,6 +34,7 @@ const navStyles = {
 const Navbar = () => {
   const { loggedIn } = useAppSelector((state) => state.account);
   const dispatch = useAppDispatch();
+  const {logout} = useLogout()
 
   return (
     <>
@@ -119,7 +122,7 @@ const Navbar = () => {
             <Typography
               component={NavLink}
               to={"/register"}
-              onClick={() => dispatch(signOut())}
+              onClick={() => logout()}
               sx={{
                 ...navStyles,
                 marginTop: "3%",

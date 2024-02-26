@@ -8,12 +8,19 @@ describe("Ribbon", () => {
     renderWithProviders(<Ribbon />);
   });
   it("contain all links", async () => {
-    const aboutText = screen.getAllByRole('link');
-    aboutText.forEach(link => {
+    const links = screen.getAllByRole("link");
+    expect(links.length).toBe(3);
 
+    links.forEach((link) => {
+      const textContent = link.textContent;
       expect(link).toBeInTheDocument();
-      expect(link).toHaveTextContent(/About/i || /Home/i || /Contact/i);
-    })
-
+      if (textContent?.includes("Home")) {
+        expect(link).toHaveTextContent(/Home/i);
+      } else if (textContent?.includes("About")) {
+        expect(link).toHaveTextContent(/About/i);
+      } else if (textContent?.includes("Contact")) {
+        expect(link).toHaveTextContent(/Contact/i);
+      }
+    });
   });
 });

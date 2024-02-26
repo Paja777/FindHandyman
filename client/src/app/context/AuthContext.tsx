@@ -47,8 +47,8 @@ export const AuthContextProvider = ({ children } : PropsWithChildren<any>) => {
   console.log("AuthContex state :", state);
 
   return (
-    <AuthContextProvider value={{ ...state, dispatch }}>
+    <AuthContext.Provider value={{ ...state, dispatch }}>
       {children}
-    </AuthContextProvider>
+    </AuthContext.Provider>
   );
 };
