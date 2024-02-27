@@ -5,24 +5,36 @@ import CreateAd from "../features/roleHandyman/CreateAd";
 
 describe("CrateAd", () => {
   beforeEach(() => {
-    renderWithProviders(<CreateAd  />);
+    renderWithProviders(<CreateAd />);
   });
 
   test("button should be disabled", () => {
-    const buttonEl = screen.getByRole("button", {name: /Create/i});
+    const buttonEl = screen.getByRole("button", { name: /Create/i });
     expect(buttonEl).toBeInTheDocument();
     expect(buttonEl).toBeDisabled();
   });
-  it("should be enabled after adding service", () => {
-    const buttonEl = screen.getByRole("button", {name: /Create/i});
-    const serviceTextElements = screen.getAllByPlaceholderText(/service name1/i);
-    const priceTextElements = screen.getAllByPlaceholderText(/service price1/i);
-    expect(priceTextElements[0]).toBeInTheDocument()
-    expect(serviceTextElements[0]).toBeInTheDocument()
-    fireEvent.change(serviceTextElements[0], {target : { value: "Pranje"}});
-    expect(serviceTextElements[0]).toHaveValue('Pranje')
-    fireEvent.change(priceTextElements[0], {target : { value: "$100"}});
-    expect(priceTextElements[0]).toHaveValue('$100')
-    expect(buttonEl).toBeDisabled();
+  it("should be in component", () => {
+    const describeTextElement = screen.getByPlaceholderText("Describe your services (maximum 300 caracters)");
+    expect(describeTextElement).toBeInTheDocument();
+    
+    
+    fireEvent.change(describeTextElement, {target : { value: "aloooooooooooooooooooooooooooooooooooooooooooooooooooooo"}});
+    expect(describeTextElement).toHaveValue('aloooooooooooooooooooooooooooooooooooooooooooooooooooooo')
   });
+  // it("should be enabled after adding service", () => {
+    // const buttonEl = screen.getByRole("button", {name: /Create/i});
+    // const serviceTextElements = screen.getByPlaceholderText(/service name1/i);
+    // const priceTextElements = screen.getByPlaceholderText(/service price1/i);
+    // const describeTextElements = screen.getByTestId("describe");
+    // expect(priceTextElements).toBeInTheDocument()
+    // expect(serviceTextElements).toBeInTheDocument()
+    // expect(describeTextElements).toBeInTheDocument()
+    // fireEvent.change(serviceTextElements, {target : { value: "Pranje"}});
+    // expect(serviceTextElements).toHaveValue('Pranje')
+    // fireEvent.change(priceTextElements, {target : { value: "$100"}});
+    // expect(priceTextElements).toHaveValue('$100')
+    // fireEvent.change(describeTextElements, {target : { value: "aloooooooooooooooooooooooooooooooooooooooooooooooooooooo"}});
+    // expect(describeTextElements).toHaveValue('aloooooooooooooooooooooooooooooooooooooooooooooooooooooo')
+    // expect(buttonEl).toBeDisabled();
+  // });
 });

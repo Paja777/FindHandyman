@@ -8,17 +8,17 @@ interface SignupProps {
   password: string;
 }
 
-export const useSignup = () => {
+export const useLogin = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const { dispatch } = useAuthContext();
 
-  const signup = async ({ email, password }: SignupProps) => {
+  const login = async ({ email, password }: SignupProps) => {
     setIsLoading(true);
     setError(null);
 
     const response = await axios.post(
-      "/user/signup",
+      "/user/login",
       { email, password },
       {
         headers: {
@@ -32,7 +32,7 @@ export const useSignup = () => {
     setIsLoading(false);
   };
   return {
-    signup,
+    login,
     isLoading,
     error,
   };

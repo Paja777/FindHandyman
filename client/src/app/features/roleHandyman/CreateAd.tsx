@@ -28,13 +28,19 @@ const CreateAd = () => {
       note: data.alert,
       name: username,
       category: category,
-      services: Array.from({ length: 10 }, (_, i) => data[`serviceName${i+1}`]),
-      prices: Array.from({ length: 10 }, (_, i) => data[`servicePrice${i+1}`]),
+      services: Array.from(
+        { length: 10 },
+        (_, i) => data[`serviceName${i + 1}`]
+      ),
+      prices: Array.from(
+        { length: 10 },
+        (_, i) => data[`servicePrice${i + 1}`]
+      ),
     };
     console.log(formatedData.services);
     try {
       dispatch(createAd(formatedData));
-      console.log('after dispatch createAd function');
+      console.log("after dispatch createAd function");
       // navigate("/");
     } catch (error) {
       console.log(error);
@@ -42,6 +48,7 @@ const CreateAd = () => {
   }
   const clickHandler = () => {
     setServiceInputCount((prev) => {
+      // no more than 10 inputs in total
       if (prev.length > 8) return prev;
       return [...prev, prev[prev.length - 1] + 1];
     });
@@ -153,6 +160,7 @@ const CreateAd = () => {
           Description
         </Typography>
         <TextField
+          data-testid="describe"
           multiline
           rows="5"
           style={{ marginRight: 1, marginTop: 1, width: 450 }}
