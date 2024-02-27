@@ -1,7 +1,7 @@
 import { useState } from "react";
-import agent from "../api/agent";
-import { useAuthContext } from "../context/AuthContext";
 import axios from "axios";
+import { useAppDispatch } from "../store/configureStore";
+import { adUserStatus } from "../features/roleHandyman/adSlice";
 
 interface SignupProps {
   email: string;
@@ -11,25 +11,29 @@ interface SignupProps {
 export const useLogin = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const { dispatch } = useAuthContext();
+  const dispatch = useAppDispatch();
 
   const login = async ({ email, password }: SignupProps) => {
     setIsLoading(true);
     setError(null);
-
-    const response = await axios.post(
-      "/user/login",
-      { email, password },
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    console.log(response.data);
-    localStorage.setItem("user", JSON.stringify(response));
-    dispatch({ type: "LOGIN", payload: response.data });
-    setIsLoading(false);
+    try {
+      const response = await axios.post(
+        "/user/login",
+        { email, password },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response.data);
+      localStorage.setItem("user", JSON.stringify(response));
+      dispatch(adUserStatus(response.data));
+      setIsLoading(false);
+    } catch (error: any) {
+      console.log(error);
+      setError(error);
+    }
   };
   return {
     login,

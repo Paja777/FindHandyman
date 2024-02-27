@@ -28,11 +28,7 @@ export default function Login() {
   const dispatch = useAppDispatch();
 
   async function submitForm(data: FieldValues) {
-    try {
-      await login({ email: data.username, password: data.password });
-    } catch (error) {
-      console.log(error);
-    }
+    login({ email: data.username, password: data.password });
   }
 
   return (

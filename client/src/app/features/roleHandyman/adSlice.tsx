@@ -113,23 +113,17 @@ export const createAd = createAsyncThunk<Ad, any, { state: RootState }>(
 );
 
 export interface AdState {
+  user: { email: string; token: string } | null;
   productsLoaded: boolean;
   status: string;
-  category: string;
-  description: string;
-  note: string;
-  servicePrice: string[];
   images: string[];
   rating: number;
   searchTerm: string;
 }
 const initialState: AdState = {
+  user: null,
   productsLoaded: false,
   status: "idle",
-  category: "",
-  description: "",
-  note: "",
-  servicePrice: [],
   images: [],
   rating: 0,
   searchTerm: "",
@@ -139,6 +133,13 @@ export const adSlice = createSlice({
   name: "ad",
   initialState: adAdapter.getInitialState(initialState),
   reducers: {
+    adUserStatus: (state, { payload }) => {
+      if (payload === "") {
+        state.user = null;
+      } else {
+        state.user = { ...payload };
+      }
+    },
     uploadImages: (state, { payload }) => {
       state.images = [...state.images, ...payload];
     },
@@ -202,4 +203,5 @@ export const adSlice = createSlice({
 export const AdSelector = adAdapter.getSelectors(
   (state: RootState) => state.ad
 );
-export const { uploadImages, changeRating, setSearchTerm } = adSlice.actions;
+export const { uploadImages, changeRating, setSearchTerm, adUserStatus } =
+  adSlice.actions;

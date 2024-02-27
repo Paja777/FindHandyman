@@ -1,13 +1,15 @@
 import { useAuthContext } from "../context/AuthContext";
+import { adUserStatus } from "../features/roleHandyman/adSlice";
+import { useAppDispatch } from "../store/configureStore";
 
 export const useLogout = () => {
-  const { dispatch } = useAuthContext();
+  const dispatch = useAppDispatch()
   const logout = () => {
     //remove user from localStorage
     localStorage.removeItem("user");
 
     //dispatch logout funtion
-    dispatch({ type: "LOGOUT" });
+    dispatch(adUserStatus(''));
   };
   return {
     logout,
