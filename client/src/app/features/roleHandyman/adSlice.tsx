@@ -1,19 +1,33 @@
-import { createAsyncThunk, createEntityAdapter, createSlice } from "@reduxjs/toolkit";
+import {
+  createAsyncThunk,
+  createEntityAdapter,
+  createSlice,
+} from "@reduxjs/toolkit";
 import agent from "../../api/agent";
 import { Ad } from "../../models/ad";
 import { RootState } from "../../store/configureStore";
 import { serviceMaker } from "../../utils/utils";
+import { useAuthContext } from "../../context/AuthContext";
 
+const { user } = useAuthContext();
 
 export const adAdapter = createEntityAdapter<Ad>({
   selectId: (ad) => ad._id,
 });
 
 export const fetchAdsAsync = createAsyncThunk<Ad[], void>(
-  'ad/fetchAdsAsync',
+  "ad/fetchAdsAsync",
   async (_, thunkAPI) => {
     try {
-      const response = await agent.requests.get('/ad');
+      let response: Response | undefined;
+      if (user) {
+
+        response = await agent.requests.get("/ad", {
+          headers: {
+            "Authorization": `Bearer ${user.token}`
+          }
+        });
+      }
       return response;
     } catch (error: any) {
       return thunkAPI.rejectWithValue({ error: error.respose.data });
@@ -22,7 +36,7 @@ export const fetchAdsAsync = createAsyncThunk<Ad[], void>(
 );
 
 export const fetchAdAsync = createAsyncThunk<Ad, string>(
-  'ad/fetchAdAsync',
+  "ad/fetchAdAsync",
   async (productId, thunkAPI) => {
     try {
       const response = await agent.adCatalog.details(productId);
@@ -34,12 +48,12 @@ export const fetchAdAsync = createAsyncThunk<Ad, string>(
 );
 
 export const updateAdAsync = createAsyncThunk<Ad, any>(
-  'ad/updateAdAsync',
+  "ad/updateAdAsync",
   async (data, thunkAPI) => {
     try {
       // console.log(Ad._id, Ad)
       const response = await agent.requests.patch(`/ad/${data._id}`, data);
-      console.log(response)
+      console.log(response);
       return response;
     } catch (error: any) {
       return thunkAPI.rejectWithValue({ error: error.respose.data });
@@ -47,11 +61,14 @@ export const updateAdAsync = createAsyncThunk<Ad, any>(
   }
 );
 
-export const createAd = createAsyncThunk<Ad, any, {state: RootState}>(
-  'ad/createAd',
+export const createAd = createAsyncThunk<Ad, any, { state: RootState }>(
+  "ad/createAd",
   async (payload, thunkAPI) => {
     // make array of objects { service : price}
-    const services = serviceMaker({services: payload.services, prices: payload.prices});
+    const services = serviceMaker({
+      services: payload.services,
+      prices: payload.prices,
+    });
     // Post the ad to the server
     try {
       const response = await agent.requests.post("/", {
@@ -66,7 +83,7 @@ export const createAd = createAsyncThunk<Ad, any, {state: RootState}>(
       console.log(response);
       return response; // Return the posted ad
     } catch (error) {
-      console.error('Error posting ad:', error);
+      console.error("Error posting ad:", error);
       throw error;
     }
   }
@@ -85,7 +102,7 @@ export interface AdState {
 }
 const initialState: AdState = {
   productsLoaded: false,
-  status: 'idle',
+  status: "idle",
   category: "",
   description: "",
   note: "",
@@ -109,55 +126,57 @@ export const adSlice = createSlice({
       state.searchTerm = payload;
     },
   },
-  extraReducers: (builder => {
+  extraReducers: (builder) => {
     builder.addCase(fetchAdsAsync.pending, (state) => {
-      state.status = 'pendingFetchProducts';
+      state.status = "pendingFetchProducts";
     });
     builder.addCase(fetchAdsAsync.fulfilled, (state, action) => {
       adAdapter.setAll(state, action.payload);
-      state.status = 'idle';
+      state.status = "idle";
       state.productsLoaded = true;
     });
     builder.addCase(fetchAdsAsync.rejected, (state, action) => {
       // console.log(action.payload);
-      state.status = 'idle';
+      state.status = "idle";
     });
     builder.addCase(fetchAdAsync.pending, (state) => {
-      state.status = 'pendingFetchProducts';
+      state.status = "pendingFetchProducts";
     });
     builder.addCase(fetchAdAsync.fulfilled, (state, action) => {
       adAdapter.setOne(state, action.payload);
-      state.status = 'idle';
+      state.status = "idle";
       state.productsLoaded = true;
     });
     builder.addCase(fetchAdAsync.rejected, (state, action) => {
       // console.log(action.payload);
-      state.status = 'idle';
+      state.status = "idle";
     });
     builder.addCase(createAd.pending, (state) => {
-      state.status = 'pendingCreateAd';
+      state.status = "pendingCreateAd";
     });
     builder.addCase(createAd.fulfilled, (state, action) => {
       adAdapter.addOne(state, action.payload); // Add the posted ad to the state
-      state.status = 'idle';
+      state.status = "idle";
     });
     builder.addCase(createAd.rejected, (state, action) => {
-      state.status = 'idle';
+      state.status = "idle";
       // Handle the error
     });
     builder.addCase(updateAdAsync.pending, (state) => {
-      state.status = 'pendingUpdateAd';
+      state.status = "pendingUpdateAd";
     });
     builder.addCase(updateAdAsync.fulfilled, (state, action) => {
-      state.status = 'idle';
+      state.status = "idle";
       state.productsLoaded = true;
     });
     builder.addCase(updateAdAsync.rejected, (state, action) => {
-      state.status = 'idle';
+      state.status = "idle";
       // Handle the error
     });
-  })
+  },
 });
 
-export const AdSelector = adAdapter.getSelectors((state: RootState) => state.ad);
+export const AdSelector = adAdapter.getSelectors(
+  (state: RootState) => state.ad
+);
 export const { uploadImages, changeRating, setSearchTerm } = adSlice.actions;
