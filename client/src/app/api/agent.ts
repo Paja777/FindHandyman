@@ -1,28 +1,29 @@
-import axios, { AxiosError, AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosHeaders, AxiosResponse } from "axios";
 
+const sleep = () => new Promise((resolve) => setTimeout(resolve, 500));
 
-const sleep = () => new Promise(resolve => setTimeout(resolve, 500));
-
-axios.defaults.baseURL = 'http://localhost:5000/';
+axios.defaults.baseURL = "http://localhost:5000/";
 axios.defaults.withCredentials = true;
 
 const responseBody = (response: AxiosResponse) => response.data;
 
 const requests = {
-    get: (url: string, headers?: {}) => axios.get(url).then(responseBody),
-    post: (url: string, body: {}) => axios.post(url, body).then(responseBody),
-    patch: (url: string, body: {}) => axios.patch(url, body).then(responseBody),
-    delete: (url: string) => axios.delete(url).then(responseBody),
-}
+  get: (url: string, headers: {}) =>
+    axios.get(url, {headers}).then(responseBody),
+  post: (url: string, body: {}, headers: {}) =>
+    axios.post(url, body, {headers}).then(responseBody),
+  patch: (url: string, body: {}, headers: {}) =>
+    axios.patch(url, body, {headers}).then(responseBody),
+  delete: (url: string) => axios.delete(url).then(responseBody),
+};
 
 const adCatalog = {
-    details: (id: string) => requests.get(`/ad/${id}`),
-}
-
+  details: (id: string, headers: {}) => requests.get(`/ad/${id}`, headers),
+};
 
 const agent = {
-    requests,
-    adCatalog,
-}
+  requests,
+  adCatalog,
+};
 
 export default agent;

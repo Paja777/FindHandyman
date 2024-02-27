@@ -9,8 +9,6 @@ import { RootState } from "../../store/configureStore";
 import { serviceMaker } from "../../utils/utils";
 import { useAuthContext } from "../../context/AuthContext";
 
-const { user } = useAuthContext();
-
 export const adAdapter = createEntityAdapter<Ad>({
   selectId: (ad) => ad._id,
 });
@@ -18,14 +16,14 @@ export const adAdapter = createEntityAdapter<Ad>({
 export const fetchAdsAsync = createAsyncThunk<Ad[], void>(
   "ad/fetchAdsAsync",
   async (_, thunkAPI) => {
+    const { user } = useAuthContext();
     try {
-      let response: Response | undefined;
+      let response;
       if (user) {
-
         response = await agent.requests.get("/ad", {
-          headers: {
-            "Authorization": `Bearer ${user.token}`
-          }
+          headerss: {
+            Authorization: `Bearer ${user.token}`,
+          },
         });
       }
       return response;
@@ -38,8 +36,14 @@ export const fetchAdsAsync = createAsyncThunk<Ad[], void>(
 export const fetchAdAsync = createAsyncThunk<Ad, string>(
   "ad/fetchAdAsync",
   async (productId, thunkAPI) => {
+    const { user } = useAuthContext();
+    if (!user) {
+      return;
+    }
     try {
-      const response = await agent.adCatalog.details(productId);
+      const response = await agent.adCatalog.details(productId, {
+        headers: { Authorization: `Bearer ${user.token}` },
+      });
       return response;
     } catch (error: any) {
       return thunkAPI.rejectWithValue({ error: error.response });
@@ -50,9 +54,17 @@ export const fetchAdAsync = createAsyncThunk<Ad, string>(
 export const updateAdAsync = createAsyncThunk<Ad, any>(
   "ad/updateAdAsync",
   async (data, thunkAPI) => {
+    const { user } = useAuthContext();
+    if (!user) {
+      return;
+    }
     try {
       // console.log(Ad._id, Ad)
-      const response = await agent.requests.patch(`/ad/${data._id}`, data);
+      const response = await agent.requests.patch(`/ad/${data._id}`, data, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
       console.log(response);
       return response;
     } catch (error: any) {
@@ -71,20 +83,31 @@ export const createAd = createAsyncThunk<Ad, any, { state: RootState }>(
     });
     // Post the ad to the server
     try {
-      const response = await agent.requests.post("/", {
-        name: payload.name,
-        category: payload.category,
-        note: payload.note,
-        description: payload.description,
-        services: services,
-        rating: 0,
-        images: thunkAPI.getState().ad.images,
-      });
+      const { user } = useAuthContext();
+      if (!user) {
+        return;
+      }
+      const response = await agent.requests.post(
+        "/",
+        {
+          name: payload.name,
+          category: payload.category,
+          note: payload.note,
+          description: payload.description,
+          services: services,
+          rating: 0,
+          images: thunkAPI.getState().ad.images,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
       console.log(response);
       return response; // Return the posted ad
     } catch (error) {
-      console.error("Error posting ad:", error);
-      throw error;
+      console.log(error);
     }
   }
 );

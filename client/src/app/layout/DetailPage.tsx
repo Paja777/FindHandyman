@@ -2,7 +2,12 @@ import { Box, Rating, Stack, Typography } from "@mui/material";
 import { ImageSlider } from "../components/ImageSlider";
 import SideBar from "../components/SideBar";
 import { useAppDispatch, useAppSelector } from "../store/configureStore";
-import { AdSelector, changeRating, fetchAdAsync, updateAdAsync } from "../features/roleHandyman/adSlice";
+import {
+  AdSelector,
+  changeRating,
+  fetchAdAsync,
+  updateAdAsync,
+} from "../features/roleHandyman/adSlice";
 import { useEffect, useState } from "react";
 import Modal from "../components/Modal";
 import { useNavigate, useParams } from "react-router-dom";
@@ -14,24 +19,32 @@ const DetailPage = () => {
   const navigate = useNavigate();
   const { role } = useAppSelector((state) => state.account);
   const { id } = useParams<{ id: any }>();
-  const ad  = useAppSelector((state) => AdSelector.selectById(state, id!));
- 
+  const ad = useAppSelector((state) => AdSelector.selectById(state, id!));
 
   useEffect(() => {
-    if(!ad && id) dispatch(fetchAdAsync(id));
-}, [id, dispatch, ad])
-
+    if (!ad && id) dispatch(fetchAdAsync(id));
+  }, [id, dispatch, ad]);
 
   const handleCHangeRating = (e: any, newValue: any) => {
     if (role === "") navigate("/register");
     else {
       setShowModal(true);
-      dispatch(updateAdAsync({ rating: newValue, note: ad!.note, description:ad!.description, images:ad!.images, name: ad!.name, services:ad!.services, _id: id}));
+      dispatch(
+        updateAdAsync({
+          rating: newValue,
+          note: ad!.note,
+          description: ad!.description,
+          images: ad!.images,
+          name: ad!.name,
+          services: ad!.services,
+          _id: id,
+        })
+      );
     }
   };
   const handleCloseModal = () => {
     setShowModal(false);
-  }; 
+  };
 
   return (
     <>

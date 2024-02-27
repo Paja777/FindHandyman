@@ -23,6 +23,7 @@ const CreateAd = () => {
   const dispatch = useAppDispatch();
 
   async function submitForm(data: FieldValues) {
+    // extract data from input fields and formating
     const formatedData = {
       description: data.description,
       note: data.alert,
@@ -38,13 +39,9 @@ const CreateAd = () => {
       ),
     };
     console.log(formatedData.services);
-    try {
-      dispatch(createAd(formatedData));
-      console.log("after dispatch createAd function");
-      // navigate("/");
-    } catch (error) {
-      console.log(error);
-    }
+    // dispatch data to redux 
+    dispatch(createAd(formatedData));
+    // navigate("/");
   }
   const clickHandler = () => {
     setServiceInputCount((prev) => {
