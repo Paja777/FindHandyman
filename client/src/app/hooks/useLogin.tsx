@@ -27,7 +27,7 @@ export const useLogin = () => {
         }
       );
       console.log(response.data);
-      localStorage.setItem("user", JSON.stringify(response));
+      localStorage.setItem("user", JSON.stringify({...response.data}));
       dispatch(adUserStatus(response.data));
       setIsLoading(false);
     } catch (error: any) {

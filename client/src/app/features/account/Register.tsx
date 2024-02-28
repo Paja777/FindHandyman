@@ -1,6 +1,5 @@
 import { FieldValues, useForm } from "react-hook-form";
-import { useAppDispatch, useAppSelector } from "../../store/configureStore";
-import { registerUser } from "./accountSlice";
+import { useAppSelector } from "../../store/configureStore";
 import { FormHelperText } from "@mui/material";
 import {
   Box,
@@ -17,13 +16,13 @@ import {
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { LoadingButton } from "@mui/lab";
-import { useSignup } from "../../hooks/useSignup";
+import { useRegister } from "../../hooks/useRegister";
 
 export default function Register() {
   const navigate = useNavigate();
   const location = useLocation();
   const { from } = location.state || { from: { pathname: "/" } };
-  const { signup, isLoading, error } = useSignup();
+  const { registration, isLoading, error } = useRegister();
   const [selectedValue, setSelectedValue] = useState(`handyman`);
   const {user} = useAppSelector(state => state.ad)
 
@@ -52,10 +51,10 @@ export default function Register() {
   // submit function
   async function submitForm(data: FieldValues) {
     try {
-      await signup({
+      await registration({
         email: data.email,
         password: data.password,
-        category: data.category,
+        category: data.category || '',
         username: data.username,
         role: selectedValue,
       });

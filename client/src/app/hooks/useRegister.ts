@@ -3,7 +3,7 @@ import axios from "axios";
 import { useAppDispatch } from "../store/configureStore";
 import { adUserStatus } from "../features/roleHandyman/adSlice";
 
-interface SignupProps {
+interface RegisterProps {
   email: string;
   password: string;
   category: string;
@@ -11,18 +11,18 @@ interface SignupProps {
   username: string
 }
 
-export const useSignup = () => {
+export const useRegister = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useAppDispatch();
 
-  const signup = async ({ email, password, category, role, username }: SignupProps) => {
+  const registration = async ({ email, password, category, role, username }: RegisterProps) => {
     setIsLoading(true);
     setError(null);
 
     const response = await axios.post(
       "/user/signup",
-      { email, password },
+      { email, password, category, role, username },
       {
         headers: {
           "Content-Type": "application/json",
@@ -30,12 +30,12 @@ export const useSignup = () => {
       }
     );
     console.log(response.data);
-    localStorage.setItem("user", JSON.stringify({...response.data, category, role, username }));
+    localStorage.setItem("user", JSON.stringify({...response.data }));
     dispatch(adUserStatus(response.data));
     setIsLoading(false);
   };
   return {
-    signup,
+    registration,
     isLoading,
     error,
   };
