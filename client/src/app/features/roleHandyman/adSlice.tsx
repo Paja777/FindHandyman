@@ -7,7 +7,6 @@ import agent from "../../api/agent";
 import { Ad } from "../../models/ad";
 import { RootState } from "../../store/configureStore";
 import { serviceMaker } from "../../utils/utils";
-import { useAuthContext } from "../../context/AuthContext";
 
 export const adAdapter = createEntityAdapter<Ad>({
   selectId: (ad) => ad._id,
@@ -16,19 +15,12 @@ export const adAdapter = createEntityAdapter<Ad>({
 export const fetchAdsAsync = createAsyncThunk<Ad[], void>(
   "ad/fetchAdsAsync",
   async (_, thunkAPI) => {
-    const { user } = useAuthContext();
     try {
-      let response;
-      if (user) {
-        response = await agent.requests.get("/ad", {
-          headerss: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        });
-      }
+      const response = await agent.requests.get("/ad");
       return response;
     } catch (error: any) {
-      return thunkAPI.rejectWithValue({ error: error.respose.data });
+      console.log(error);
+      return thunkAPI.rejectWithValue({ error: error.response.data });
     }
   }
 );
@@ -36,14 +28,8 @@ export const fetchAdsAsync = createAsyncThunk<Ad[], void>(
 export const fetchAdAsync = createAsyncThunk<Ad, string>(
   "ad/fetchAdAsync",
   async (productId, thunkAPI) => {
-    const { user } = useAuthContext();
-    if (!user) {
-      return;
-    }
     try {
-      const response = await agent.adCatalog.details(productId, {
-        headers: { Authorization: `Bearer ${user.token}` },
-      });
+      const response = await agent.adCatalog.details(productId);
       return response;
     } catch (error: any) {
       return thunkAPI.rejectWithValue({ error: error.response });
@@ -51,15 +37,14 @@ export const fetchAdAsync = createAsyncThunk<Ad, string>(
   }
 );
 
-export const updateAdAsync = createAsyncThunk<Ad, any>(
+export const updateAdAsync = createAsyncThunk<Ad, any, { state: RootState }>(
   "ad/updateAdAsync",
   async (data, thunkAPI) => {
-    const { user } = useAuthContext();
-    if (!user) {
-      return;
-    }
     try {
-      // console.log(Ad._id, Ad)
+      const user = thunkAPI.getState().ad.user;
+      if (!user) {
+        return;
+      }
       const response = await agent.requests.patch(`/ad/${data._id}`, data, {
         headers: {
           Authorization: `Bearer ${user.token}`,
@@ -68,7 +53,7 @@ export const updateAdAsync = createAsyncThunk<Ad, any>(
       console.log(response);
       return response;
     } catch (error: any) {
-      return thunkAPI.rejectWithValue({ error: error.respose.data });
+      return thunkAPI.rejectWithValue({ error: error.response.data });
     }
   }
 );
@@ -83,7 +68,7 @@ export const createAd = createAsyncThunk<Ad, any, { state: RootState }>(
     });
     // Post the ad to the server
     try {
-      const { user } = useAuthContext();
+      const user = thunkAPI.getState().ad.user;
       if (!user) {
         return;
       }
@@ -121,7 +106,7 @@ export interface AdState {
   searchTerm: string;
 }
 const initialState: AdState = {
-  user: null,
+  user: JSON.parse(localStorage.getItem("user")!),
   productsLoaded: false,
   status: "idle",
   images: [],

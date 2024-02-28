@@ -32,7 +32,7 @@ const navStyles = {
 };
 
 const Navbar = () => {
-  const { loggedIn } = useAppSelector((state) => state.account);
+  const { user } = useAppSelector((state) => state.ad);
   const dispatch = useAppDispatch();
   const {logout} = useLogout()
 
@@ -118,7 +118,7 @@ const Navbar = () => {
           <IconButton component={Link} to={"/login"} sx={{ color: "green" }}>
             <AccountCircleIcon sx={{ mt: 1, fontSize: "34px" }} />
           </IconButton>
-          {loggedIn && (
+          {user !== null && (
             <Typography
               component={NavLink}
               to={"/register"}
@@ -134,7 +134,7 @@ const Navbar = () => {
               {`Sign Out`}
             </Typography>
           )}
-          {!loggedIn &&
+          {user === null &&
             rightLinks.map((link) => (
               <Typography
                 component={NavLink}
