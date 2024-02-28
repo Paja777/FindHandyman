@@ -14,25 +14,28 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { LoadingButton } from "@mui/lab";
 import { useSignup } from "../../hooks/useSignup";
 
 export default function Register() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { from } = location.state || { from: { pathname: "/" } };
   const { signup, isLoading, error } = useSignup();
   const [selectedValue, setSelectedValue] = useState(`handyman`);
-  
+  const {user} = useAppSelector(state => state.ad)
+
   const {
     register,
     unregister,
-    watch,
     handleSubmit,
     formState: { isSubmitting, isValid, errors },
   } = useForm({
     mode: "all",
   });
+  // conditionaly rendering category input field
   useEffect(() => {
     if (selectedValue === "handyman") {
       register("category", { required: "Category field is required" });
@@ -40,13 +43,22 @@ export default function Register() {
       unregister("category");
     }
   }, [selectedValue, unregister, register]);
-
-  const dispatch = useAppDispatch();
-
+  // checking if user is register for relocation
+  useEffect(() => {
+    if (user) {
+      navigate(from.pathname);
+    }
+  }, [user]);
+  // submit function
   async function submitForm(data: FieldValues) {
     try {
-       dispatch(registerUser({ ...data, role: data.role || "handyman" }));
-      await signup({email: data.email, password: data.password})
+      await signup({
+        email: data.email,
+        password: data.password,
+        category: data.category,
+        username: data.username,
+        role: selectedValue,
+      });
       // navigate("/");
     } catch (error) {
       console.log(error);

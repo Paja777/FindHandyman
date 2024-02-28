@@ -108,7 +108,7 @@ export interface AdState {
   searchTerm: string;
 }
 const initialState: AdState = {
-  user: JSON.parse(localStorage.getItem("user")!).data,
+  user: JSON.parse(localStorage.getItem("user")!),
   productsLoaded: false,
   status: "idle",
   images: [],

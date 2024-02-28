@@ -6,6 +6,9 @@ import { adUserStatus } from "../features/roleHandyman/adSlice";
 interface SignupProps {
   email: string;
   password: string;
+  category: string;
+  role: string;
+  username: string
 }
 
 export const useSignup = () => {
@@ -13,7 +16,7 @@ export const useSignup = () => {
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useAppDispatch();
 
-  const signup = async ({ email, password }: SignupProps) => {
+  const signup = async ({ email, password, category, role, username }: SignupProps) => {
     setIsLoading(true);
     setError(null);
 
@@ -27,7 +30,7 @@ export const useSignup = () => {
       }
     );
     console.log(response.data);
-    localStorage.setItem("user", JSON.stringify(response));
+    localStorage.setItem("user", JSON.stringify({...response.data, category, role, username }));
     dispatch(adUserStatus(response.data));
     setIsLoading(false);
   };
