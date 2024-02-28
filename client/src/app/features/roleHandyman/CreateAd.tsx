@@ -12,7 +12,8 @@ const CreateAd = () => {
   const navigate = useNavigate();
   const [serviceInputCount, setServiceInputCount] = useState([2, 3, 4]);
   const { username, category } = useAppSelector((state) => state.account);
-  const { images } = useAppSelector((state) => state.ad);
+  const { images, user } = useAppSelector((state) => state.ad);
+  console.log(user);
 
   const {
     register,
@@ -38,7 +39,7 @@ const CreateAd = () => {
         (_, i) => data[`servicePrice${i + 1}`]
       ),
     };
-    console.log(formatedData.services);
+    console.log(formatedData);
     // dispatch data to redux 
     dispatch(createAd(formatedData));
     // navigate("/");

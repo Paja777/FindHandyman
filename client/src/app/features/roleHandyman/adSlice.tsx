@@ -7,9 +7,10 @@ import agent from "../../api/agent";
 import { Ad } from "../../models/ad";
 import { RootState } from "../../store/configureStore";
 import { serviceMaker } from "../../utils/utils";
+import axios from "axios";
 
 export const adAdapter = createEntityAdapter<Ad>({
-  selectId: (ad) => ad._id,
+  // selectId: (ad) => ad._id,
 });
 
 export const fetchAdsAsync = createAsyncThunk<Ad[], void>(
@@ -58,10 +59,11 @@ export const updateAdAsync = createAsyncThunk<Ad, any, { state: RootState }>(
   }
 );
 
-export const createAd = createAsyncThunk<Ad, any, { state: RootState }>(
+// create ad
+export const createAd = createAsyncThunk<any, any, { state: RootState }>(
   "ad/createAd",
   async (payload, thunkAPI) => {
-    // make array of objects { service : price}
+    // make array of objects { service : price }
     const services = serviceMaker({
       services: payload.services,
       prices: payload.prices,
@@ -72,8 +74,8 @@ export const createAd = createAsyncThunk<Ad, any, { state: RootState }>(
       if (!user) {
         return;
       }
-      const response = await agent.requests.post(
-        "/",
+      const response = await axios.post(
+        "/ad",
         {
           name: payload.name,
           category: payload.category,
@@ -85,12 +87,12 @@ export const createAd = createAsyncThunk<Ad, any, { state: RootState }>(
         },
         {
           headers: {
-            Authorization: `Bearer ${user.token}`,
+            authorization: `Bearer ${user.token}`,
           },
         }
       );
       console.log(response);
-      return response; // Return the posted ad
+      return response.data; // Return the posted ad
     } catch (error) {
       console.log(error);
     }
@@ -106,7 +108,7 @@ export interface AdState {
   searchTerm: string;
 }
 const initialState: AdState = {
-  user: JSON.parse(localStorage.getItem("user")!),
+  user: JSON.parse(localStorage.getItem("user")!).data,
   productsLoaded: false,
   status: "idle",
   images: [],
@@ -164,7 +166,8 @@ export const adSlice = createSlice({
       state.status = "pendingCreateAd";
     });
     builder.addCase(createAd.fulfilled, (state, action) => {
-      adAdapter.addOne(state, action.payload); // Add the posted ad to the state
+      // adAdapter.addOne(state, action.payload);
+      console.log(action.payload) // Add the posted ad to the state
       state.status = "idle";
     });
     builder.addCase(createAd.rejected, (state, action) => {

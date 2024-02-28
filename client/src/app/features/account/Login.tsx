@@ -1,5 +1,5 @@
 import { FieldValues, useForm } from "react-hook-form";
-import { useAppDispatch } from "../../store/configureStore";
+import { useAppDispatch, useAppSelector } from "../../store/configureStore";
 import { loginUser, registerUser } from "./accountSlice";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import {
@@ -10,13 +10,17 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { LoadingButton } from "@mui/lab";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useLogin } from "../../hooks/useLogin";
+import { useEffect } from "react";
 
 export default function Login() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { from } = location.state || { from: { pathname: '/' } };
+  const {user} = useAppSelector(state => state.ad)
   const {
     register,
     handleSubmit,
@@ -26,9 +30,14 @@ export default function Login() {
   });
   const { login, error, isLoading } = useLogin();
   const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (user) {
+      navigate(from.pathname);
+    }
+  },[user])
 
   async function submitForm(data: FieldValues) {
-    login({ email: data.username, password: data.password });
+    login({ email: data.email, password: data.password });
   }
 
   return (
@@ -55,11 +64,11 @@ export default function Login() {
           </Typography>
           <Stack direction="row" sx={{ mt: 6 }}>
             <Typography variant="h6" color="grey" sx={{ mr: 2, mt: 1 }}>
-              Username
+              Email
             </Typography>
             <TextField
               error={!!errors.username}
-              {...register("username", { required: "Username is required" })}
+              {...register("email", { required: "Email is required" })}
               helperText={errors?.username?.message as string}
             ></TextField>
           </Stack>
