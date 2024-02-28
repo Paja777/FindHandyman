@@ -1,12 +1,10 @@
-import { Box, IconButton, Paper, Stack, Typography } from "@mui/material";
+import { Box, IconButton, Stack, Typography } from "@mui/material";
 import { Link, NavLink } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Ribbon from "../components/Ribbon";
 import { useAppDispatch, useAppSelector } from "../store/configureStore";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import { signOut } from "../features/account/accountSlice";
-import { useAuthContext } from "../context/AuthContext";
 import { useLogout } from "../hooks/useLogout";
 
 const rightLinks = [
