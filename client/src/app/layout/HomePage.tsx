@@ -30,7 +30,7 @@ const HomePage = () => {
           gap: 0.7,
         }}
       >
-        <SideBar />
+        <SideBar data-testid="sideBar"/>
         <Box sx={{ gridRow: "1", gridColumn: "span 5", ml: 2 }}>
           <SearchBar />
           {productsLoaded === true?  (<AdsList ads={ads} />) : (

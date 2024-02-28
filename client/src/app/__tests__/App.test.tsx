@@ -1,22 +1,26 @@
 import App from "../layout/App";
 import { renderWithProviders } from "../utils/utils-for-test";
-import { getByText, screen, waitFor } from "@testing-library/react";
+import {
+  fireEvent,
+  getByText,
+  render,
+  screen,
+  waitFor,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { BrowserRouter, MemoryRouter } from "react-router-dom";
 
 describe("App", () => {
   beforeEach(() => {
     renderWithProviders(<App />);
   });
 
-  test("about link should be in app", async () => {
-    const contactLink = screen.getByText("Contact");
+  test("contact link should take to Contact page", async () => {
+    const contactLink = screen.getByText(/About/i);
     expect(contactLink).toBeInTheDocument();
 
     await userEvent.click(contactLink);
-    const contactText =  screen.getByText("Contact Page");
 
-    await waitFor(() => {
-      expect(contactText).toBeInTheDocument();
-    });
+    expect(screen.getByText(/You are on the About page/i)).toBeInTheDocument();
   });
 });

@@ -9,7 +9,7 @@ function App() {
     < >
       <Navbar />
       <Container maxWidth="xl" sx={{backgroundColor: 'white'}}>
-        <Outlet />
+        <Outlet data-testid="outlet"/>
       </Container>
       <Footer />
     </>

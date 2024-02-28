@@ -3,7 +3,7 @@ import React from 'react'
 
 const ContactPage = () => {
   return (
-    <Typography variant= 'h3'>Contact Page</Typography>
+    <Typography data-testid="contact" variant= 'h3'>Contact Page</Typography>
   )
 }
 

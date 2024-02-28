@@ -17,14 +17,14 @@ export const router = createBrowserRouter([
     children: [
       {element: <RequireAuth />, children: [ 
         { path: "/createuserad", element: <CreateUserAd /> },
+        { path: "/createad", element: <CreateAd /> },
       ]},
-      { path: "/createad", element: <CreateAd /> },
-      { path: "/", element: <HomePage /> },
+      { path: "/", element: <HomePage data-testid="homepage"/> },
       { path: "/:id", element: <DetailPage /> },
       { path: "/login", element: <Login /> },
       { path: "/register", element: <Register /> },
       { path: "/about", element: <AboutPage /> },
-      { path: "/contact", element: <ContactPage /> },
+      { path: "/contact", element: <ContactPage data-testid="contactpage"/> },
 
     ],
   },
