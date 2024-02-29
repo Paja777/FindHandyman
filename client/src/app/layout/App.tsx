@@ -7,11 +7,11 @@ import Footer from "./Footer";
 function App() {
   return (
     < >
-      <Navbar />
+      <Navbar data-testid="navbar"/>
       <Container maxWidth="xl" sx={{backgroundColor: 'white'}}>
-        <Outlet data-testid="outlet"/>
+        <Outlet />
       </Container>
-      <Footer />
+      <Footer data-testid="footer"/>
     </>
   );
 }

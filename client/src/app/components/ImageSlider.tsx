@@ -4,14 +4,13 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { v4 as uuidv4 } from "uuid";
 
+export interface ImageSliderProps {
+  images: any;
+}
 
-interface Props {
-    images: any;
-  }
-
-export const ImageSlider = ({images} : Props) => {
-    const [currentImage, setCurrentImage] = useState(0);
-   console.log(currentImage)
+export const ImageSlider = ({ images }: ImageSliderProps) => {
+  const [currentImage, setCurrentImage] = useState(0);
+  console.log(currentImage);
 
   const nextSlide = () => {
     setCurrentImage((prevImage) =>
@@ -26,8 +25,9 @@ export const ImageSlider = ({images} : Props) => {
   };
   return (
     <Stack>
-    <Stack direction='row'>
-    <Card
+      <Stack direction="row">
+        <Card
+          data-testid="sideButton"
           onClick={prevSlide}
           sx={{
             width: "3vw",
@@ -63,6 +63,7 @@ export const ImageSlider = ({images} : Props) => {
           />
 
           <img
+          data-testid = "current-image"
             src={images[currentImage]}
             alt={`Slide ${currentImage}`}
             style={{ width: "100%", height: "100%" }}
@@ -82,6 +83,7 @@ export const ImageSlider = ({images} : Props) => {
           />
         </Card>
         <Card
+          data-testid="sideButton"
           onClick={nextSlide}
           sx={{
             width: "3vw",
@@ -93,34 +95,32 @@ export const ImageSlider = ({images} : Props) => {
             "&:hover": { bgcolor: "black" },
           }}
         />
-        </Stack>
-        <Stack direction='row' sx={{mt:1}}>
-        {images.map((image : any, index: number) => (
-          
-         <Card
-         key={uuidv4()}
-         sx={{
-           position: "relative",
-           width: "7vw",
-           maxWidth: "7vw",
-           maxHeight: "10vh",
-           height: "10vh",
-           minHeight: "10vh",
-           ml: 1,
-           border: `${currentImage === index? '3px solid red' : ''}`
-         }}
-       >
-         <img
-           src={image}
-           alt={`Slide ${currentImage}`}
-           style={{ width: "100%", height: "100%" }}
-         />
-       </Card>
+      </Stack>
+      <Stack direction="row" sx={{ mt: 1 }}>
+        {images.map((image: any, index: number) => (
+          <Card
+            key={uuidv4()}
+            sx={{
+              position: "relative",
+              width: "7vw",
+              maxWidth: "7vw",
+              maxHeight: "10vh",
+              height: "10vh",
+              minHeight: "10vh",
+              ml: 1,
+              border: `${currentImage === index ? "3px solid red" : ""}`,
+            }}
+          >
+            <img
+              src={image}
+              alt={`Slide ${currentImage}`}
+              style={{ width: "100%", height: "100%" }}
+            />
+          </Card>
         ))}
-        
       </Stack>
-      </Stack>
-  )
-}
+    </Stack>
+  );
+};
 
 export default ImageSlider;
