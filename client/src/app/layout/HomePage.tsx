@@ -17,9 +17,6 @@ const HomePage = () => {
   }, [productsLoaded, dispatch]);
 
   const ads = useAppSelector(AdSelector.selectAll);
-  console.log(ads);
-
-  // if (!productsLoaded) return <div>...Loading</div>;
 
   return (
     <>
@@ -40,11 +37,7 @@ const HomePage = () => {
           )}
         </Box>
         <Box sx={{ gridRow: "1", gridColumn: "span 1", mt: "10%" }}>
-          <img
-            src={image1}
-            width="200px"
-            height="700px"
-          />
+          <img src={image1} width="200px" height="700px" />
         </Box>
       </Box>
     </>

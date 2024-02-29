@@ -4,7 +4,6 @@ import { Ad } from "../models/ad";
 
 
 const AdsList = ({ ads }: { ads: Ad[] }) => {
-//  console.log(ads);
 
   return (
     <Grid container spacing={2.5} sx={{ mt: 0.1, ml:0.5 }}>
