@@ -154,7 +154,7 @@ export const adSlice = createSlice({
       state.status = "pendingFetchProducts";
     });
     builder.addCase(fetchAdAsync.fulfilled, (state, action) => {
-      adAdapter.setOne(state, action.payload);
+      adAdapter.upsertOne(state, action.payload);
       state.status = "idle";
       state.productsLoaded = true;
     });
