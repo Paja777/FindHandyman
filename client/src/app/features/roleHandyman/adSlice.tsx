@@ -156,7 +156,7 @@ export const adSlice = createSlice({
     builder.addCase(fetchAdAsync.fulfilled, (state, action) => {
       adAdapter.upsertOne(state, action.payload);
       state.status = "idle";
-      state.productsLoaded = true;
+      
     });
     builder.addCase(fetchAdAsync.rejected, (state, action) => {
       // console.log(action.payload);

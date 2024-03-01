@@ -1,5 +1,4 @@
 import { Container, Paper, Stack, TextField, Typography } from "@mui/material";
-import { v4 as uuidv4 } from "uuid";
 import { useForm, FieldValues } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../../store/configureStore";
@@ -9,21 +8,18 @@ import { LoadingButton } from "@mui/lab";
 
 const CreateUserAd = () => {
   const navigate = useNavigate();
-  const { username } = useAppSelector((state) => state.account);
+  const { username } = JSON.parse(localStorage.getItem("user")!);
   const { images } = useAppSelector((state) => state.ad);
-
+  const dispatch = useAppDispatch();
   const {
     register,
-    handleSubmit, 
+    handleSubmit,
     formState: { isSubmitting, isValid, errors },
   } = useForm({ mode: "all" });
 
-  const dispatch = useAppDispatch();
-
-  async function submitForm(data: FieldValues) {
+  async function submitForm({note, description, category}: FieldValues) {
     try {
-      console.log({ ...data, name: username });
-      dispatch(createAd({ ...data, name: username, id: uuidv4() }));
+      dispatch(createAd({ note, description, category, name: username }));
       navigate("/");
     } catch (error) {
       console.log(error);
@@ -49,6 +45,25 @@ const CreateUserAd = () => {
           Create Your Ad
         </Typography>
         <Typography variant="body1" color="rgb(181, 58, 27)" sx={{ m: 2 }}>
+          Category that you looking for
+        </Typography>
+        <TextField
+          sx={{
+            mb: 3,
+            "& .MuiOutlinedInput-root": {
+              "&.Mui-focused fieldset": {
+                borderColor: "green",
+              },
+            },
+          }}
+          placeholder="painting?"
+          error={!!errors.category}
+          {...register("category", {
+            required: "This field is required",
+            minLength: 4,
+          })}
+        ></TextField>
+        <Typography variant="body1" color="rgb(181, 58, 27)" sx={{ m: 2 }}>
           Description
         </Typography>
         <TextField
@@ -64,7 +79,7 @@ const CreateUserAd = () => {
               },
             },
           }}
-          placeholder="Describe your services (maximum 300 caracters)"
+          placeholder="Describe what you looking for (maximum 300 caracters)"
           {...register("description", {
             required: "This field is required",
             minLength: 20,
@@ -102,7 +117,7 @@ const CreateUserAd = () => {
             },
           }}
           placeholder="If you have any notes, type it here (maximum 200 caracters)"
-          {...register("alert", { maxLength: 200 })}
+          {...register("note", { maxLength: 200 })}
         ></TextField>
 
         <LoadingButton

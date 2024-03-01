@@ -40,6 +40,7 @@ export const imageComporessor = async (images: string[]) => {
 };
 
 export const serviceMaker = ({ services, prices }: any) => {
+  if (!services) return null;
   const servicePrice = services
     .filter((service: string | undefined) => service !== undefined && service !== '') // Filter out null, empty, or undefined services
     .map((service: string, index: number) => ({

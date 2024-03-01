@@ -5,7 +5,6 @@ import { FieldValues, useForm } from "react-hook-form";
 import { useAppDispatch, useAppSelector } from "../../store/configureStore";
 import { createAd } from "./adSlice";
 import { useNavigate } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
 import ImageUploadButton from "../../components/ImageUploadButton";
 
 const CreateAd = () => {
@@ -24,7 +23,7 @@ const CreateAd = () => {
     // extract data from input fields and formating
     const formatedData = {
       description: data.description,
-      note: data.alert,
+      note: data.note,
       name: username,
       category: category,
       services: Array.from(
@@ -169,7 +168,7 @@ const CreateAd = () => {
           rows="5"
           sx={{ mr: 1, mt: 1, width: 450 }}
           placeholder="If you have any notes, type it here (maximum 200 caracters)"
-          {...register("alert", { maxLength: 200 })}
+          {...register("note", { maxLength: 200 })}
         ></TextField>
         <br />
         <LoadingButton

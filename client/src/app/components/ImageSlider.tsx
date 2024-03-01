@@ -5,12 +5,12 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { v4 as uuidv4 } from "uuid";
 
 const sideButtonStyle = {
+  position: "absolute",
   width: "3vw",
-  ml: -5.7,
   height: "60vh",
   opacity: 0.5,
   bgcolor: "grey",
-  zIndex: 12,
+  zIndex: 99,
   "&:hover": { bgcolor: "black" },
 };
 const mainCardStyle = {
@@ -55,7 +55,6 @@ export interface ImageSliderProps {
 
 export const ImageSlider = ({ images }: ImageSliderProps) => {
   const [currentImage, setCurrentImage] = useState(0);
-  console.log(currentImage);
 
   const nextSlide = () => {
     setCurrentImage((prevImage) =>
@@ -69,28 +68,28 @@ export const ImageSlider = ({ images }: ImageSliderProps) => {
     );
   };
   return (
-    <Stack sx={{ ml: 10 }}>
+    <Stack sx={{ ml: 4 }}>
       <Stack direction="row">
+        <Card sx={mainCardStyle}>
         <Card
           data-testid="sideButton"
           onClick={prevSlide}
-          sx={sideButtonStyle}
+          sx={{...sideButtonStyle, left:0}}
         />
-        <Card sx={mainCardStyle}>
+          <Card
+            data-testid="sideButton"
+            onClick={nextSlide}
+            sx={{...sideButtonStyle, right:0}}
+          />
           <ArrowBackIcon onClick={prevSlide} sx={arowBackIconStyle} />
           <img
             data-testid="current-image"
             src={images[currentImage]}
             alt={`Slide ${currentImage}`}
-            style={{ width: "100%", height: "100%" }}
+            style={{ width: "100%", height: "100%"}}
           />
           <ArrowForwardIcon onClick={nextSlide} sx={arowForwardIconStyle} />
         </Card>
-        <Card
-          data-testid="sideButton"
-          onClick={nextSlide}
-          sx={sideButtonStyle}
-        />
       </Stack>
       <Stack direction="row" sx={{ mt: 1 }}>
         {images.map((image: any, index: number) => (
@@ -104,7 +103,7 @@ export const ImageSlider = ({ images }: ImageSliderProps) => {
             <img
               src={image}
               alt={`Slide ${currentImage}`}
-              style={{ width: "100%", height: "100%" }}
+              style={{ width: "100%", height: "100%"}}
             />
           </Card>
         ))}

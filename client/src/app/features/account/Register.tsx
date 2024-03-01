@@ -123,7 +123,7 @@ export default function Register() {
                 pattern: {
                   value:
                     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()-_+=<>?]).{8,}$/,
-                  message: "Password does not meet complexity requirements",
+                  message: "Password not strong enough",
                 },
               })}
               helperText={errors?.password?.message as string}
