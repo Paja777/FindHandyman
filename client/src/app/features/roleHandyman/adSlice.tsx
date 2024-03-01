@@ -10,7 +10,7 @@ import { serviceMaker } from "../../utils/utils";
 import axios from "axios";
 
 export const adAdapter = createEntityAdapter<Ad>({
-  // selectId: (ad) => ad._id,
+  selectId: (ad) => ad._id,
 });
 
 export const fetchAdsAsync = createAsyncThunk<Ad[], void>(

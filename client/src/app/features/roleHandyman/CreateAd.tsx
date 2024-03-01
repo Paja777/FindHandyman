@@ -11,17 +11,14 @@ import ImageUploadButton from "../../components/ImageUploadButton";
 const CreateAd = () => {
   const navigate = useNavigate();
   const [serviceInputCount, setServiceInputCount] = useState([2, 3, 4]);
-  const { username, category } = useAppSelector((state) => state.account);
-  const { images, user } = useAppSelector((state) => state.ad);
-  console.log(user);
-
+  const { username, category } = JSON.parse(localStorage.getItem("user")!);
+  const { images } = useAppSelector((state) => state.ad);
+  const dispatch = useAppDispatch();
   const {
     register,
     handleSubmit,
     formState: { isSubmitting, isValid, errors },
   } = useForm({ mode: "all" });
-
-  const dispatch = useAppDispatch();
 
   async function submitForm(data: FieldValues) {
     // extract data from input fields and formating
@@ -39,10 +36,9 @@ const CreateAd = () => {
         (_, i) => data[`servicePrice${i + 1}`]
       ),
     };
-    console.log(formatedData);
-    // dispatch data to redux 
+    // dispatch data to redux and change path to homepage
     dispatch(createAd(formatedData));
-    // navigate("/");
+    navigate("/");
   }
   const clickHandler = () => {
     setServiceInputCount((prev) => {
