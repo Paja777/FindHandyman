@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import SideBar from "../components/SideBar";
 import SearchBar from "../components/SearchBar";
 import { AdSelector, fetchAdsAsync } from "../features/roleHandyman/adSlice";
+import LoadingComponent from "../components/LoadingComponent";
 
 const image1 = `https://marketplace.canva.com/EADapBco-Fc/1/0/427w/canva-colorful-black-friday-discount-wide-skyscraper-ad-_AIWdH-_7Kk.jpg`;
 
@@ -33,7 +34,7 @@ const HomePage = () => {
           {productsLoaded === true ? (
             <AdsList ads={ads} />
           ) : (
-            <div>...Loading</div>
+            <LoadingComponent />
           )}
         </Box>
         <Box sx={{ gridRow: "1", gridColumn: "span 1", mt: "10%" }}>

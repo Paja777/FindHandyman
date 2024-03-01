@@ -14,10 +14,10 @@ import { useNavigate } from "react-router-dom";
 import { Ad } from "../models/ad";
 
 type UserCardProps = {
-  user: Ad; 
+  ad: Ad; 
 }
 const UserCard = ({
-  user: { category, name, images, _id, rating },
+  ad: { category, name, images, _id, rating },
 }: UserCardProps) => {
   const { displayedAds } = useAppSelector((state) => state.account);
   const navigate = useNavigate();

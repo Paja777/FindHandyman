@@ -1,11 +1,18 @@
 import { Fragment } from "react";
 import ReactDOM from "react-dom";
 import { LoadingButton, Rating } from "@mui/lab";
-
 import classes from "./Modal.module.css";
-import { useNavigate } from "react-router";
-import useFindAd from "../hooks/useFindAd";
 import { Stack } from "@mui/material";
+
+const loadingButtonStyle = {
+  mt: 1,
+  mb: 2,
+  ml: "15%",
+  p: 3,
+  width: "70%",
+  bgcolor: "red",
+  "&:hover": { bgcolor: "rgb(129, 212, 28)" },
+};
 
 type ModalProps = {
   onClose: () => void;
@@ -29,15 +36,7 @@ const ModalOverlay = ({ onClose, value }: ModalProps) => {
       <LoadingButton
         onClick={() => onClose()}
         variant="contained"
-        sx={{
-          mt: 1,
-          mb: 2,
-          ml: "15%",
-          p: 3,
-          width: "70%",
-          bgcolor: "red",
-          "&:hover": { bgcolor: "rgb(129, 212, 28)" },
-        }}
+        sx={loadingButtonStyle}
       >
         Confirm Rating
       </LoadingButton>
