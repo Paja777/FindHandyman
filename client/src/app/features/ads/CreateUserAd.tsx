@@ -58,7 +58,7 @@ const CreateUserAd = () => {
               },
             },
           }}
-          placeholder="painting?"
+          placeholder="Painting?"
           error={!!errors.category}
           {...register("category", {
             required: "This field is required",

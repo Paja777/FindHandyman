@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useAppDispatch } from "../store/configureStore";
-import { adUserStatus } from "../features/roleHandyman/adSlice";
+import { adUserStatus } from "../features/ads/adSlice";
 
 interface SignupProps {
   email: string;

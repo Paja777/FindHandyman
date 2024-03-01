@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 import { render } from "@testing-library/react";
 import { configureStore, EnhancedStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
-import { adSlice } from "../features/roleHandyman/adSlice";
+import { adSlice } from "../features/ads/adSlice";
 import { RootState } from "../store/configureStore"; // Assuming RootState is defined in configureStore
 import { accountSlice } from "../features/account/accountSlice";
 import "@testing-library/jest-dom";

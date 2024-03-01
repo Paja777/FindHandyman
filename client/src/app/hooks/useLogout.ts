@@ -1,5 +1,5 @@
 import { useAuthContext } from "../context/AuthContext";
-import { adUserStatus } from "../features/roleHandyman/adSlice";
+import { adUserStatus } from "../features/ads/adSlice";
 import { useAppDispatch } from "../store/configureStore";
 
 export const useLogout = () => {

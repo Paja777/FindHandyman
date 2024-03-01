@@ -27,7 +27,7 @@ const UserCard = ({
   ad: { category, name, images, _id, rating, adRole },
 }: UserCardProps) => {
   const navigate = useNavigate();
-  const adTitle = adRole === "user" ? "`${name} is looking for help in category: ${category}`" : `${category} : ${name}`;
+  const adTitle = adRole === "user" ? `${name} is looking for help in category: ${category}` : `${category} : ${name}`;
   
   return (
     <Card sx={{ width: 460, maxHeight: 440, height: 440, opacity: "1", mt: 0 }}>

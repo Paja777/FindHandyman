@@ -4,7 +4,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import AddIcon from "@mui/icons-material/Add";
 import { useAppDispatch } from "../store/configureStore";
 import { setDisplayedAds } from "../features/account/accountSlice";
-import { setSearchTerm } from "../features/roleHandyman/adSlice";
+import { setSearchTerm } from "../features/ads/adSlice";
 
 const boxStyle = {
   backgroundColor: "grey",

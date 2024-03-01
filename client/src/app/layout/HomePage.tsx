@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "../store/configureStore";
 import { useEffect } from "react";
 import SideBar from "../components/SideBar";
 import SearchBar from "../components/SearchBar";
-import { AdSelector, fetchAdsAsync } from "../features/roleHandyman/adSlice";
+import { AdSelector, fetchAdsAsync } from "../features/ads/adSlice";
 import LoadingComponent from "../components/LoadingComponent";
 
 const image1 = `https://marketplace.canva.com/EADapBco-Fc/1/0/427w/canva-colorful-black-friday-discount-wide-skyscraper-ad-_AIWdH-_7Kk.jpg`;

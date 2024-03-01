@@ -1,9 +1,7 @@
 import { FieldValues, useForm } from "react-hook-form";
 import { useAppDispatch, useAppSelector } from "../../store/configureStore";
-import { loginUser, registerUser } from "./accountSlice";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import {
-  Box,
   Container,
   Paper,
   Stack,
@@ -12,7 +10,6 @@ import {
 } from "@mui/material";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { LoadingButton } from "@mui/lab";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useLogin } from "../../hooks/useLogin";
 import { useEffect } from "react";
 
@@ -62,7 +59,7 @@ export default function Login() {
           <Typography variant="h5" sx={{ ml: "20%" }}>
             Welcome back!
           </Typography>
-          <Stack direction="row" sx={{ mt: 6 }}>
+          <Stack direction="row" sx={{ mt: 6, ml:"13%" }}>
             <Typography variant="h6" color="grey" sx={{ mr: 2, mt: 1 }}>
               Email
             </Typography>

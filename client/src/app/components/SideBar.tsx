@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import BigButton from "./BigButton";
-import classes from "../features/roleHandyman/RoleHandyman.module.css";
+import classes from "../features/ads/Ads.module.css";
 
 const boxStyle = {
   gridRow: "1",
@@ -11,8 +11,9 @@ const boxStyle = {
 }
 
 const SideBar = () => {
-  const { role, username } = JSON.parse(localStorage.getItem("user")!);
-
+  // Collecting user data from local storage or empty obj if there is no user
+  const user = JSON.parse(localStorage.getItem("user") ?? "{}");
+  const { role = null, username = null } = user;
   // Creating path conditionaly for create ad page
   const pathRole = role ? (role === "handyman" ? "/createad" : "/createuserad") : "/register";
   // Creating message conditionaly 
@@ -21,7 +22,7 @@ const SideBar = () => {
     <Box
       sx={boxStyle}
     >
-      <h1 className={classes.ultra} style={{ fontSize: "36px", color: "grey" }}>
+      <h1 className={classes.ultra} style={{ fontSize: "42px", fontWeight: "lighter", color: "grey" }}>
         {`Welcome ${welcomeMessage}!`}{" "}
       </h1>
       <Typography variant="h6" color="text.secondary">

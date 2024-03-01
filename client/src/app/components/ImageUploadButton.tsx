@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { useAppDispatch } from '../store/configureStore';
-import { uploadImages } from '../features/roleHandyman/adSlice';
+import { uploadImages } from '../features/ads/adSlice';
 import { LoadingButton } from '@mui/lab';
 import { convertToBase64 } from '../utils/utils';
 

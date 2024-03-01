@@ -5,8 +5,8 @@ import Register from "../features/account/Register";
 import HomePage from "../layout/HomePage";
 import AboutPage from "../features/about/About";
 import ContactPage from "../features/contact/Contact";
-import CreateAd from "../features/roleHandyman/CreateAd";
-import CreateUserAd from "../features/roleHandyman/CreateUserAd";
+import CreateAd from "../features/ads/CreateAd";
+import CreateUserAd from "../features/ads/CreateUserAd";
 import DetailPage from "../layout/DetailPage";
 import RequireAuth from "./RequireAuth";
 

@@ -8,7 +8,7 @@ function App() {
   return (
     < >
       <Navbar data-testid="navbar"/>
-      <Container maxWidth="xl" sx={{backgroundColor: 'white'}}>
+      <Container   sx={{backgroundColor: 'white'}}>
         <Outlet />
       </Container>
       <Footer data-testid="footer"/>

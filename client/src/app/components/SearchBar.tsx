@@ -2,7 +2,7 @@ import { Box, IconButton, Paper, debounce } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../store/configureStore";
-import { setSearchTerm } from "../features/roleHandyman/adSlice";
+import { setSearchTerm } from "../features/ads/adSlice";
 
 const SearchBar = () => {
   const { searchTerm } = useAppSelector((state) => state.ad);
@@ -11,7 +11,8 @@ const SearchBar = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    setInputTerm(searchTerm || ''); // Reset inputTerm on searchTerm change
+    // Reset inputTerm on searchTerm change
+    setInputTerm(searchTerm || ''); 
   }, [searchTerm]);
 
   const debouncedSearch = debounce((event: any) => {

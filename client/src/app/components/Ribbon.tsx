@@ -6,46 +6,46 @@ const midLinks = [
   { name: "About", location: "about" },
   { name: "Contact", location: "contact" },
 ];
+const stackStyle = {
+  backgroundImage: 'url("https://i.pinimg.com/736x/f2/e9/b9/f2e9b991d62bf3ae442d43c52a734a06.jpg")',
+  backgroundSize: "60vh", 
+  backgroundRepeat: 'repeat-x',
+  height: "6vh",
+  justifyContent: "center",
+  position: "sticky",
+  top: 80,
+  zIndex: "23",
+};
+const typographyStyle = {
+  textDecoration: "none",
+  px: "21px",
+  my: "auto",
+  fontSize: "32px",
+  fontWeight: "bolder",
+  color: "white",
+  WebkitTextStroke: "0.5px red",
+  "&:hover": {
+    color: "red",
+    backgroundColor: "white",
+  },
+  "&.active": {
+    color: "red",
+    backgroundColor: "white",
+  },
+};
 
 const Ribbon = () => {
   return (
     <Stack
       direction="row"
-      sx={{
-        backgroundImage: 'url("https://i.pinimg.com/736x/f2/e9/b9/f2e9b991d62bf3ae442d43c52a734a06.jpg")',
-        backgroundSize: "60vh", 
-        backgroundRepeat: 'repeat-x',
-        opacity: 0.8,
-        height: "6vh",
-        justifyContent: "center",
-        position: "sticky",
-        top: 80,
-        zIndex: "23",
-      }}
+      sx={stackStyle}
     >
       {midLinks.map((link) => (
         <Typography
           component={NavLink}
           to={link.location}
           key={link.location}
-          sx={{
-            textDecoration: "none",
-            px: "21px",
-            my: "auto",
-            fontSize: "28px",
-            fontWeight: "bolder",
-            color: "white",
-
-            WebkitTextStroke: "1px red",
-            "&:hover": {
-              color: "red",
-              backgroundColor: "white",
-            },
-            "&.active": {
-              color: "red",
-              backgroundColor: "white",
-            },
-          }}
+          sx={typographyStyle}
         >
           {link.name}
         </Typography>

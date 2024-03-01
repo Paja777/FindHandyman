@@ -7,7 +7,7 @@ import {
   changeRating,
   fetchAdAsync,
   updateAdAsync,
-} from "../features/roleHandyman/adSlice";
+} from "../features/ads/adSlice";
 import { useEffect, useState } from "react";
 import Modal from "../components/Modal";
 import { useNavigate, useParams } from "react-router-dom";

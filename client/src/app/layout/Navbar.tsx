@@ -24,8 +24,9 @@ const Navbar = () => {
   return (
     <>
       <Stack direction="row" spacing={1} p={0} sx={stackStyle}>
-        <Box sx={{ pl: 0 }}>
+        <Box sx={{ pl: 1 }}>
           <Link to={"/"} style={linkStyle}>
+            <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Ficonscout.com%2Ficon%2Fhandyman-3003435&psig=AOvVaw0PD_banyZhCFK5UuTX-MDH&ust=1709401469610000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCNiJw-3O04QDFQAAAAAdAAAAABAE" alt="" />
             <Typography variant="h3">FindHandyman</Typography>
           </Link>
         </Box>
@@ -47,7 +48,7 @@ const Navbar = () => {
 
         <Stack direction="row">
           <IconButton component={Link} to={"/login"} sx={{ color: "green" }}>
-            <AccountCircleIcon sx={{ mt: 1, fontSize: "34px" }} />
+            <AccountCircleIcon sx={{ fontSize: "34px" }} />
           </IconButton>
           {user !== null && (
             <Typography
