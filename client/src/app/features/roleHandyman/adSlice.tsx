@@ -79,6 +79,7 @@ export const createAd = createAsyncThunk<any, any, { state: RootState }>(
         {
           name: payload.name,
           category: payload.category,
+          adRole: payload.adRole,
           note: payload.note,
           description: payload.description,
           services: services,

@@ -17,9 +17,11 @@ const CreateUserAd = () => {
     formState: { isSubmitting, isValid, errors },
   } = useForm({ mode: "all" });
 
+  // onSubmit sending data to redux storage and navigate to homepage
   async function submitForm({note, description, category}: FieldValues) {
+    const adRole = JSON.parse(localStorage.getItem("user")!).role;
     try {
-      dispatch(createAd({ note, description, category, name: username }));
+      dispatch(createAd({ note, description, category, name: username, adRole}));
       navigate("/");
     } catch (error) {
       console.log(error);

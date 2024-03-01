@@ -26,6 +26,7 @@ const CreateAd = () => {
       note: data.note,
       name: username,
       category: category,
+      adRole: JSON.parse(localStorage.getItem("user")!).role,
       services: Array.from(
         { length: 10 },
         (_, i) => data[`serviceName${i + 1}`]

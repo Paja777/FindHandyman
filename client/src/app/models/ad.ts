@@ -8,4 +8,5 @@ export interface Ad{
     rating: number;
     description: string;
     note?: string;
+    adRole: string;
 }

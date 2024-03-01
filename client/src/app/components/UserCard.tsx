@@ -9,39 +9,38 @@ import {
   Rating,
 } from "@mui/material";
 import avatar from "../../assets/avatar.jpg";
-import { useAppSelector } from "../store/configureStore";
 import { useNavigate } from "react-router-dom";
 import { Ad } from "../models/ad";
+
+const cardMediaStyle = {
+  height: 280,
+  maxHeight: 280,
+  width: 500,
+  backgroundSize: "contain",
+  bgcolor: "primary.light",
+};
 
 type UserCardProps = {
   ad: Ad; 
 }
 const UserCard = ({
-  ad: { category, name, images, _id, rating },
+  ad: { category, name, images, _id, rating, adRole },
 }: UserCardProps) => {
-  const { displayedAds } = useAppSelector((state) => state.account);
   const navigate = useNavigate();
+  const adTitle = adRole === "user" ? "`${name} is looking for help in category: ${category}`" : `${category} : ${name}`;
   
   return (
     <Card sx={{ width: 460, maxHeight: 440, height: 440, opacity: "1", mt: 0 }}>
       <CardActionArea onClick={() => navigate(`/${_id}`)}>
         <CardMedia
           component="img"
-          sx={{
-            height: 280,
-            maxHeight: 280,
-            width: 500,
-            backgroundSize: "contain",
-            bgcolor: "primary.light",
-          }}
+          sx={cardMediaStyle}
           image={images[0] ||  avatar}
           alt={category}
         />
         <CardContent sx={{ height: 53, maxHeight: 53, overflow: "hidden" }}>
           <Typography gutterBottom variant="h5" component="div">
-            {displayedAds === "user"
-              ? `${name} is looking for help in category: ${category}`
-              : `${category} : ${name}`}
+            {adTitle}
           </Typography>
         </CardContent>
       </CardActionArea>
