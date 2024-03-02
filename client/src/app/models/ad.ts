@@ -9,4 +9,5 @@ export interface Ad{
     description: string;
     note?: string;
     adRole: string;
+    user_id: string;
 }

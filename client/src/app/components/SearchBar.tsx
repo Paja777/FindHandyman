@@ -2,7 +2,7 @@ import { Box, IconButton, Paper, debounce } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../store/configureStore";
-import { setSearchTerm } from "../features/ads/adSlice";
+import { setLoadingStatus, setSearchTerm } from "../features/ads/adSlice";
 
 const boxStyle = {
   height: "10vh",
@@ -36,7 +36,6 @@ const inputStyle = {
 const SearchBar = () => {
   const { searchTerm } = useAppSelector((state) => state.ad);
   const [inputTerm, setInputTerm] = useState(searchTerm);
-  console.log(searchTerm, inputTerm)
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -45,7 +44,9 @@ const SearchBar = () => {
   }, [searchTerm]);
 
   const debouncedSearch = debounce((event: any) => {
-    dispatch(setSearchTerm(event.target.value))
+    console.log(event.target.value)
+    dispatch(setSearchTerm(event.target.value || ''));
+    
 }, 1000)
 
   return (

@@ -11,13 +11,14 @@ const image1 = `https://marketplace.canva.com/EADapBco-Fc/1/0/427w/canva-colorfu
 black-friday-discount-wide-skyscraper-ad-_AIWdH-_7Kk.jpg`;
 
 const HomePage = () => {
-  const { productsLoaded } = useAppSelector((state) => state.ad);
+  const { productsLoaded, searchTerm, status } = useAppSelector((state) => state.ad);
   const dispatch = useAppDispatch();
   const [isMounted, setIsMounted] = useState(false);
+  const isLoading = !productsLoaded || status === 'pendingFetchProducts' ? true : null;
 
   useEffect(() => {
-    if (!productsLoaded) dispatch(fetchAdsAsync());
-  }, [productsLoaded, dispatch]);
+    if (!productsLoaded || searchTerm || searchTerm==='') dispatch(fetchAdsAsync());
+  }, [productsLoaded, dispatch, searchTerm]);
 
   const ads = useAppSelector(AdSelector.selectAll);
 
@@ -33,10 +34,10 @@ const HomePage = () => {
         <SideBar data-testid="sideBar" />
         <Box sx={{ gridRow: "1", gridColumn: "span 5", ml: 2 }}>
           <SearchBar />
-          {productsLoaded === true ? (
-            <AdsList ads={ads} />
-          ) : (
+          {isLoading ? (
             <LoadingComponent />
+          ) : (
+            <AdsList ads={ads} />
           )}
         </Box>
         <Box sx={{ gridRow: "1", gridColumn: "span 1", mt: "10%" }}>

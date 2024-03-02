@@ -39,8 +39,8 @@ export const fetchAdAsync = createAsyncThunk<Ad, string>(
     }
   }
 );
-
-export const updateAdAsync = createAsyncThunk<Ad, any, { state: RootState }>(
+// update rating
+export const updateAdAsync = createAsyncThunk<any, any, { state: RootState }>(
   "ad/updateAdAsync",
   async (data, thunkAPI) => {
     try {
@@ -48,7 +48,7 @@ export const updateAdAsync = createAsyncThunk<Ad, any, { state: RootState }>(
       if (!user) {
         return;
       }
-      const response = await agent.requests.patch(`/ad/${data._id}`, data, {
+      const response = await agent.requests.patch(`/user/rate`, {...data}, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -56,7 +56,7 @@ export const updateAdAsync = createAsyncThunk<Ad, any, { state: RootState }>(
       console.log(response);
       return response;
     } catch (error: any) {
-      console.log(error.response.data);
+      console.log(error);
       return thunkAPI.rejectWithValue({ error: error.response.data });
     }
   }
@@ -110,7 +110,7 @@ export interface AdState {
   status: string;
   images: string[];
   rating: number;
-  searchTerm: string | undefined;
+  searchTerm: string;
 }
 const initialState: AdState = {
   user: JSON.parse(localStorage.getItem("user")!),
@@ -118,7 +118,7 @@ const initialState: AdState = {
   status: "idle",
   images: [],
   rating: 0,
-  searchTerm: undefined,
+  searchTerm: '',
 };
 
 export const adSlice = createSlice({
@@ -140,6 +140,9 @@ export const adSlice = createSlice({
     },
     setSearchTerm: (state, { payload }) => {
       state.searchTerm = payload;
+    },
+    setLoadingStatus: (state, { payload }) => {
+      state.productsLoaded = payload;
     },
   },
   extraReducers: (builder) => {
@@ -195,5 +198,5 @@ export const adSlice = createSlice({
 export const AdSelector = adAdapter.getSelectors(
   (state: RootState) => state.ad
 );
-export const { uploadImages, changeRating, setSearchTerm, adUserStatus } =
+export const { uploadImages, changeRating, setSearchTerm, adUserStatus, setLoadingStatus } =
   adSlice.actions;

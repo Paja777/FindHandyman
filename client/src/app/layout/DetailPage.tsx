@@ -40,7 +40,7 @@ const DetailPage = () => {
       navigate("/register");
     } else {
       setShowModal(true);
-      dispatch(updateAdAsync({...ad, rating: newValue}));
+      dispatch(updateAdAsync({ creatorId: ad?.user_id, payload: newValue}));
     }
   };
 
