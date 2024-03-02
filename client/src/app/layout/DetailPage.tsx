@@ -12,12 +12,22 @@ import { useEffect, useState } from "react";
 import Modal from "../components/Modal";
 import { useNavigate, useParams } from "react-router-dom";
 
+const boxStyle = {
+  display: "grid",
+  gridAutoColumns: "1fr",
+  gap: 1,
+  mt: 2,
+  pb: "6%",
+};
+
 const DetailPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [ratingValue, setRatingValue] = useState(4);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { role } = useAppSelector((state) => state.account);
+  // Collecting user data from local storage or empty obj if there is no user
+  const user = JSON.parse(localStorage.getItem("user") ?? "{}");
+  const { role = null } = user;
   const { id } = useParams<{ id: any }>();
   const ad = useAppSelector((state) => AdSelector.selectById(state, id!));
 
@@ -26,38 +36,20 @@ const DetailPage = () => {
   }, [id, dispatch, ad]);
 
   const handleCHangeRating = (e: any, newValue: any) => {
-    if (role === "") navigate("/register");
-    else {
+    if (!role) {
+      navigate("/register");
+    } else {
       setShowModal(true);
-      dispatch(
-        updateAdAsync({
-          rating: newValue,
-          note: ad!.note,
-          description: ad!.description,
-          images: ad!.images,
-          name: ad!.name,
-          services: ad!.services,
-          _id: id,
-        })
-      );
+      dispatch(updateAdAsync({...ad, rating: newValue}));
     }
-  };
-  const handleCloseModal = () => {
-    setShowModal(false);
   };
 
   return (
     <>
-      {showModal && <Modal onClose={handleCloseModal} value={ratingValue} />}
-      <Box
-        sx={{
-          display: "grid",
-          gridAutoColumns: "1fr",
-          gap: 1,
-          mt: 2,
-          pb: "6%",
-        }}
-      >
+      {showModal && (
+        <Modal onClose={() => setShowModal(false)} value={ratingValue} />
+      )}
+      <Box sx={boxStyle}>
         <SideBar />
         <Box sx={{ gridRow: "1", gridColumn: "span 3", ml: -2, mt: "1.5%" }}>
           <Stack direction="row" sx={{ mt: 2 }}>

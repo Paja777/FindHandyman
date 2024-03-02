@@ -6,6 +6,7 @@ import { useAppSelector } from "../store/configureStore";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import { useLogout } from "../hooks/useLogout";
+import hammerIcon from '../../assets/hammerIcon.svg'
 import {
   rightLinks,
   navStyles,
@@ -20,14 +21,15 @@ import {
 const Navbar = () => {
   const { user } = useAppSelector((state) => state.ad);
   const { logout } = useLogout();
+  const username = user ? user.username : '';
 
   return (
     <>
       <Stack direction="row" spacing={1} p={0} sx={stackStyle}>
         <Box sx={{ pl: 1 }}>
           <Link to={"/"} style={linkStyle}>
-            <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Ficonscout.com%2Ficon%2Fhandyman-3003435&psig=AOvVaw0PD_banyZhCFK5UuTX-MDH&ust=1709401469610000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCNiJw-3O04QDFQAAAAAdAAAAABAE" alt="" />
             <Typography variant="h3">FindHandyman</Typography>
+            <img src={hammerIcon} alt="hammer-icon" style={{width: "34px"}}/>
           </Link>
         </Box>
 
@@ -47,10 +49,11 @@ const Navbar = () => {
         </Stack>
 
         <Stack direction="row">
-          <IconButton component={Link} to={"/login"} sx={{ color: "green" }}>
-            <AccountCircleIcon sx={{ fontSize: "34px" }} />
+          <IconButton component={Link} to={"/login"} sx={{ color: "green", mt:1 }}>
+            <AccountCircleIcon sx={{ fontSize: "34px", mr:1 }} />
+            <Typography variant="h5">{username}</Typography>
           </IconButton>
-          {user !== null && (
+          {user && (
             <Typography
               component={NavLink}
               to={"/register"}
@@ -58,15 +61,12 @@ const Navbar = () => {
               sx={{
                 ...navStyles,
                 marginTop: "3%",
-                "&.active": {
-                  color: "red",
-                },
               }}
             >
               {`Sign Out`}
             </Typography>
           )}
-          {user === null &&
+          {!user &&
             rightLinks.map((link) => (
               <Typography
                 component={NavLink}

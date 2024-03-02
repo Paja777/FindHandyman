@@ -1,17 +1,19 @@
 import { Box } from "@mui/material";
 import AdsList from "../components/AdsList";
 import { useAppDispatch, useAppSelector } from "../store/configureStore";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import SideBar from "../components/SideBar";
 import SearchBar from "../components/SearchBar";
 import { AdSelector, fetchAdsAsync } from "../features/ads/adSlice";
 import LoadingComponent from "../components/LoadingComponent";
 
-const image1 = `https://marketplace.canva.com/EADapBco-Fc/1/0/427w/canva-colorful-black-friday-discount-wide-skyscraper-ad-_AIWdH-_7Kk.jpg`;
+const image1 = `https://marketplace.canva.com/EADapBco-Fc/1/0/427w/canva-colorful-
+black-friday-discount-wide-skyscraper-ad-_AIWdH-_7Kk.jpg`;
 
 const HomePage = () => {
   const { productsLoaded } = useAppSelector((state) => state.ad);
   const dispatch = useAppDispatch();
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     if (!productsLoaded) dispatch(fetchAdsAsync());

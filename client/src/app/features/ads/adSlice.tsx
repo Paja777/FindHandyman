@@ -7,17 +7,19 @@ import agent from "../../api/agent";
 import { Ad } from "../../models/ad";
 import { RootState } from "../../store/configureStore";
 import { serviceMaker } from "../../utils/utils";
-import axios from "axios";
 
 export const adAdapter = createEntityAdapter<Ad>({
   selectId: (ad) => ad._id,
 });
 
-export const fetchAdsAsync = createAsyncThunk<Ad[], void>(
+export const fetchAdsAsync = createAsyncThunk<Ad[], void, { state: RootState }>(
   "ad/fetchAdsAsync",
   async (_, thunkAPI) => {
+    const params = new URLSearchParams();
+    const searchTerm = thunkAPI.getState().ad.searchTerm;
+    if (searchTerm) params.append("searchTerm", searchTerm);
     try {
-      const response = await agent.requests.get("/ad");
+      const response = await agent.requests.get("/ad", params);
       return response;
     } catch (error: any) {
       console.log(error);
@@ -54,13 +56,14 @@ export const updateAdAsync = createAsyncThunk<Ad, any, { state: RootState }>(
       console.log(response);
       return response;
     } catch (error: any) {
+      console.log(error.response.data);
       return thunkAPI.rejectWithValue({ error: error.response.data });
     }
   }
 );
 
 // create ad
-export const createAd = createAsyncThunk<any, any, { state: RootState }>(
+export const createAd = createAsyncThunk<Ad, any, { state: RootState }>(
   "ad/createAd",
   async (payload, thunkAPI) => {
     // make array of objects { service : price }
@@ -74,15 +77,10 @@ export const createAd = createAsyncThunk<any, any, { state: RootState }>(
       if (!user) {
         return;
       }
-      const response = await axios.post(
+      const response = await agent.requests.post(
         "/ad",
         {
-          name: payload.name,
-          category: payload.category,
-          adRole: payload.adRole,
-          note: payload.note,
-          description: payload.description,
-          services: services,
+          ...payload,
           rating: 0,
           images: thunkAPI.getState().ad.images,
         },
@@ -93,7 +91,7 @@ export const createAd = createAsyncThunk<any, any, { state: RootState }>(
         }
       );
       console.log(response);
-      return response.data; // Return the posted ad
+      return response.data; 
     } catch (error) {
       console.log(error);
     }
@@ -101,12 +99,18 @@ export const createAd = createAsyncThunk<any, any, { state: RootState }>(
 );
 
 export interface AdState {
-  user: { email: string; token: string } | null;
+  user: {
+    email: string;
+    token: string;
+    role: string;
+    category: string;
+    username: string;
+  } | null;
   productsLoaded: boolean;
   status: string;
   images: string[];
   rating: number;
-  searchTerm: string;
+  searchTerm: string | undefined;
 }
 const initialState: AdState = {
   user: JSON.parse(localStorage.getItem("user")!),
@@ -114,7 +118,7 @@ const initialState: AdState = {
   status: "idle",
   images: [],
   rating: 0,
-  searchTerm: "",
+  searchTerm: undefined,
 };
 
 export const adSlice = createSlice({
@@ -157,7 +161,6 @@ export const adSlice = createSlice({
     builder.addCase(fetchAdAsync.fulfilled, (state, action) => {
       adAdapter.upsertOne(state, action.payload);
       state.status = "idle";
-      
     });
     builder.addCase(fetchAdAsync.rejected, (state, action) => {
       // console.log(action.payload);
@@ -168,7 +171,7 @@ export const adSlice = createSlice({
     });
     builder.addCase(createAd.fulfilled, (state, action) => {
       // adAdapter.addOne(state, action.payload);
-      console.log(action.payload) // Add the posted ad to the state
+      console.log(action.payload); // Add the posted ad to the state
       state.status = "idle";
     });
     builder.addCase(createAd.rejected, (state, action) => {

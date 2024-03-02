@@ -4,6 +4,35 @@ import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../store/configureStore";
 import { setSearchTerm } from "../features/ads/adSlice";
 
+const boxStyle = {
+  height: "10vh",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+};
+const paperStyle = {
+  position: "relative",
+  borderRadius: 20,
+  border: "1px solid #e3e3e3",
+  width: "30%",
+  height: "30px",
+  mx: "auto",
+  justifyContent: "right",
+  pb: "2px",
+  mt: 2,
+};
+const inputStyle = {
+  paddingLeft: "30px",
+  border: "none",
+  outline: "none",
+  marginLeft: "8%",
+  marginTop: 5,
+  marginBottom: "10%",
+  fontSize: "16px",
+  width: "210px",
+};
+
+
 const SearchBar = () => {
   const { searchTerm } = useAppSelector((state) => state.ad);
   const [inputTerm, setInputTerm] = useState(searchTerm);
@@ -21,25 +50,11 @@ const SearchBar = () => {
 
   return (
     <Box
-      sx={{
-        height: "10vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
+      sx={boxStyle}
     >
       <Paper
         component="form"
-        sx={{
-          borderRadius: 20,
-          border: "1px solid #e3e3e3",
-          width: "30%",
-          height: "30px",
-          mx: "auto",
-          justifyContent: "right",
-          pb: "2px",
-          mt: 2,
-        }}
+        sx={paperStyle}
       >
         <input
           onChange={(event: any) => {
@@ -49,18 +64,9 @@ const SearchBar = () => {
           type="text"
           value={inputTerm || ''}
           placeholder="...Search Category"
-          style={{
-            paddingLeft: "30px",
-            border: "none",
-            outline: "none",
-            marginLeft: "13 %",
-            marginTop: "-10%",
-            marginBottom: "10%",
-            fontSize: "16px",
-            width: "210px",
-          }}
+          style={inputStyle}
         />
-        <IconButton type="submit" sx={{ mb: "2px", ml: 0 }}>
+        <IconButton type="submit" sx={{position: "absolute", right:0, top: 0.5 }}>
           <SearchIcon />
         </IconButton>
       </Paper>

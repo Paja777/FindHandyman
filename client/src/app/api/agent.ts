@@ -8,11 +8,11 @@ axios.defaults.withCredentials = true;
 const responseBody = (response: AxiosResponse) => response.data;
 
 const requests = {
-  get: (url: string) => axios.get(url).then(responseBody),
+  get: (url: string, params?: URLSearchParams) => axios.get(url, {params}).then(responseBody),
   post: (url: string, body: {}, headers: {}) =>
     axios.post(url, body, headers).then(responseBody),
   patch: (url: string, body: {}, headers: {}) =>
-    axios.patch(url, body, { headers }).then(responseBody),
+    axios.patch(url, body, headers ).then(responseBody),
   delete: (url: string) => axios.delete(url).then(responseBody),
 };
 

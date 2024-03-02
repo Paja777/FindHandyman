@@ -34,7 +34,7 @@ const ModalOverlay = ({ onClose, value }: ModalProps) => {
         sx={{ ml: "31%", mt: 3, mb: 3, fontSize: "34px" }}
       />
       <LoadingButton
-        onClick={() => onClose()}
+        onClick={() => {onClose(); window.location.reload();}}
         variant="contained"
         sx={loadingButtonStyle}
       >
