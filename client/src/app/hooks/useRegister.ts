@@ -22,7 +22,7 @@ export const useRegister = () => {
 
     const response = await axios.post(
       "/user/signup",
-      { email, password, category, role, username },
+      { email, password, category, role, username, ratingArray:[{payloadId: 'proba', payload: 0}], ratingNumber: 0 },
       {
         headers: {
           "Content-Type": "application/json",

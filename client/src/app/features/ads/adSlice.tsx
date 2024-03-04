@@ -56,7 +56,7 @@ export const updateAdAsync = createAsyncThunk<any, any, { state: RootState }>(
       console.log(response);
       return response;
     } catch (error: any) {
-      console.log(error);
+      console.log(error.response.data);
       return thunkAPI.rejectWithValue({ error: error.response.data });
     }
   }
@@ -92,8 +92,8 @@ export const createAd = createAsyncThunk<Ad, any, { state: RootState }>(
       );
       console.log(response);
       return response.data; 
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      console.log(error.response.data);
     }
   }
 );
@@ -173,8 +173,6 @@ export const adSlice = createSlice({
       state.status = "pendingCreateAd";
     });
     builder.addCase(createAd.fulfilled, (state, action) => {
-      // adAdapter.addOne(state, action.payload);
-      console.log(action.payload); // Add the posted ad to the state
       state.status = "idle";
     });
     builder.addCase(createAd.rejected, (state, action) => {

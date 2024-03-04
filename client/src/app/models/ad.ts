@@ -10,4 +10,5 @@ export interface Ad{
     note?: string;
     adRole: string;
     user_id: string;
+    adCreatorRating?: number;
 }

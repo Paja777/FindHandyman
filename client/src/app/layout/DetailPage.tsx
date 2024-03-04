@@ -30,6 +30,8 @@ const DetailPage = () => {
   const { role = null } = user;
   const { id } = useParams<{ id: any }>();
   const ad = useAppSelector((state) => AdSelector.selectById(state, id!));
+ 
+  
 
   useEffect(() => {
     if (!ad && id) dispatch(fetchAdAsync(id));
@@ -39,6 +41,7 @@ const DetailPage = () => {
     if (!role) {
       navigate("/register");
     } else {
+      setRatingValue(newValue);
       setShowModal(true);
       dispatch(updateAdAsync({ creatorId: ad?.user_id, payload: newValue}));
     }
