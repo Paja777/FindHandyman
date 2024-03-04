@@ -17,15 +17,15 @@
 
 //   test("should contain about link and github link", async () => {
 //     const aboutLink = screen.getByText(/About/i);
+//     
 //     expect(aboutLink).toBeInTheDocument();
-//     const githubLink = screen.getByText(/Check my github profile/i);
-//     expect(githubLink).toBeInTheDocument();
+
 //     fireEvent.click(aboutLink);
 
 //     await waitFor(() => {
-//       expect(
-//         screen.getByText(/You are on the About page/i)
-//       ).toBeInTheDocument();
+//       const aboutPage = screen.findByTestId("about-page");
+//       
+//       expect(aboutPage).toBeInTheDocument();
 //     });
 //   });
 // });

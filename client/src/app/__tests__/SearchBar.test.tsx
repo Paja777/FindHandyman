@@ -7,7 +7,7 @@
 //   beforeEach(() => {
 //     renderWithProviders(<SearchBar />);
 //   });
-//   it("should navigete contain text that user type", async () => {
+//   it("should contain text that user type", async () => {
 //     const inputEl = screen.getByRole("textbox");
 
 //     expect(inputEl).toBeInTheDocument();
