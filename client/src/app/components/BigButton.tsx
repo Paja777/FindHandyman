@@ -5,6 +5,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { useAppDispatch } from "../store/configureStore";
 import { setDisplayedAds } from "../features/account/accountSlice";
 import { setSearchTerm } from "../features/ads/adSlice";
+import { toast } from "react-toastify";
 
 const boxStyle = {
   backgroundColor: "grey",
@@ -33,6 +34,7 @@ interface BigButtonProps {
 const BigButton = ({ path, title }: BigButtonProps) => {
   const dispatch = useAppDispatch();
   const handleClick = () => {
+    toast.error('Unregistered user cannot create ad');
     dispatch(setSearchTerm(""));
     if (title.includes("Search")) dispatch(setDisplayedAds("user"));
     if (title.includes("handyman") && title.includes("Search"))

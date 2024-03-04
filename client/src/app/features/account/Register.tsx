@@ -17,6 +17,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { LoadingButton } from "@mui/lab";
 import { useRegister } from "../../hooks/useRegister";
+import { toast } from "react-toastify";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -58,7 +59,8 @@ export default function Register() {
         username: data.username,
         role: selectedValue,
       });
-      // navigate("/");
+      toast.success('Registration successful');
+      navigate("/");
     } catch (error) {
       console.log(error);
     }

@@ -11,6 +11,7 @@ import {
 import { useEffect, useState } from "react";
 import Modal from "../components/Modal";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const boxStyle = {
   display: "grid",
@@ -40,6 +41,7 @@ const DetailPage = () => {
   const handleCHangeRating = (e: any, newValue: any) => {
     if (!role) {
       navigate("/register");
+      toast.error('Unregistered user cannot rate');
     } else {
       setRatingValue(newValue);
       setShowModal(true);

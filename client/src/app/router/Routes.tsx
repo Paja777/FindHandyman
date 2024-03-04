@@ -9,23 +9,29 @@ import CreateAd from "../features/ads/CreateAd";
 import CreateUserAd from "../features/ads/CreateUserAd";
 import DetailPage from "../layout/DetailPage";
 import RequireAuth from "./RequireAuth";
+import NotFound from "../errors/NotFound";
+import ServerError from "../errors/ServerError";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
-      {element: <RequireAuth />, children: [ 
-        { path: "/createuserad", element: <CreateUserAd /> },
-        { path: "/createad", element: <CreateAd /> },
-      ]},
-      { path: "/", element: <HomePage data-testid="homepage"/> },
+      {
+        element: <RequireAuth />,
+        children: [
+          { path: "/createuserad", element: <CreateUserAd /> },
+          { path: "/createad", element: <CreateAd /> },
+        ],
+      },
+      { path: "/", element: <HomePage data-testid="homepage" /> },
       { path: "/:id", element: <DetailPage /> },
       { path: "/login", element: <Login /> },
       { path: "/register", element: <Register /> },
       { path: "/about", element: <AboutPage /> },
-      { path: "/contact", element: <ContactPage data-testid="contactpage"/> },
-
+      { path: "/contact", element: <ContactPage data-testid="contactpage" /> },
+      { path: "server-error", element: <ServerError /> },
+      { path: "not-found", element: <NotFound /> },
     ],
   },
 ]);
