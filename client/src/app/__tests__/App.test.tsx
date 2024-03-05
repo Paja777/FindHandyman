@@ -1,31 +1,51 @@
-// import App from "../layout/App";
-// import { renderWithProviders } from "../utils/utils-for-test";
-// import {
-//   fireEvent,
-//   getByText,
-//   render,
-//   screen,
-//   waitFor,
-// } from "@testing-library/react";
-// import userEvent from "@testing-library/user-event";
-// import { BrowserRouter, MemoryRouter } from "react-router-dom";
+import App from "../layout/App";
+import { renderWithProviders } from "../utils/utils-for-test";
+import {
+  fireEvent,
+  getByText,
+  render,
+  screen,
+  waitFor,
+} from "@testing-library/react";
 
-// describe("App", () => {
-//   beforeEach(() => {
-//     renderWithProviders(<App />);
-//   });
+describe("App", () => {
+  beforeEach(() => {
+    renderWithProviders(<App />);
+  });
 
-//   test("should contain about link and github link", async () => {
-//     const aboutLink = screen.getByText(/About/i);
-//     
-//     expect(aboutLink).toBeInTheDocument();
+  it("should change path to AboutPage when link is clicked", async () => {
+    const aboutLink = screen.getByRole("link", { name: /About/i });
+    expect(aboutLink).toBeInTheDocument();
+    // click on link
+    fireEvent.click(aboutLink);
+    // timer for slow loading
+    setTimeout(async () => {
+      const aboutPage = await screen.findByTestId("about-page");
+      expect(aboutPage).toBeInTheDocument();
+    }, 4000);
+  });
 
-//     fireEvent.click(aboutLink);
+  it("should change path to ContactPage when link is clicked", async () => {
+    const contactLink = screen.getByRole("link", { name: /Contact/i });
+    expect(contactLink).toBeInTheDocument();
+    // click on link
+    fireEvent.click(contactLink);
+    // timer for slow loading
+    setTimeout(async () => {
+      const contactPage = await screen.findByTestId("contact");
+      expect(contactPage).toBeInTheDocument();
+    }, 4000);
+  });
 
-//     await waitFor(() => {
-//       const aboutPage = screen.findByTestId("about-page");
-//       
-//       expect(aboutPage).toBeInTheDocument();
-//     });
-//   });
-// });
+  it("should change path to HomePage when link is clicked", async () => {
+    const homeLink = screen.getByRole("link", { name: /Home/i });
+    expect(homeLink).toBeInTheDocument();
+    // click on link
+    fireEvent.click(homeLink);
+    // timer for slow loading
+    setTimeout(async () => {
+      const homePage = await screen.findByTestId("contact");
+      expect(homePage).toBeInTheDocument();
+    }, 4000);
+  });
+});
