@@ -1,5 +1,5 @@
-import App from "../layout/App";
-import { renderWithProviders } from "../utils/utils-for-test";
+import App from "../App";
+import { renderWithProviders } from "../../utils/utils-for-test";
 import {
   fireEvent,
   getByText,

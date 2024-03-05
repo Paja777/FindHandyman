@@ -1,8 +1,8 @@
 import { screen, fireEvent, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { renderWithProviders } from "../utils/utils-for-test";
-import SearchBar from "../components/SearchBar";
-import HomePage from "../layout/HomePage";
+import { renderWithProviders } from "../../utils/utils-for-test";
+import SearchBar from "../../components/SearchBar";
+import HomePage from "../HomePage";
 
 // integrational test
 
