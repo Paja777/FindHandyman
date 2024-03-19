@@ -50,16 +50,20 @@ export const updateAdAsync = createAsyncThunk<any, any, { state: RootState }>(
       if (!user) {
         return;
       }
-      const response = await agent.requests.patch(`/user/rate`, {...data}, {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
+      const response = await agent.requests.patch(
+        `/user/rate`,
+        { ...data },
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
       console.log(response);
       return response;
     } catch (error: any) {
-      console.log(error.response.data);
-      return thunkAPI.rejectWithValue({ error: error.response.data });
+      console.log(error.data.error);
+      return thunkAPI.rejectWithValue({ error: error.data.error });
     }
   }
 );
@@ -93,7 +97,7 @@ export const createAd = createAsyncThunk<Ad, any, { state: RootState }>(
         }
       );
       console.log(response);
-      return response.data; 
+      return response.data;
     } catch (error: any) {
       console.log(error.response.data);
     }
@@ -114,6 +118,7 @@ export interface AdState {
   rating: number;
   searchTerm: string;
   displayedAds: string;
+  errorText: string;
 }
 const initialState: AdState = {
   user: JSON.parse(localStorage.getItem("user")!),
@@ -121,8 +126,9 @@ const initialState: AdState = {
   status: "idle",
   images: [],
   rating: 0,
-  searchTerm: '',
-  displayedAds: '',
+  searchTerm: "",
+  displayedAds: "",
+  errorText: "",
 };
 
 export const adSlice = createSlice({
@@ -188,13 +194,17 @@ export const adSlice = createSlice({
     });
     builder.addCase(updateAdAsync.pending, (state) => {
       state.status = "pendingUpdateAd";
+      state.errorText = '';
     });
     builder.addCase(updateAdAsync.fulfilled, (state, action) => {
       state.status = "idle";
       state.productsLoaded = true;
     });
-    builder.addCase(updateAdAsync.rejected, (state, action) => {
+    builder.addCase(updateAdAsync.rejected, (state, action : any) => {
       state.status = "idle";
+      if (action.payload.error) {
+        state.errorText = action.payload.error;
+      }
       // Handle the error
     });
   },
@@ -203,5 +213,11 @@ export const adSlice = createSlice({
 export const AdSelector = adAdapter.getSelectors(
   (state: RootState) => state.ad
 );
-export const { uploadImages, changeRating, setSearchTerm, adUserStatus, setLoadingStatus, setDisplayedAds } =
-  adSlice.actions;
+export const {
+  uploadImages,
+  changeRating,
+  setSearchTerm,
+  adUserStatus,
+  setLoadingStatus,
+  setDisplayedAds,
+} = adSlice.actions;

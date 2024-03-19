@@ -31,21 +31,29 @@ const DetailPage = () => {
   const { role = null } = user;
   const { id } = useParams<{ id: any }>();
   const ad = useAppSelector((state) => AdSelector.selectById(state, id!));
- 
-  
+  const { errorText } = useAppSelector((state) => state.ad);
 
   useEffect(() => {
     if (!ad && id) dispatch(fetchAdAsync(id));
   }, [id, dispatch, ad]);
-
+  console.log(ad);
   const handleCHangeRating = (e: any, newValue: any) => {
     if (!role) {
       navigate("/register");
-      toast.error('Unregistered user cannot rate');
+      toast.error("Unregistered user cannot rate");
     } else {
-      setRatingValue(newValue);
-      setShowModal(true);
-      dispatch(updateAdAsync({ creatorId: ad?.user_id, payload: newValue}));
+      dispatch(updateAdAsync({ creatorId: ad?.user_id, payload: newValue }));
+      if (errorText && errorText !== "") {
+        toast.error(errorText);
+        console.log(errorText);
+      } else {
+        setRatingValue(newValue);
+        setShowModal(true);
+        const timer = setTimeout(
+          () => toast.success("User rating successfully updated!"),
+          2000
+        );
+      }
     }
   };
 
@@ -100,6 +108,26 @@ const DetailPage = () => {
                 >
                   {ad?.description}
                 </span>
+              </Typography>
+              <Typography
+                variant="h5"
+                color="grey"
+                sx={{ ml: 4, mt: 2, mb: 4 }}
+              >
+                Services: <br />
+                {ad?.services.map((service: any) => (
+                  <span
+                    style={{
+                      color: "green",
+                      marginLeft: "7%",
+                      fontSize: "18px",
+                      textAlign: "justify",
+                      marginTop: 4,
+                    }}
+                  >
+                    {service}
+                  </span>
+                ))}
               </Typography>
             </Stack>
           </Stack>
