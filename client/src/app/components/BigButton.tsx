@@ -2,9 +2,8 @@ import { Box, IconButton, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 import AddIcon from "@mui/icons-material/Add";
-import { useAppDispatch } from "../store/configureStore";
-import { setDisplayedAds } from "../features/account/accountSlice";
-import { setSearchTerm } from "../features/ads/adSlice";
+import { useAppDispatch, useAppSelector } from "../store/configureStore";
+import { setDisplayedAds, setSearchTerm } from "../features/ads/adSlice";
 import { toast } from "react-toastify";
 
 const boxStyle = {
@@ -33,8 +32,11 @@ interface BigButtonProps {
 
 const BigButton = ({ path, title }: BigButtonProps) => {
   const dispatch = useAppDispatch();
+  const { user } = useAppSelector((state) => state.ad);
   const handleClick = () => {
-    toast.error('Unregistered user cannot create ad');
+    if (!user) {
+      return toast.error("Unregistered user cannot create ad");
+    }
     dispatch(setSearchTerm(""));
     if (title.includes("Search")) dispatch(setDisplayedAds("user"));
     if (title.includes("handyman") && title.includes("Search"))

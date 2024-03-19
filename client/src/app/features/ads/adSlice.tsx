@@ -17,7 +17,9 @@ export const fetchAdsAsync = createAsyncThunk<Ad[], void, { state: RootState }>(
   async (_, thunkAPI) => {
     const params = new URLSearchParams();
     const searchTerm = thunkAPI.getState().ad.searchTerm;
+    const displayedAds = thunkAPI.getState().ad.displayedAds;
     if (searchTerm) params.append("searchTerm", searchTerm);
+    if (displayedAds) params.append("displayedAds", displayedAds);
     try {
       const response = await agent.requests.get("/ad", params);
       return response;
@@ -111,6 +113,7 @@ export interface AdState {
   images: string[];
   rating: number;
   searchTerm: string;
+  displayedAds: string;
 }
 const initialState: AdState = {
   user: JSON.parse(localStorage.getItem("user")!),
@@ -119,6 +122,7 @@ const initialState: AdState = {
   images: [],
   rating: 0,
   searchTerm: '',
+  displayedAds: '',
 };
 
 export const adSlice = createSlice({
@@ -143,6 +147,9 @@ export const adSlice = createSlice({
     },
     setLoadingStatus: (state, { payload }) => {
       state.productsLoaded = payload;
+    },
+    setDisplayedAds: (state, { payload }) => {
+      state.displayedAds = payload;
     },
   },
   extraReducers: (builder) => {
@@ -196,5 +203,5 @@ export const adSlice = createSlice({
 export const AdSelector = adAdapter.getSelectors(
   (state: RootState) => state.ad
 );
-export const { uploadImages, changeRating, setSearchTerm, adUserStatus, setLoadingStatus } =
+export const { uploadImages, changeRating, setSearchTerm, adUserStatus, setLoadingStatus, setDisplayedAds } =
   adSlice.actions;

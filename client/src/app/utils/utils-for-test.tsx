@@ -4,7 +4,6 @@ import { configureStore, EnhancedStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import { adSlice } from "../features/ads/adSlice";
 import { RootState } from "../store/configureStore"; // Assuming RootState is defined in configureStore
-import { accountSlice } from "../features/account/accountSlice";
 import "@testing-library/jest-dom";
 import { BrowserRouter } from 'react-router-dom';
 
@@ -20,7 +19,7 @@ export function renderWithProviders(
   {
     preloadedState = {},
     store = configureStore({
-      reducer: { account: accountSlice.reducer, ad: adSlice.reducer },
+      reducer: { ad: adSlice.reducer },
       preloadedState,
     }),
     route = '/',

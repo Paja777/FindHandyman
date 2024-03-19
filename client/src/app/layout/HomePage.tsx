@@ -11,14 +11,13 @@ const image1 = `https://marketplace.canva.com/EADapBco-Fc/1/0/427w/canva-colorfu
 black-friday-discount-wide-skyscraper-ad-_AIWdH-_7Kk.jpg`;
 
 const HomePage = () => {
-  const { productsLoaded, searchTerm, status } = useAppSelector((state) => state.ad);
+  const { productsLoaded, searchTerm, status, displayedAds } = useAppSelector((state) => state.ad);
   const dispatch = useAppDispatch();
-  const [isMounted, setIsMounted] = useState(false);
   const isLoading = !productsLoaded || status === 'pendingFetchProducts' ? true : null;
 
   useEffect(() => {
     if (!productsLoaded || searchTerm || searchTerm==='') dispatch(fetchAdsAsync());
-  }, [productsLoaded, dispatch, searchTerm]);
+  }, [productsLoaded, dispatch, searchTerm, displayedAds]);
 
   const ads = useAppSelector(AdSelector.selectAll);
 
