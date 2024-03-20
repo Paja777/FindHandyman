@@ -159,7 +159,7 @@ const CreateAd = () => {
           rows="5"
           style={{ marginRight: 1, marginTop: 1, width: 450 }}
           placeholder="Describe your services (maximum 300 caracters)"
-          {...register("description", { minLength: 20, maxLength: 300 })}
+          {...register("description", { minLength: 20, maxLength: 300, required: "Field is required" })}
         ></TextField>
         <Typography variant="body1" color="rgb(181, 58, 27)" sx={{ m: 2 }}>
           Note

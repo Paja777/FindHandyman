@@ -15,6 +15,7 @@ import { Ad } from "../models/ad";
 const cardMediaStyle = {
   height: "100%",
   maxHeight: 240,
+  minHeight: 240,
   width: "100%",
   backgroundSize: "contain",
   bgcolor: "primary.light",
@@ -33,7 +34,7 @@ const UserCard = ({
       : `${category} : ${name}`;
 
   return (
-    <Card sx={{ width: 320, maxWidth: 310, maxHeight: 380, height: 420, opacity: "1", mt: 0 }}>
+    <Card sx={{ width: 320, maxWidth: 310, maxHeight: 380, minHeight: 380, opacity: "1", mt: 0 }}>
       <CardActionArea onClick={() => navigate(`/${_id}`)} sx={{justifyContent: "center", alignItems: "center"}}>
         <CardMedia
           component="img"

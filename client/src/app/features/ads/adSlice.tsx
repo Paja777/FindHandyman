@@ -83,6 +83,7 @@ export const createAd = createAsyncThunk<Ad, any, { state: RootState }>(
       services: payload.services,
       prices: payload.prices,
     });
+    console.log(services)
     // Post the ad to the server
     try {
       const user = thunkAPI.getState().ad.user;
@@ -95,6 +96,7 @@ export const createAd = createAsyncThunk<Ad, any, { state: RootState }>(
           ...payload,
           rating: 0,
           images: thunkAPI.getState().ad.images,
+          services: services
         },
         {
           headers: {

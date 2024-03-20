@@ -117,8 +117,9 @@ const DetailPage = () => {
                   sx={{ ml: 4, mt: 2, mb: 4 }}
                 >
                   Services: <br />
-                  {ad?.services.map((service: any) => (
+                  {ad?.services.map((service: any, index) => (
                     <span
+                      key={index}
                       style={{
                         color: "green",
                         marginLeft: "7%",
@@ -128,7 +129,7 @@ const DetailPage = () => {
                       }}
                     >
                       {service}
-                    </span>
+                      <br/></span>
                   ))}
                 </Typography>
               )}

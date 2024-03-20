@@ -43,9 +43,9 @@ export const serviceMaker = ({ services, prices }: any) => {
   if (!services) return null;
   const servicePrice = services
     .filter((service: string | undefined) => service !== undefined && service !== '') // Filter out null, empty, or undefined services
-    .map((service: string, index: number) => ({
-      [service]: prices[index]
-    }));
+    .map((service: string, index: number) => (
+      `${service}: ${prices[index]}`
+    ));
   
   return servicePrice;
 };
