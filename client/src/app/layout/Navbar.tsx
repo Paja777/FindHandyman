@@ -2,11 +2,11 @@ import { Box, IconButton, Stack, Typography } from "@mui/material";
 import { Link, NavLink } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Ribbon from "../components/Ribbon";
-import { useAppSelector } from "../store/configureStore";
+import { useAppDispatch, useAppSelector } from "../store/configureStore";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import { useLogout } from "../hooks/useLogout";
-import hammerIcon from '../../assets/hammerIcon.svg'
+import hammerIcon from "../../assets/hammerIcon.svg";
 import {
   rightLinks,
   navStyles,
@@ -17,11 +17,17 @@ import {
   gitLink,
   lnLink,
 } from "../lib/data";
+import { setMyAds } from "../features/ads/adSlice";
 
 const Navbar = () => {
   const { user } = useAppSelector((state) => state.ad);
   const { logout } = useLogout();
-  const username = user ? user.username : '';
+  const username = user ? user.username : "";
+  const dispatch = useAppDispatch();
+
+  const handleClick = () => {
+    dispatch(setMyAds(true));
+  };
 
   return (
     <>
@@ -29,7 +35,7 @@ const Navbar = () => {
         <Box sx={{ pl: 1 }}>
           <Link to={"/"} style={linkStyle}>
             <Typography variant="h3">FindHandyman</Typography>
-            <img src={hammerIcon} alt="hammer-icon" style={{width: "34px"}}/>
+            <img src={hammerIcon} alt="hammer-icon" style={{ width: "34px" }} />
           </Link>
         </Box>
 
@@ -49,8 +55,11 @@ const Navbar = () => {
         </Stack>
 
         <Stack direction="row">
-          <IconButton component={Link} to={"/login"} sx={{ color: "green", mt:1 }}>
-            <AccountCircleIcon sx={{ fontSize: "34px", mr:1 }} />
+          <IconButton
+            onClick={handleClick}
+            sx={{ color: "green", mt: 1 }}
+          >
+            <AccountCircleIcon sx={{ fontSize: "34px", mr: 1 }} />
             <Typography variant="h5">{username}</Typography>
           </IconButton>
           {user && (

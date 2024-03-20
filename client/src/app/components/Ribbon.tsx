@@ -20,7 +20,7 @@ const typographyStyle = {
   textDecoration: "none",
   px: "21px",
   my: "auto",
-  fontSize: "32px",
+  fontSize: "22px",
   fontWeight: "bolder",
   color: "white",
   WebkitTextStroke: "0.5px red",

@@ -21,7 +21,13 @@ export const fetchAdsAsync = createAsyncThunk<Ad[], void, { state: RootState }>(
     if (searchTerm) params.append("searchTerm", searchTerm);
     if (displayedAds) params.append("displayedAds", displayedAds);
     try {
-      const response = await agent.requests.get("/ad", params);
+      let response;
+      if (thunkAPI.getState().ad.myAds) {
+        response = await agent.requests.get("/ad/my/ads");
+        thunkAPI.dispatch(setMyAds(false));
+      } else {
+        response = await agent.requests.get("/ad", params);
+      }
       return response;
     } catch (error: any) {
       console.log(error);
@@ -119,6 +125,7 @@ export interface AdState {
   searchTerm: string;
   displayedAds: string;
   errorText: string;
+  myAds: boolean;
 }
 const initialState: AdState = {
   user: JSON.parse(localStorage.getItem("user")!),
@@ -129,6 +136,7 @@ const initialState: AdState = {
   searchTerm: "",
   displayedAds: "",
   errorText: "",
+  myAds: false,
 };
 
 export const adSlice = createSlice({
@@ -156,6 +164,9 @@ export const adSlice = createSlice({
     },
     setDisplayedAds: (state, { payload }) => {
       state.displayedAds = payload;
+    },
+    setMyAds: (state, { payload }) => {
+      state.myAds = payload;
     },
   },
   extraReducers: (builder) => {
@@ -194,13 +205,13 @@ export const adSlice = createSlice({
     });
     builder.addCase(updateAdAsync.pending, (state) => {
       state.status = "pendingUpdateAd";
-      state.errorText = '';
+      state.errorText = "";
     });
     builder.addCase(updateAdAsync.fulfilled, (state, action) => {
       state.status = "idle";
       state.productsLoaded = true;
     });
-    builder.addCase(updateAdAsync.rejected, (state, action : any) => {
+    builder.addCase(updateAdAsync.rejected, (state, action: any) => {
       state.status = "idle";
       if (action.payload.error) {
         state.errorText = action.payload.error;
@@ -220,4 +231,5 @@ export const {
   adUserStatus,
   setLoadingStatus,
   setDisplayedAds,
+  setMyAds,
 } = adSlice.actions;
