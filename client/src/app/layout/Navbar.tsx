@@ -57,7 +57,7 @@ const Navbar = () => {
         <Stack direction="row">
           <IconButton
             onClick={handleClick}
-            sx={{ color: "green", mt: 1 }}
+            sx={{ color: "#FF0000", mt: 1 }}
           >
             <AccountCircleIcon sx={{ fontSize: "34px", mr: 1 }} />
             <Typography variant="h5">{username}</Typography>

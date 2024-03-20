@@ -43,7 +43,15 @@ const BigButton = ({ path, title }: BigButtonProps) => {
       dispatch(setDisplayedAds("handyman"));
   };
   return (
-    <Box component={Link} to={path} onClick={handleClick} sx={boxStyle}>
+    <Box
+      component={Link}
+      to={path}
+      onClick={handleClick}
+      sx={{
+        ...boxStyle,
+        backgroundColor: title.includes("Create") ? "#FF0000" : "gray",
+      }}
+    >
       <Typography
         data-testid="text"
         sx={{

@@ -10,7 +10,6 @@ const Footer = () => {
           height: "39vh",
           backgroundColor: "rgb(41, 41, 41)",
           pt: 2,
-          mt:'5%'
         }}
       >
         <Stack>

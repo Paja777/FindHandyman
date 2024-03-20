@@ -31,7 +31,7 @@ const HomePage = () => {
         }}
       >
         <SideBar data-testid="sideBar" />
-        <Box sx={{ gridRow: "1", gridColumn: "span 5", ml: 2 }}>
+        <Box sx={{ gridRow: "1", gridColumn: "span 5", ml: 0 }}>
           <SearchBar />
           {isLoading ? (
             <LoadingComponent />
@@ -40,7 +40,7 @@ const HomePage = () => {
           )}
         </Box>
         <Box sx={{ gridRow: "1", gridColumn: "span 1", mt: "10%" }}>
-          <img src={image1} width="200px" height="700px" />
+          <img src={image1} width="190px" height="700px" />
         </Box>
       </Box>
     </>

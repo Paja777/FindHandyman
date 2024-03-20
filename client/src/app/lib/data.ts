@@ -7,7 +7,7 @@ const navStyles = {
   padding: "6px ",
   margin: "10px",
   marginTop: "0px",
-  color: "green",
+  color: "#98FF98",
   textDecoration: "none",
   fontSize: "25px",
   marginRight: "17px",

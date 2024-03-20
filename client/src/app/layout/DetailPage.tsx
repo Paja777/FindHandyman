@@ -109,26 +109,29 @@ const DetailPage = () => {
                   {ad?.description}
                 </span>
               </Typography>
-              <Typography
-                variant="h5"
-                color="grey"
-                sx={{ ml: 4, mt: 2, mb: 4 }}
-              >
-                Services: <br />
-                {ad?.services.map((service: any) => (
-                  <span
-                    style={{
-                      color: "green",
-                      marginLeft: "7%",
-                      fontSize: "18px",
-                      textAlign: "justify",
-                      marginTop: 4,
-                    }}
-                  >
-                    {service}
-                  </span>
-                ))}
-              </Typography>
+
+              {ad?.adRole === "handyman" && (
+                <Typography
+                  variant="h5"
+                  color="grey"
+                  sx={{ ml: 4, mt: 2, mb: 4 }}
+                >
+                  Services: <br />
+                  {ad?.services.map((service: any) => (
+                    <span
+                      style={{
+                        color: "green",
+                        marginLeft: "7%",
+                        fontSize: "18px",
+                        textAlign: "justify",
+                        marginTop: 4,
+                      }}
+                    >
+                      {service}
+                    </span>
+                  ))}
+                </Typography>
+              )}
             </Stack>
           </Stack>
         </Box>

@@ -27,7 +27,7 @@ const arowBackIconStyle = {
   top: "50%",
   transform: "translateY(-50%)",
   ml: 1,
-  zIndex: 13,
+  zIndex: 99,
   color: "white",
 };
 const arowForwardIconStyle = {
@@ -35,7 +35,7 @@ const arowForwardIconStyle = {
   right: 0,
   top: "50%",
   transform: "translateY(-50%)",
-  zIndex: 13,
+  zIndex: 99,
   mr: 1,
   color: "white",
 };

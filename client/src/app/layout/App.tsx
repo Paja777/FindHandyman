@@ -11,7 +11,7 @@ function App() {
     < >
       <ToastContainer position="bottom-right" hideProgressBar theme="colored" />
       <Navbar data-testid="navbar"/>
-      <Container  maxWidth='xl' sx={{backgroundColor: 'white'}}>
+      <Container  maxWidth='xl' sx={{backgroundColor: '#f2f2f2', pb: "16px", mt: 0}}>
         <Outlet />
       </Container>
       <Footer data-testid="footer"/>
