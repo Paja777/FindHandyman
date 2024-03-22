@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { router } from "../router/Routes";
 
 
-axios.defaults.baseURL = "https://find-handyman-service-v1-0.onrender.com/";
+axios.defaults.baseURL = "https://mern-docker-api-latest.onrender.com/";
 
 
 
