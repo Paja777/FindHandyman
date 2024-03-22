@@ -4,7 +4,10 @@ import { toast } from "react-toastify";
 import { router } from "../router/Routes";
 
 
-axios.defaults.baseURL = "http://localhost:5000/";
+axios.defaults.baseURL = "https://find-handyman-service-v1-0.onrender.com/";
+
+
+
 axios.defaults.withCredentials = true;
 
 const responseBody = (response: AxiosResponse) => response.data;
