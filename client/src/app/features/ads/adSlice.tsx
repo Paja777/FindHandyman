@@ -22,18 +22,17 @@ export const fetchAdsAsync = createAsyncThunk<Ad[], void, { state: RootState }>(
     if (displayedAds) params.append("displayedAds", displayedAds);
     try {
       let response;
-      console.log(thunkAPI.getState().ad.myAds);
-      
       if (thunkAPI.getState().ad.myAds) {
         response = await agent.requests.get("/ad/my/ads");
         thunkAPI.dispatch(setMyAds(false));
       } else {
         response = await agent.requests.get("/ad", params);
       }
+      console.log(response)
       return response;
     } catch (error: any) {
       console.log(error);
-      return thunkAPI.rejectWithValue({ error: error.response.data });
+      return thunkAPI.rejectWithValue({ error: error });
     }
   }
 );
