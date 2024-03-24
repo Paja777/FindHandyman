@@ -22,6 +22,8 @@ export const fetchAdsAsync = createAsyncThunk<Ad[], void, { state: RootState }>(
     if (displayedAds) params.append("displayedAds", displayedAds);
     try {
       let response;
+      console.log(thunkAPI.getState().ad.myAds);
+      
       if (thunkAPI.getState().ad.myAds) {
         response = await agent.requests.get("/ad/my/ads");
         thunkAPI.dispatch(setMyAds(false));
@@ -179,6 +181,7 @@ export const adSlice = createSlice({
       adAdapter.setAll(state, action.payload);
       state.status = "idle";
       state.productsLoaded = true;
+      state.myAds = false;
     });
     builder.addCase(fetchAdsAsync.rejected, (state, action) => {
       // console.log(action.payload);
