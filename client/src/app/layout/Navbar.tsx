@@ -17,7 +17,8 @@ import {
   gitLink,
   lnLink,
 } from "../lib/data";
-import { setMyAds } from "../features/ads/adSlice";
+import { fetchMyAdsAsync } from "../features/ads/adSlice";
+
 
 const Navbar = () => {
   const { user } = useAppSelector((state) => state.ad);
@@ -26,7 +27,7 @@ const Navbar = () => {
   const dispatch = useAppDispatch();
 
   const handleClick = () => {
-    dispatch(setMyAds(true));
+    dispatch(fetchMyAdsAsync());
   };
 
   return (

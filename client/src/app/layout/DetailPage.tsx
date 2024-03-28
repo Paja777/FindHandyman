@@ -36,24 +36,15 @@ const DetailPage = () => {
   useEffect(() => {
     if (!ad && id) dispatch(fetchAdAsync(id));
   }, [id, dispatch, ad]);
-  console.log(ad);
+
   const handleCHangeRating = (e: any, newValue: any) => {
     if (!role) {
       navigate("/register");
       toast.error("Unregistered user cannot rate");
     } else {
       dispatch(updateAdAsync({ creatorId: ad?.user_id, payload: newValue }));
-      if (errorText && errorText !== "") {
-        toast.error(errorText);
-        console.log(errorText);
-      } else {
-        setRatingValue(newValue);
-        setShowModal(true);
-        const timer = setTimeout(
-          () => toast.success("User rating successfully updated!"),
-          2000
-        );
-      }
+      setRatingValue(newValue);
+      setShowModal(true);
     }
   };
 
@@ -129,7 +120,8 @@ const DetailPage = () => {
                       }}
                     >
                       {service}
-                      <br/></span>
+                      <br />
+                    </span>
                   ))}
                 </Typography>
               )}

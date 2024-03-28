@@ -12,6 +12,7 @@ export const adAdapter = createEntityAdapter<Ad>({
   selectId: (ad) => ad._id,
 });
 
+// all Ads
 export const fetchAdsAsync = createAsyncThunk<Ad[], void, { state: RootState }>(
   "ad/fetchAdsAsync",
   async (_, thunkAPI) => {
@@ -21,14 +22,8 @@ export const fetchAdsAsync = createAsyncThunk<Ad[], void, { state: RootState }>(
     if (searchTerm) params.append("searchTerm", searchTerm);
     if (displayedAds) params.append("displayedAds", displayedAds);
     try {
-      let response;
-      if (thunkAPI.getState().ad.myAds) {
-        response = await agent.requests.get("/ad/my/ads");
-        thunkAPI.dispatch(setMyAds(false));
-      } else {
-        response = await agent.requests.get("/ad", params);
-      }
-      console.log(response)
+      const response = await agent.requests.get("/ad", params);
+      console.log(response);
       return response;
     } catch (error: any) {
       console.log(error);
@@ -37,6 +32,23 @@ export const fetchAdsAsync = createAsyncThunk<Ad[], void, { state: RootState }>(
   }
 );
 
+// My Ads
+export const fetchMyAdsAsync = createAsyncThunk<
+  Ad[],
+  void,
+  { state: RootState }
+>("ad/fetchAdsAsync", async (_, thunkAPI) => {
+  try {
+    const response = await agent.requests.get("/ad/my/ads");
+    console.log(response);
+    return response;
+  } catch (error: any) {
+    console.log(error);
+    return thunkAPI.rejectWithValue({ error: error });
+  }
+});
+
+// single Ad
 export const fetchAdAsync = createAsyncThunk<Ad, string>(
   "ad/fetchAdAsync",
   async (productId, thunkAPI) => {
@@ -84,7 +96,7 @@ export const createAd = createAsyncThunk<Ad, any, { state: RootState }>(
       services: payload.services,
       prices: payload.prices,
     });
-    console.log(services)
+    console.log(services);
     // Post the ad to the server
     try {
       const user = thunkAPI.getState().ad.user;
@@ -97,7 +109,7 @@ export const createAd = createAsyncThunk<Ad, any, { state: RootState }>(
           ...payload,
           rating: 0,
           images: thunkAPI.getState().ad.images,
-          services: services
+          services: services,
         },
         {
           headers: {
@@ -128,7 +140,6 @@ export interface AdState {
   searchTerm: string;
   displayedAds: string;
   errorText: string;
-  myAds: boolean;
 }
 const initialState: AdState = {
   user: JSON.parse(localStorage.getItem("user")!),
@@ -139,7 +150,6 @@ const initialState: AdState = {
   searchTerm: "",
   displayedAds: "",
   errorText: "",
-  myAds: false,
 };
 
 export const adSlice = createSlice({
@@ -168,9 +178,6 @@ export const adSlice = createSlice({
     setDisplayedAds: (state, { payload }) => {
       state.displayedAds = payload;
     },
-    setMyAds: (state, { payload }) => {
-      state.myAds = payload;
-    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchAdsAsync.pending, (state) => {
@@ -180,7 +187,7 @@ export const adSlice = createSlice({
       adAdapter.setAll(state, action.payload);
       state.status = "idle";
       state.productsLoaded = true;
-      state.myAds = false;
+      // state.myAds = false;
     });
     builder.addCase(fetchAdsAsync.rejected, (state, action) => {
       // console.log(action.payload);
@@ -217,9 +224,8 @@ export const adSlice = createSlice({
     });
     builder.addCase(updateAdAsync.rejected, (state, action: any) => {
       state.status = "idle";
-      if (action.payload.error) {
-        state.errorText = action.payload.error;
-      }
+      state.errorText = action.payload.error;
+
       // Handle the error
     });
   },
@@ -235,5 +241,4 @@ export const {
   adUserStatus,
   setLoadingStatus,
   setDisplayedAds,
-  setMyAds,
 } = adSlice.actions;

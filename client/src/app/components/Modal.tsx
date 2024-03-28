@@ -3,6 +3,8 @@ import ReactDOM from "react-dom";
 import { LoadingButton, Rating } from "@mui/lab";
 import classes from "./Modal.module.css";
 import { Stack } from "@mui/material";
+import { useAppSelector } from "../store/configureStore";
+import { toast } from "react-toastify";
 
 const loadingButtonStyle = {
   mt: 1,
@@ -23,7 +25,17 @@ const Backdrop = ({ onClose }: ModalProps) => {
 };
 
 const ModalOverlay = ({ onClose, value }: ModalProps) => {
- 
+  const { errorText } = useAppSelector((state) => state.ad);
+
+  const clickHandler = () => {
+    onClose();
+    if (errorText !== "") {
+      toast.error(errorText);
+    } else {
+      toast.success("User rating successfully updated!");
+      setTimeout(() => window.location.reload(), 2000);
+    }
+  };
   return (
     <Stack className={classes.modal}>
       <Rating
@@ -34,7 +46,7 @@ const ModalOverlay = ({ onClose, value }: ModalProps) => {
         sx={{ ml: "31%", mt: 3, mb: 3, fontSize: "34px" }}
       />
       <LoadingButton
-        onClick={() => {onClose(); window.location.reload();}}
+        onClick={clickHandler}
         variant="contained"
         sx={loadingButtonStyle}
       >
