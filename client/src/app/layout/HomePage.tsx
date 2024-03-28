@@ -6,9 +6,8 @@ import SideBar from "../components/SideBar";
 import SearchBar from "../components/SearchBar";
 import { AdSelector, fetchAdsAsync } from "../features/ads/adSlice";
 import LoadingComponent from "../components/LoadingComponent";
+import { image1 } from "../lib/data";
 
-const image1 = `https://marketplace.canva.com/EADapBco-Fc/1/0/427w/canva-colorful-
-black-friday-discount-wide-skyscraper-ad-_AIWdH-_7Kk.jpg`;
 
 const HomePage = () => {
   const { productsLoaded, searchTerm, status, displayedAds } = useAppSelector((state) => state.ad);

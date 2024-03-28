@@ -67,7 +67,7 @@ const SearchBar = () => {
           placeholder="...Search Category"
           style={inputStyle}
         />
-        <IconButton type="submit" sx={{position: "absolute", right:0, top: 0.5 }}>
+        <IconButton type="button" sx={{position: "absolute", right:0, top: 0.5 }}>
           <SearchIcon />
         </IconButton>
       </Paper>

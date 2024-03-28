@@ -58,9 +58,9 @@ const Navbar = () => {
         <Stack direction="row">
           <IconButton
             onClick={handleClick}
-            sx={{ color: "#FF0000", mt: 1 }}
+            sx={{ color: "#FF0000", justifyContent: "center", alignItems: "center" }}
           >
-            <AccountCircleIcon sx={{ fontSize: "34px", mr: 1 }} />
+            <AccountCircleIcon sx={{ fontSize: "32px", mr: 1 }} />
             <Typography variant="h5">{username}</Typography>
           </IconButton>
           {user && (
@@ -70,7 +70,6 @@ const Navbar = () => {
               onClick={() => logout()}
               sx={{
                 ...navStyles,
-                marginTop: "3%",
               }}
             >
               {`Sign Out`}

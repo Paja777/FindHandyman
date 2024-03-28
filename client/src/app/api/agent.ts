@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { router } from "../router/Routes";
 
 
-axios.defaults.baseURL = "http://localhost:5000";
+axios.defaults.baseURL = "https://handyman-api-latest.onrender.com";
 
 
 

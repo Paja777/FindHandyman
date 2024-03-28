@@ -4,9 +4,11 @@ const rightLinks = [
   { name: "Register", location: "/register" },
 ];
 const navStyles = {
+  justifyContent: "center", 
+  alignItems: "center",
   padding: "6px ",
   margin: "10px",
-  marginTop: "0px",
+  marginTop: 0,
   color: "#98FF98",
   textDecoration: "none",
   fontSize: "25px",
@@ -68,6 +70,11 @@ const gitLink = `https://github.com/Paja777`;
 const lnLink = `https://www.linkedin.com/in/paja-rvovic/`;
 //<----
 
+// homepage
+
+const image1 = `https://marketplace.canva.com/EADapBco-Fc/1/0/427w/canva-colorful-
+black-friday-discount-wide-skyscraper-ad-_AIWdH-_7Kk.jpg`;
+
 export {
   rightLinks,
   navStyles,
@@ -77,4 +84,5 @@ export {
   navLinkStyle2,
   gitLink,
   lnLink,
+  image1,
 };
