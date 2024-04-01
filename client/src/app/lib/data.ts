@@ -66,7 +66,7 @@ const navLinkStyle2 = {
   marginRight: 7,
   height: "10vh",
 };
-const gitLink = `https://github.com/Paja777`;
+const gitLink = `https://github.com/Paja777/FindHandyman`;
 const lnLink = `https://www.linkedin.com/in/paja-rvovic/`;
 //<----
 
